@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <title>『做题记录』Test 7.12 | Revethere の Blog</title>
+        <meta name="author" content="Revethere" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/favicon.jpg" />
+        <script src="https://cdn.staticfile.org/vue/3.2.47/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.3.0/css/all.min.css" />
+<link rel="stylesheet" href="/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://cdn.staticfile.org/KaTeX/0.16.4/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.4/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.4/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 5.4.2"></head>
+    <body>
+        <div id="layout">
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>加载过慢请开启缓存 浏览器默认开启</p>
+                        <img src="/images/loading.gif" />
+                    </div>
+                </div>
+            </transition>
+            <nav id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <div id="desktop-menu">
+        <a class="title" href="/">
+            <span>REVETHERE の BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;首页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;REVETHERE の BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">首页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </div>
+</nav>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div class="article">
+    <div>
+        <h1>『做题记录』Test 7.12</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/7/13
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                做题记录
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/10-1-143-113/" style="color: #ffa2c4">10.1.143.113</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="Bajka"><a href="#Bajka" class="headerlink" title="Bajka"></a>Bajka</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>Fabijian 有两个字符串 , $afraid$ 和 $like$ .</p>
+<p>将 $like$ 重构得到 $s$ 使其等于 $afraid$ , 有以下 2 中操作 :</p>
+<p>1 . ( 如果有的话 ) 向左或向右移动 1 个字符 , 将移动后的字符添加到 $s$ 的末尾 .</p>
+<p>2 . ( 如果有的话 ) 移动到与当前字符相同的字符上 , 无添加操作 .</p>
+<p>每次移动的代价为两个字符的距离 , 总代价为 $cost$ .</p>
+<p>最小化 $cost$ .</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>显然的 $dp$ .</p>
+<p>设 $dp_{i,j}$ 表示当前正在 $afraid$ 的第 $i$ 个位置 , 写下一个字符 $like_j$ 所需要的最小的代价 , 转移为 :</p>
+<p>$$dp_{i,j} = \min{dp_{k,j - 1} + c}$$</p>
+<p>在这种情况操作 2 是极为耗费时间的 , 显然不优 , 新的转移 :</p>
+<p>1 . $dp_{i,j}$ 尝试向 $dp_{i \pm 1,j + 1}$ 转移 , 其中 $afraid_{i \pm 1} = like_{j + 1}$ .</p>
+<p>2 . 从 $dp_{i,j}$ 向 $dp_{k,j}$ 转移 , 其中 $afraid_j = afraid_k$ . 前缀和优化到 $O(m)$ .</p>
+<p>复杂度 $O(nm)$ .</p>
+<hr>
+<h2 id="text-序列修改"><a href="#text-序列修改" class="headerlink" title="$\text{序列修改}$"></a>$\text{序列修改}$</h2><h3 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h3><p>有一个序列 $a$ , 定义其频度序列 $c$ , 其中 $c_i$ 表示 $a_1$ 至 $a_i$ 中不同数的个数 .</p>
+<p>修改 $a$ 中的元素的代价为修改前后的差的绝对值 , 记为 $cost$ .</p>
+<p>最小化 $cost + \sum_{i = 1} ^ {n} i \times c_i$</p>
+<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>每个数字的只有第一次出现时会对 $c_i$ 产生贡献 , 设 $i$ , $j$ 分别为 $a_i$ , $a_j$ 分别第一次出现的位置 , $k$ 为 $a_i$ 下一次出现的位置 , $S_i$ = $\sum_{j = i}^{n} j$ .</p>
+<p>分类讨论 :</p>
+<p>能够产生贡献的只有 $2$ 种情况 .</p>
+<p>1 . $i &gt; j$ , 新增的 $cost$ 为 $\lvert a_i - a_j \rvert - S_i + S_k$ , 用 $set$ 找到 $a_i$ 前最近的 $a_j$ .</p>
+<p>2 . $i &lt; j \ and \ j &lt; k$ ,  新增的 $cost$ 为 $\lvert a_i - a_j \rvert + S_i - S_j$ . 再次分类讨论 :</p>
+<ul>
+<li>$a_i &gt; a_j$ : 代价为 $(S_k + a_i)$ - $(S_j + a_j)$ .</li>
+<li>$a_i &lt; a_j$ : 代价为 $(S_k - a_j)$ - $(S_j - a_j)$ .</li>
+</ul>
+<p>树状数组维护 .</p>
+<p>复杂度 $O(n \log n)$</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2023 - 2023 Revethere の Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Revethere
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            
+            <transition name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </transition>
+            
+        </div>
+        <canvas
+            id="fireworks"
+            style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+        ></canvas>
+        <script src="/js/fireworks.min.js"></script>
+        <script src="/js/main.js"></script>
+        
+        
+
+
+
+
+        
+    </body>
+</html>

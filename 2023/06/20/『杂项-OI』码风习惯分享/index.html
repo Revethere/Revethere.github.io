@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <title>『杂项-OI』码风习惯分享 | Revethere の Blog</title>
+        <meta name="author" content="Revethere" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/favicon.jpg" />
+        <script src="https://cdn.staticfile.org/vue/3.2.47/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.3.0/css/all.min.css" />
+<link rel="stylesheet" href="/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://cdn.staticfile.org/KaTeX/0.16.4/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.4/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.4/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 5.4.2"></head>
+    <body>
+        <div id="layout">
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>加载过慢请开启缓存 浏览器默认开启</p>
+                        <img src="/images/loading.gif" />
+                    </div>
+                </div>
+            </transition>
+            <nav id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <div id="desktop-menu">
+        <a class="title" href="/">
+            <span>REVETHERE の BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;首页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;REVETHERE の BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">首页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </div>
+</nav>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div class="article">
+    <div>
+        <h1>『杂项-OI』码风习惯分享</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/6/20
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%9D%82%E9%A1%B9/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                杂项
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%A0%81%E9%A3%8E/" style="color: #ffa2c4">码风</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="text-前言"><a href="#text-前言" class="headerlink" title="$\text{前言}$"></a>$\text{前言}$</h2><p>在刷题的过程中 , 我们会见到各<del>逝</del>式各样的码风 . 当然不乏有些「非主流」( 个人认为 , 不喜勿喷 ) :</p>
+<p>比如极为玄学的 $3$ 格缩进 ( 但是我有时候感觉<strong>还挺好看的</strong> ( 雾 , 以及看半天看不到一个空格分开语句 / 表达式的「紧凑代码」 , 还有从 $a$ 命名到 $z$ 的「屎山代码」( “屎山” 其实有很多方面 , 只是这点我很不能忍受 ) .</p>
+<p>当然 , 码风习惯<strong>因人而异</strong> , 自己觉得好看的码风或许在别人眼中十分另类 .</p>
+<p><strong>所以我的码风如果有不满意的地方别乱喷 . ( 😖</strong></p>
+<hr>
+<h3 id="text-头文件"><a href="#text-头文件" class="headerlink" title="$\text{头文件}$"></a>$\text{头文件}$</h3><p>以前是用万能头 , 现在的话是要用什么写什么 . 尽量避免命名冲突导致 $CE$ ( $22$ 年 $CSP-S$ 就是因为命名 $CE$ 两道题 , 关键是当时并不知道那玩意是关键字 , $dev$ 滚一边去 ) .</p>
+<p>另外 , 在 <code>include</code> 之后会打一个 <code>&#39; &#39;</code> . 并且 , 采用 $C++$ 风格头文件 .</p>
+<p>$\text{Example :}$</p>
+<pre><code class="cpp">#include &lt;bits/stdc++.h&gt; // 已弃用
+#include &lt;iostream&gt;
+#include &lt;ctime&gt;
+#include &lt;string&gt;
+</code></pre>
+<hr>
+<h3 id="text-using-语句"><a href="#text-using-语句" class="headerlink" title="$\text{using 语句}$"></a>$\text{using 语句}$</h3><p>直接写 <code>using namespace std</code> , 用自己写的 <code>namespace</code> 时 , 一般写 <code>using 命名空间名::变量/函数/其它</code> . ( 毕竟用不了那么多 , 要是都用写 <code>namespace</code> 干嘛 ) .</p>
+<p>如果 <code>using</code> 能写在 <code>namespace</code> 的 <code>&#39;&#125;&#39;</code> 后面且只需要一句 , 那么就写在这后面 , 细节见下列代码 .</p>
+<p>$\text{Example :}$</p>
+<pre><code class="cpp">namespace Rui_Ethereal &#123;
+    auto ToDoSomething() &#123; &#125;
+&#125; using namespace Rui_Ethereal::ToDoSomething;
+</code></pre>
+<pre><code class="cpp">namespace Rui_Ethereal &#123;
+    const auto SIZE = 114;
+    auto ToDoSomething() &#123; &#125;
+&#125;
+using Rui_Ethereal::SIZE;
+using Rui_Ethereal::ToDoSomething;
+</code></pre>
+<p>偶尔用其代替 <code>#define</code> 或 <code>typedef</code> .</p>
+<hr>
+<h3 id="text-主函数main"><a href="#text-主函数main" class="headerlink" title="$\text{主函数main}$"></a>$\text{主函数main}$</h3><pre><code class="cpp">signed main() &#123;
+    return 0;
+    // 有时候不会加返回值 .
+&#125;
+</code></pre>
+<p>返回类型用 <code>signed</code> 而不用 <code>int</code> .</p>
+<hr>
+<h3 id="text-缩进-and-括号风格"><a href="#text-缩进-and-括号风格" class="headerlink" title="$\text{缩进 and 括号风格}$"></a>$\text{缩进 and 括号风格}$</h3><p>1 . 采用 $4$ 个空格缩进而不是 <code>TAB</code> .</p>
+<p>2 . 能不加大括号就不加大括号 .</p>
+<pre><code class="cpp">if(条件式) DoSomething; // 只有一条语句那么不加大括号
+else &#123;
+    DoThis;
+    DoThat;
+    // 不止一条语句
+&#125;
+</code></pre>
+<p>3 . 函数写法 : </p>
+<pre><code class="cpp">auto 函数名(参数) -&gt; 返回类型;
+</code></pre>
+<p><strong>有必要</strong>的话会写 <code>inline</code> . 空参写 <code>void</code> , 调用时不写 .</p>
+<p><del>缺点 : 有时候忘写返回类型 CE</del></p>
+<p>4 . 函数主体 ( 非 <code>template</code> 部分或者其它 ) 要么写一行 ( 即一条语句 ) , 要么不少于 $4$ 行 ( 包括结束时的 <code>&#125;</code> ) .</p>
+<pre><code class="cpp">template &lt;typename _Tp&gt;
+inline auto Max(const _Tp &amp;a,const _Tp &amp;b) -&gt; _Tp &#123; return a &lt; b ? b : a; &#125;
+</code></pre>
+<pre><code class="cpp">inline auto GetChar(void) -&gt; char &#123;
+    if(in_ptr == end_addr) &#123;
+        in_ptr = buffer;
+        end_addr = ibuffer + fread(buffer,1,CACHE,stdin);
+    &#125;
+    return in_ptr == end_addr ? EOF : *in_ptr++;
+&#125;
+</code></pre>
+<p>5 . 不<strong>刻意</strong>压行 , 三目除外 , 并且能用三目且比较好写的话就用三目 . ( <code>?:</code> )</p>
+<p>6 . 空格规范 :</p>
+<p><strong>特殊写法</strong></p>
+<p>( $1$ ) <code>for(auto _((BEGIN));_ &lt;= END;++_)</code></p>
+<p>( $2$ ) <code>for(auto &amp;v : G[u])</code></p>
+<p>( $3$ ) <code>&#123;</code> 与 <code>&#125;</code> 不在同一行 , <code>&#123;</code> 前加空格 . 反之 , <code>&#123;</code> 两边都要加 , <code>&#125;</code> 前加后不加 .</p>
+<p>( $4$ ) <code>&amp;&amp;</code> 和 <code>||</code> 一般用 <code>and</code> 和 <code>or</code> 代替 .</p>
+<p>前后<strong>都要</strong>加空格 : </p>
+<p><code>+</code> , <code>-</code> , <code>*</code> , <code>/</code> , <code>+=</code> , <code>-=</code> , <code>*=</code> , <code>/=</code> , <code>==</code> , <code>!=</code> , <code>%</code> , <code>%=</code> 等 .</p>
+<p>二进制运算符 <code>&amp;</code> , <code>|</code> , <code>^</code> , <code>&lt;&lt;</code> , <code>&gt;&gt;</code> , <code>&amp;=</code> , <code>|=</code> , <code>^=</code> , <code>&lt;&lt;=</code> , <code>&gt;&gt;=</code> .</p>
+<p>三目运算符 <code>? :</code></p>
+<p><strong>前</strong>加<strong>后</strong>不加 :</p>
+<p><code>&amp;</code> ( 作为<strong>地址</strong>运算符 ) , <code>*</code> ( 指针运算符 )</p>
+<p><strong>前后都不加</strong> :</p>
+<p><code>::</code> ( 作用域解析符 ) , <code>,</code> , <code>;</code> , <code>.</code> ( 成员 ) , <code>[]</code> ( 下标 ) , <code>-&gt;</code> ( 指针 ) .</p>
+<p>大概就这些吧 , 其它的看一下我写的代码就行 .</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2023 - 2023 Revethere の Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Revethere
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            
+            <transition name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </transition>
+            
+        </div>
+        <canvas
+            id="fireworks"
+            style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+        ></canvas>
+        <script src="/js/fireworks.min.js"></script>
+        <script src="/js/main.js"></script>
+        
+        
+
+
+
+
+        
+    </body>
+</html>
