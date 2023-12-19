@@ -310,11 +310,11 @@
     line-height: 1.7;
 }
 #home-posts .post-title {
-    color: #66afef;
+    color: #72ada2;
     text-align: center;
 }
 #home-posts .post:hover {
-    box-shadow: 0 0 5px #d9d9d9;
+    box-shadow: 0 0 5px #c7c5c5;
     transform: translate(-5px, -5px);
 }
 #home-posts-wrap {
@@ -354,7 +354,7 @@
 }
 #loading-circle {
     align-items: center;
-    border: 10px solid #a3ddfb;
+    border: 10px solid #b0a4e3;
     border-radius: 50%;
     display: flex;
     flex-direction: column;
