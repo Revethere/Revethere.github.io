@@ -169,6 +169,65 @@
         
 
 <div class="post">
+    <a href="/2023/07/11/record-psolving@test-23.7.7/">
+        <h2 class="post-title">『做题记录』Test 7.7</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                做题记录
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/7/11
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="异或平方和"><a href="#异或平方和" class="headerlink" title="异或平方和"></a>异或平方和</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>定义 $b_{i,j}$ 为 $a_i$ 的二进制的第 $j$ 位的值 . $f_{i,j,k}$ 为 $a_i \oplus a_j$ 的第 $k$ 位的值 .</p>
+<p>$$ans = \sum_{i = 1} ^ n \sum_{j = 1} ^ n(a_i \oplus a_j) ^ 2$$</p>
+<p>$$= \sum_{i = 1} ^ n \sum_{j = 1} ^ n(\sum_{k = 1} ^ {L}(b_{i,k} \oplus b_{j,k})2 ^ k) ^ 2$$</p>
+<p>$$= \sum_{i = 1} ^ n\sum_{j = 1} ^ n\sum_{k = 1} ^ L \sum_{l = 1}^L f_{i,j,k}f_{i,j,l}2 ^ {k + l}$$</p>
+<p>$$= \sum_{k = 1}^{L} \sum_{l = 1}^L 2^{k + l} (\sum_{i = 1}^n \sum_{j = 1}^n[f_{i,j,k} = 1 \And f_{i,j,l} = 1])$$</p>
+<p>设 $dp_{i,j,0 / 1,0 / 1}$ 表示第 $i$ 位和第 $j$ 位的数的数量 .</p>
+<p>复杂度 $O(n \log^2 \lvert V  \rvert)$ .</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/10-1-143-113/" style="color: #ff7d73">10.1.143.113</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/YCOJ/" style="color: #00a596">YCOJ</a>
+        </span>
+        
+    </div>
+    <a href="/2023/07/11/record-psolving@test-23.7.7/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
     <a href="/2023/07/05/sundry-oi@sharp-comments-zhou/">
         <h2 class="post-title">『杂项-OI』锐评某周冥师</h2>
     </a>
@@ -201,85 +260,6 @@
 <p>但对于大部分 OIer 来说 , 简直是一派胡言 .</p>
 <p>不过太大必要去骂 , 营销号嘛 , 就当是 joker 就 ok $👎$ .</p>
 <p>接下来一起一段一段地来看某周笑话 .</p>
-<hr>
-<h3 id="差一节课就跟不上了"><a href="#差一节课就跟不上了" class="headerlink" title="差一节课就跟不上了"></a>差一节课就跟不上了</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/zero-based.png?raw=true"></p>
-<p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/learn-time&miss-cla.png?raw=true"></p>
-<p>很好奇他说的是 J 还是 S .</p>
-<p>学习这东西又不是学的越快越好 , 刚学完就忘了的人也不少见 .</p>
-<p>而且谁又说差一节课就完全跟不走了 ? !</p>
-<p>纯粹瞎扯 .</p>
-<hr>
-<h3 id="小周老师奥赛队有什么不同"><a href="#小周老师奥赛队有什么不同" class="headerlink" title="小周老师奥赛队有什么不同"></a>小周老师奥赛队有什么不同</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/how-to-describe-ft.png?raw=true"></p>
-<p>就当是真的吧 , 但学校的教练难道是摆设吗 , 又有多少人是从外面的破机构学而得到这样的成绩的 . 最多也就骗骗自己吧 .</p>
-<p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/what-ft.png?raw=true"></p>
-<p>名医都得先看病人你甚至人都不用看就知道写成啥样 ? 中医都要望闻问切你怕不是比中医还 nb ?  题都不看就知道写的是什么错的在哪 ? 少打多打了运算符能一眼看出来 ? 要是有这个本事 Debug 的意义在哪 ?</p>
-<p>搞笑哎 , 越来越没有底线了 .</p>
-<p><del>后面会有详细的解释 .</del></p>
-<p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/what-ft-vis.png?raw=true"></p>
-<p>谔谔 , 搁这儿装清高忽悠人是吧 .</p>
-<hr>
-<h3 id="预测码风全中"><a href="#预测码风全中" class="headerlink" title="预测码风全中"></a>预测码风全中</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/prediction.png?raw=true"></p>
-<p>谁刚接触 OI 不是这么写程序的 ? 就这也能叫百分百全中 ?</p>
-<p>所以 <a target="_blank" rel="noopener" href="https://codeforces.com/profile/tourist">「tourist」</a> 跌落 CodeForces 的原因就是因为码风不好 .</p>
-<p>tourist 怎么你了 .</p>
-<hr>
-<p><del>后面我尽量些简单点 , 实在写不动了</del> $😖😖😖$ .</p>
-<hr>
-<h3 id="1-有万能头文件"><a href="#1-有万能头文件" class="headerlink" title="1 . 有万能头文件"></a>1 . 有万能头文件</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/without-universal-file.png?raw=true"></p>
-<p>万能头怎么你了 . 虽然说用万能头编译会慢一些 , 但又能慢到哪去 .</p>
-<p>「信奥考察的是对各个库的理解程度」 : 理解透了哪还会写重名 , 本地 AC 评测姬上 CE 啊 . 退一步说 , 打 Atcoder / CodeForces 这种偏向高强度的比赛想拿到靠前的名次谁闲的发慌打这么多头文件啊 , 都是早就写好的模板啊 .</p>
-<h3 id="2-用-C-语言格式"><a href="#2-用-C-语言格式" class="headerlink" title="2 . 用 C 语言格式"></a>2 . 用 C 语言格式</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/format-cpp-c.png?raw=true"></p>
-<p>C 语言又怎么你了 , C 也有很多好的地方 . 来了新的就一定摒弃旧的是吧 .</p>
-<p>本来有些<del>毒瘤</del>良心的题目就卡 <code>string</code> , 那你是不是还得手搓 <code>string</code> 类 ?</p>
-<p>C++ 的特性本来就极多 , 不把 C 语言的基地打踏实光是 C++ 的特性就够的受的 .</p>
-<h3 id="3-用-scanf-printf-输入输出"><a href="#3-用-scanf-printf-输入输出" class="headerlink" title="3 . 用 scanf/printf 输入输出"></a>3 . 用 scanf/printf 输入输出</h3><p><code>scanf/printf</code> 又怎么你了 . C++ 兼容 C 语言不就是为了方便你用吗 ? 效率什么的都先不说 , <code>printf</code> 输出一些特定类型时不比 <code>cout</code> 好用 ?</p>
-<h3 id="4-用-cin-大部分都用-cin"><a href="#4-用-cin-大部分都用-cin" class="headerlink" title="4 . 用 cin , 大部分都用 cin"></a>4 . 用 cin , 大部分都用 cin</h3><p>e . . .</p>
-<p>真是不知道不解绑的 io 流 是有多慢 , <code>scanf/printf</code> 都不如 .</p>
-<p>而且调试的时候控制台比文件读写好用吧 , 查错不也更直观 ?</p>
-<p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/file-in-out.png?raw=true"></p>
-<p>Ctrl + A : ?</p>
-<p>Ctrl + C : ?</p>
-<p>Ctrl + V : ?</p>
-<p>鼠标右键 : ?</p>
-<h3 id="5-如果用-fin-如果用-C-用的就是-freopen-不是-ifstream"><a href="#5-如果用-fin-如果用-C-用的就是-freopen-不是-ifstream" class="headerlink" title="5 . 如果用 fin , 如果用 C++ , 用的就是 freopen , 不是 ifstream"></a>5 . 如果用 fin , 如果用 C++ , 用的就是 freopen , 不是 ifstream</h3><p>闲的发慌话还不通 .</p>
-<p>比赛的时候又不是不能用 <code>cin/cout</code> 或者其它流 .</p>
-<p>而且 <code>freopen</code> 更好写 , 不是吗 ?</p>
-<h3 id="6-全部程序都在-main-里面只有万不得已-才会写方法-函数"><a href="#6-全部程序都在-main-里面只有万不得已-才会写方法-函数" class="headerlink" title="6 . 全部程序都在 main 里面只有万不得已 , 才会写方法 ( 函数 )"></a>6 . 全部程序都在 main 里面只有万不得已 , 才会写方法 ( 函数 )</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/write-all-in-main.png?raw=true"></p>
-<p>这 tm 是 OI ! OI ! <a target="_blank" rel="noopener" href="https://www.noi.cn/">「信息学奥林匹克」</a> !</p>
-<p>不是比代码好不好看 ! 不是比谁写的更 OOP ! 你在 <code>main</code> 里面写个几百上千行没人管你 ! 信竞是看你对不对 , 思路清不清晰 ! ! !</p>
-<h3 id="7-命名一定是-a-b-c"><a href="#7-命名一定是-a-b-c" class="headerlink" title="7 . 命名一定是 a , b , c"></a>7 . 命名一定是 a , b , c</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/abc-named.png?raw=true"></p>
-<p>这 tm 是 OI ! OI ! 不是工程 ! ! !</p>
-<p>竞赛工程傻傻分不清 .</p>
-<p><del>****</del></p>
-<h3 id="8-变量一定不初始化"><a href="#8-变量一定不初始化" class="headerlink" title="8 . 变量一定不初始化"></a>8 . 变量一定不初始化</h3><p>这个倒是没多大问题 .</p>
-<p>不过在 <code>cin &gt;&gt; n</code> 之前 <code>int n</code> 怎么你了 , 这玩意也要初始化吗 ?</p>
-<p>半罐水响叮当 .</p>
-<h3 id="9-数据结构一定是用的静态数组而不是动态数组"><a href="#9-数据结构一定是用的静态数组而不是动态数组" class="headerlink" title="9 . 数据结构一定是用的静态数组而不是动态数组"></a>9 . 数据结构一定是用的静态数组而不是动态数组</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/without-sta-arr.png?raw=true"></p>
-<p>这 tm 是 OI ! OI !</p>
-<p>「就初中联赛这么点儿运算量 , 动态数组比静态数组多浪费的这些腾挪数据的时间 , 完全就是可以忽略不计的」</p>
-<p>啊对对对你真棒 .</p>
-<p>TLE : ?</p>
-<p>MLE : ? <del>倍增的内存真不怕炸 ?</del></p>
-<h3 id="10-能不加大括号-就不加"><a href="#10-能不加大括号-就不加" class="headerlink" title="10 . 能不加大括号 , 就不加"></a>10 . 能不加大括号 , 就不加</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/FamousZhou/without-brace.png?raw=true"></p>
-<p>加不加是码风的问题 ! 是可读性的问题 ! 对程序又没太大影响 .</p>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>目前认为 , 「小周老师」 就是 「周鲁」 .</p>
-<p><del>至于为什么这里不多作阐述 .</del></p>
-<p>简单聊一聊周某的来历 :</p>
-<p>周鲁创办了傲逆并开发 《水晶战争》 游戏 , 在 2013 年的 Steam 上发布了很震撼的视频 . 从视频上来看 , 这是一款非常不错的游戏 . 在 Steam 上众筹 , 傲逆一共收到了十万美刀 . 傲逆承诺游戏五个月内发布 , 同时在很多地方接受采访 , 名声大噪 , 却对游戏进程只字不谈 . 2014 年末有人说其宣传视频仅仅是由 Flash 制作等等问题 , 从而名声跌落谷底 .</p>
-<p>评价 : 「以后记得游戏圈中有个骗子叫周鲁就行了」 .</p>
-<p>引申 : 「在游戏圈混不下去了来信息学奥赛骗钱了」 .</p>
-<p>——摘自听取MLE声一片的博客 , 侵删</p>
-<p>以为自己有多了不起 .</p>
-<p>一群成事不足败事有余的家伙 .</p>
-<p>希望 OIer 们不要误入歧途 .</p>
-<hr>
-<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><p>参考文献 :</p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/610246254">知乎-如何看待楚黎周鲁 ( 小周老师 ) 的文章《突破信息奥赛生的天花板》?</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/vegetable-MLE/zhou-lu">听取MLE声一片-「小周老师」事件总结</a></p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIwMzcxMTY4OQ==&mid=2247485213&idx=1&sn=cb5b09a977ffb2d2c83cae128ca1fdc5&chksm=96ca72bba1bdfbad02766c2c0403feb00d10a1b7e46a3721a8eafa1070ee81be0a71f47035da&mpshare=1&scene=23&srcid=0704KtET5ePmicTo4wnoKbi4&sharer_sharetime=1688438346254&sharer_shareid=250c7aecc8713bc61b5879e10802c7e6&p_skey=ZQo1iChEtprdbI3PF9uyt5em71e9AwjPt5WSggzwbNU_#rd">小周老师聊信奥-突破信息奥赛生的天花板</a></p>
-<p>想了解更多的话就看看上面的文章 .</p>
-
             
         </div>
     </div>
@@ -292,7 +272,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%B0%8F%E5%91%A8/" style="color: #ff7d73">小周</a>
+            <a href="/tags/%E5%B0%8F%E5%91%A8/" style="color: #ffa2c4">小周</a>
         </span>
         
     </div>
@@ -326,67 +306,9 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h2 id="text-必要性"><a href="#text-必要性" class="headerlink" title="$\text{必要性}$"></a>$\text{必要性}$</h2><p>总所周知 , 在<del>毒瘤</del>大数据面前 , <code>scanf/printf</code> 很慢 , <code>cin/cout</code> 更慢 . 所以目前有两种主流的快读快写 , <code>getchar/putchar</code> ( <code>putchar</code> 有时甚至不如 <code>printf</code> ) 和 解绑 <code>ios</code> .</p>
+            <h2 id="必要性"><a href="#必要性" class="headerlink" title="必要性"></a>必要性</h2><p>总所周知 , 在<del>毒瘤</del>大数据面前 , <code>scanf/printf</code> 很慢 , <code>cin/cout</code> 更慢 . 所以目前有两种主流的快读快写 , <code>getchar/putchar</code> ( <code>putchar</code> 有时甚至不如 <code>printf</code> ) 和 解绑 <code>ios</code> .</p>
 <p>至于 <code>cin/cout</code> ( 不解绑的情况下 ) 为什么慢 , 这里不多阐述 <del>( 也相信你点进来不是为了这个 )</del> .</p>
 <p>顺便一提 , 在某些评测姬上 , 解绑 <code>cin/cout</code> 特别能吃 $buff$ , 在处理字符上比 <code>fread/fwrite</code> 快了不知道多少 . $→$ 刷题时 $2e7$ 范围的字符 , $T$ 了三个点 , 后来才发现是 <code>fread/fwrite</code> 太<del>酷</del>慢啦 !</p>
-<hr>
-<h2 id="text-速度比较"><a href="#text-速度比较" class="headerlink" title="$\text{速度比较}$"></a>$\text{速度比较}$</h2><h3 id="text-输入"><a href="#text-输入" class="headerlink" title="$\text{输入}$"></a>$\text{输入}$</h3><p>$n = 1e9$ , 采用 $mt19937$ 生成随机数 , 保证所有数据在 <code>int</code> 范围内 , 三次取最快 , 保留 $3$ 位小数 . </p>
-<p>冷笑话 : $10.3G$ ( $1e9$ ) 的数据把我可怜的 $16G$ 内存条干爆了 ( 后来用浏览器打开的 ) .</p>
-<pre><code class="txt">cin : 876.288s
-scanf : 335.884s
-getchar : 159.953s
-解绑cin : 87.893s
-fread : 38.521s
-</code></pre>
-<p>显而易见的 , <code>fread</code> 占据了上风 . 另外 , 值得注意的是 : <code>getchar</code> 与 <code>解绑cin</code> ( 本文后面将不再讨论 <code>cin/cout</code> 与 <code>scanf</code> 的速度差异 , 并且后文将简称 <code>cin/cout</code> 为 <code>解绑cin/cout</code> ) 差了 $2$ 倍左右 . 而将 <code>cin</code> 解绑仅需要一行 :</p>
-<pre><code class="cpp">ios::sync_with_stdio(NULL),cin.tie(NULL),cout.tie(NULL);
-// NULL 可以替换为 0 , 这里用 NULL 只是习惯的问题 .
-</code></pre>
-<p>但 <code>getchar</code> 在不压行的情况下比 <code>cin</code> 多得多 :</p>
-<pre><code class="cpp">template &lt;typename T&gt;
-inline auto Read(T &amp;variable) -&gt; void &#123;
-    variable = 0;
-    bool negative = false;
-    char charact;
-    do &#123;
-        charact = getchar();
-        negative ^= charact == &#39;-&#39;;
-    &#125;while(!isdigit(charact));
-    while(isdigit(charact)) &#123;
-        variable = (variable &lt;&lt; 1) + (variable &lt;&lt; 3) + (charact ^ 0x30);
-        charact = getchar();
-    &#125;
-    if(negative) variable = ~variable + 1;
-&#125;
-// 其实可以更短 , 但是个人感觉这样写更好看些 ( 雾
-</code></pre>
-<p>所以 , 在背不到 <code>fread/fwrite</code> 的模板时 , <code>cin/cout</code> 才是永远的神 .</p>
-<p>再来看一组较小的数据 ( 毕竟没有哪道题会出这么<del>毒瘤</del>良心的数据来恶心人 , 所以还是把数据放正常点 ) .</p>
-<p>$n = 1e7$ , 其余条件与 $n = 1e9$ 时一样 .</p>
-<pre><code class="txt">getchar : 1.610s
-cin : 0.880s
-fread : 0.392s
-</code></pre>
-<p>可以看到 , 这次 <code>getchar</code> 比 <code>cin</code> 慢了 $2$ 倍不止 .</p>
-<p>那么 , 再见 , <code>getchar</code> .</p>
-<h3 id="text-输出"><a href="#text-输出" class="headerlink" title="$\text{输出}$"></a>$\text{输出}$</h3><pre><code class="txt">printf :
-putchar (递归) :
-putchar (栈) :
-cout :
-fwrite :
-</code></pre>
-<hr>
-<h2 id="text-附录"><a href="#text-附录" class="headerlink" title="$\text{附录}$"></a>$\text{附录}$</h2><h3 id="text-测试环境"><a href="#text-测试环境" class="headerlink" title="$\text{测试环境}$"></a>$\text{测试环境}$</h3><pre><code class="txt">处理器    12th Gen Intel(R) Core(TM) i9-12900H   2.50 GHz
-机带 RAM    16.0 GB (15.7 GB 可用)
-系统类型    64 位操作系统, 基于 x64 的处理器
-</code></pre>
-<pre><code class="txt">版本    Windows 11 家庭中文版
-版本    22H2
-操作系统版本    22621.1702
-体验    Windows Feature Experience Pack 1000.22641.1000.0
-</code></pre>
-<p>$$rp++$$</p>
-
             
         </div>
     </div>
@@ -437,82 +359,6 @@ fwrite :
 <p>比如极为玄学的 $3$ 格缩进 ( 但是我有时候感觉<strong>还挺好看的</strong> ( 雾 , 以及看半天看不到一个空格分开语句 / 表达式的「紧凑代码」 , 还有从 $a$ 命名到 $z$ 的「屎山代码」( “屎山” 其实有很多方面 , 只是这点我很不能忍受 ) .</p>
 <p>当然 , 码风习惯<strong>因人而异</strong> , 自己觉得好看的码风或许在别人眼中十分另类 .</p>
 <p><strong>所以我的码风如果有不满意的地方别乱喷 . ( 😖</strong></p>
-<hr>
-<h3 id="text-头文件"><a href="#text-头文件" class="headerlink" title="$\text{头文件}$"></a>$\text{头文件}$</h3><p>以前是用万能头 , 现在的话是要用什么写什么 . 尽量避免命名冲突导致 $CE$ ( $22$ 年 $CSP-S$ 就是因为命名 $CE$ 两道题 , 关键是当时并不知道那玩意是关键字 , $dev$ 滚一边去 ) .</p>
-<p>另外 , 在 <code>include</code> 之后会打一个 <code>&#39; &#39;</code> . 并且 , 采用 $C++$ 风格头文件 .</p>
-<p>$\text{Example :}$</p>
-<pre><code class="cpp">#include &lt;bits/stdc++.h&gt; // 已弃用
-#include &lt;iostream&gt;
-#include &lt;ctime&gt;
-#include &lt;string&gt;
-</code></pre>
-<hr>
-<h3 id="text-using-语句"><a href="#text-using-语句" class="headerlink" title="$\text{using 语句}$"></a>$\text{using 语句}$</h3><p>直接写 <code>using namespace std</code> , 用自己写的 <code>namespace</code> 时 , 一般写 <code>using 命名空间名::变量/函数/其它</code> . ( 毕竟用不了那么多 , 要是都用写 <code>namespace</code> 干嘛 ) .</p>
-<p>如果 <code>using</code> 能写在 <code>namespace</code> 的 <code>&#39;&#125;&#39;</code> 后面且只需要一句 , 那么就写在这后面 , 细节见下列代码 .</p>
-<p>$\text{Example :}$</p>
-<pre><code class="cpp">namespace Rui_Ethereal &#123;
-    auto ToDoSomething() &#123; &#125;
-&#125; using namespace Rui_Ethereal::ToDoSomething;
-</code></pre>
-<pre><code class="cpp">namespace Rui_Ethereal &#123;
-    const auto SIZE = 114;
-    auto ToDoSomething() &#123; &#125;
-&#125;
-using Rui_Ethereal::SIZE;
-using Rui_Ethereal::ToDoSomething;
-</code></pre>
-<p>偶尔用其代替 <code>#define</code> 或 <code>typedef</code> .</p>
-<hr>
-<h3 id="text-主函数main"><a href="#text-主函数main" class="headerlink" title="$\text{主函数main}$"></a>$\text{主函数main}$</h3><pre><code class="cpp">signed main() &#123;
-    return 0;
-    // 有时候不会加返回值 .
-&#125;
-</code></pre>
-<p>返回类型用 <code>signed</code> 而不用 <code>int</code> .</p>
-<hr>
-<h3 id="text-缩进-and-括号风格"><a href="#text-缩进-and-括号风格" class="headerlink" title="$\text{缩进 and 括号风格}$"></a>$\text{缩进 and 括号风格}$</h3><p>1 . 采用 $4$ 个空格缩进而不是 <code>TAB</code> .</p>
-<p>2 . 能不加大括号就不加大括号 .</p>
-<pre><code class="cpp">if(条件式) DoSomething; // 只有一条语句那么不加大括号
-else &#123;
-    DoThis;
-    DoThat;
-    // 不止一条语句
-&#125;
-</code></pre>
-<p>3 . 函数写法 : </p>
-<pre><code class="cpp">auto 函数名(参数) -&gt; 返回类型;
-</code></pre>
-<p><strong>有必要</strong>的话会写 <code>inline</code> . 空参写 <code>void</code> , 调用时不写 .</p>
-<p><del>缺点 : 有时候忘写返回类型 CE</del></p>
-<p>4 . 函数主体 ( 非 <code>template</code> 部分或者其它 ) 要么写一行 ( 即一条语句 ) , 要么不少于 $4$ 行 ( 包括结束时的 <code>&#125;</code> ) .</p>
-<pre><code class="cpp">template &lt;typename _Tp&gt;
-inline auto Max(const _Tp &amp;a,const _Tp &amp;b) -&gt; _Tp &#123; return a &lt; b ? b : a; &#125;
-</code></pre>
-<pre><code class="cpp">inline auto GetChar(void) -&gt; char &#123;
-    if(in_ptr == end_addr) &#123;
-        in_ptr = buffer;
-        end_addr = ibuffer + fread(buffer,1,CACHE,stdin);
-    &#125;
-    return in_ptr == end_addr ? EOF : *in_ptr++;
-&#125;
-</code></pre>
-<p>5 . 不<strong>刻意</strong>压行 , 三目除外 , 并且能用三目且比较好写的话就用三目 . ( <code>?:</code> )</p>
-<p>6 . 空格规范 :</p>
-<p><strong>特殊写法</strong></p>
-<p>( $1$ ) <code>for(auto _((BEGIN));_ &lt;= END;++_)</code></p>
-<p>( $2$ ) <code>for(auto &amp;v : G[u])</code></p>
-<p>( $3$ ) <code>&#123;</code> 与 <code>&#125;</code> 不在同一行 , <code>&#123;</code> 前加空格 . 反之 , <code>&#123;</code> 两边都要加 , <code>&#125;</code> 前加后不加 .</p>
-<p>( $4$ ) <code>&amp;&amp;</code> 和 <code>||</code> 一般用 <code>and</code> 和 <code>or</code> 代替 .</p>
-<p>前后<strong>都要</strong>加空格 : </p>
-<p><code>+</code> , <code>-</code> , <code>*</code> , <code>/</code> , <code>+=</code> , <code>-=</code> , <code>*=</code> , <code>/=</code> , <code>==</code> , <code>!=</code> , <code>%</code> , <code>%=</code> 等 .</p>
-<p>二进制运算符 <code>&amp;</code> , <code>|</code> , <code>^</code> , <code>&lt;&lt;</code> , <code>&gt;&gt;</code> , <code>&amp;=</code> , <code>|=</code> , <code>^=</code> , <code>&lt;&lt;=</code> , <code>&gt;&gt;=</code> .</p>
-<p>三目运算符 <code>? :</code></p>
-<p><strong>前</strong>加<strong>后</strong>不加 :</p>
-<p><code>&amp;</code> ( 作为<strong>地址</strong>运算符 ) , <code>*</code> ( 指针运算符 )</p>
-<p><strong>前后都不加</strong> :</p>
-<p><code>::</code> ( 作用域解析符 ) , <code>,</code> , <code>;</code> , <code>.</code> ( 成员 ) , <code>[]</code> ( 下标 ) , <code>-&gt;</code> ( 指针 ) .</p>
-<p>大概就这些吧 , 其它的看一下我写的代码就行 .</p>
-
             
         </div>
     </div>
@@ -525,7 +371,7 @@ inline auto Max(const _Tp &amp;a,const _Tp &amp;b) -&gt; _Tp &#123; return a &lt
         
         <span class="tag">
             
-            <a href="/tags/%E7%A0%81%E9%A3%8E/" style="color: #00bcd4">码风</a>
+            <a href="/tags/%E7%A0%81%E9%A3%8E/" style="color: #03a9f4">码风</a>
         </span>
         
     </div>
@@ -534,7 +380,7 @@ inline auto Max(const _Tp &amp;a,const _Tp &amp;b) -&gt; _Tp &#123; return a &lt
 
 <div class="post">
     <a href="/2023/06/04/travel@sh/">
-        <h2 class="post-title">『Travel』SH游记</h2>
+        <h2 class="post-title">『Travel』SH 游记</h2>
     </a>
     <div class="category-and-date">
         
@@ -561,71 +407,6 @@ inline auto Max(const _Tp &amp;a,const _Tp &amp;b) -&gt; _Tp &#123; return a &lt
             
             <p>很久很久没出去旅游过了 , 浅浅发个游记记录一下 .</p>
 <p>☆*: .｡. o(≧▽≦)o .｡.:*☆</p>
-<hr>
-<h2 id="前奏-5-31晚"><a href="#前奏-5-31晚" class="headerlink" title="前奏 (5.31晚)"></a>前奏 (5.31晚)</h2><p>原本是明天 ( 6.1 ) 早上 7:00 的飞机 , 但是延到 9:00 后又取消航班改到下午 3 点过又改到 4:30 , 无语.png</p>
-<hr>
-<h2 id="Day1-6-1"><a href="#Day1-6-1" class="headerlink" title="Day1 (6.1)"></a>Day1 (6.1)</h2><p>接上文 , 早上来了后才知道航班取消 , 就待在 CQ 把蛋糕恰了 , 下午又到机场去 . 早上没啥好说的 , 过去过来快累死了 ( bushi</p>
-<p>下午进了机场 , 突然感觉江北机场好大 ( 至少是在见到浦东国际机场的时候 ) . 不过物价也是高的离谱 . 比如说 <strong>25 块钱的重庆小面</strong><del>你咋不直接去抢钱呢</del> . 还有一个好像是卖纪念品的店 , <strong>5 克香膏 48</strong> .</p>
-<p>我 : <del>c</del> 😅</p>
-<p>来到 SH 已经是晚上 , 仅仅是坐地铁到住的酒店就要 1 个多小时 , 所以直接带着行李去市中心的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/159693883">「外滩」</a>打卡 . 也算是来上海必须去的地方 .</p>
-<p>但是呢 , 夜景没重庆好看 , 唯有老外此地甚多 .</p>
-<h3 id="text-放图"><a href="#text-放图" class="headerlink" title="$\text{放图}$"></a>$\text{放图}$</h3><p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day1/day1%20(3).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day1/day1%20(2).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day1/day1%20(6).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day1/day1%20(4).jpg?raw=true"></p>
-<p>这个云真的好好看 <del>但是手机太拉了</del></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day1/day1%20(5).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day1/day1%20(1).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(1).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(11).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(10).jpg?raw=true"></p>
-<hr>
-<h2 id="Day2-6-2"><a href="#Day2-6-2" class="headerlink" title="Day2 (6.2)"></a>Day2 (6.2)</h2><p>一早起来接近 8 点 , 到目前为止感觉上海最好吃的是酒店的早餐 , 可以说别的地方该有的酒店都有 . 至少比去外滩时吃的清汤豌杂要好些 .</p>
-<p>这里吐槽一下 :</p>
-<p>去完外滩过后吃晚饭 , 虽然说我尽可能的说普通话像一点 , 但是豌杂还是煮成了红汤 . <del>c**</del></p>
-<p>不过还好换了 , 这点我赞同 🥰 . ( 但是这 <strong>35</strong> 块钱谁吃得起啊</p>
-<p>言归正传 , 讲讲<a target="_blank" rel="noopener" href="https://www.shanghaidisneyresort.com/">「今天的目的地」</a> :</p>
-<p>$$\text{☆SHANGHAI☆}$$</p>
-<p>$$\text{☆DISNEYLAND☆}$$</p>
-<p>$$\text{上海迪士尼乐园}$$</p>
-<p>坐着大巴来 , 仅仅是在入口就已是人山人海 ( 有点夸张吧 , 但是晚上更离谱++ )</p>
-<p>进公园 ≈ 跟着人海走</p>
-<p>过安检 ≈ 排队晒太阳</p>
-<p>过售票 ≈ 排队晒太阳</p>
-<p><del>安检和派对还得分开www</del></p>
-<h3 id="text-放图-1"><a href="#text-放图-1" class="headerlink" title="$\text{放图}$"></a>$\text{放图}$</h3><p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(8).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(6).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(3).jpg?raw=true"></p>
-<p>还是比较喜欢科幻风 . ↑</p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(4).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(9).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(2).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(5).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day2/day2%20(7).jpg?raw=true"></p>
-<p>整理的时候才发现我拍这么多迪士尼晚上的正门 , 疑惑.jpg $🙃$</p>
-<hr>
-<h2 id="Day3-6-3"><a href="#Day3-6-3" class="headerlink" title="Day3 (6.3)"></a>Day3 (6.3)</h2><p>一早先去自博馆溜达溜达 , 说实话没什么看头 ( 对于我来说 ) , 毕竟我对化石 ( 特别是动物类 ) 没多少兴趣 .</p>
-<p>然后又去<a target="_blank" rel="noopener" href="https://www.sjtu.edu.cn/xxjj/index.html">「上海交大」</a>参观了一下 . 老校区 , 虽然不大 , 但是很舒适 . 校区的树挺多的 $🥰$</p>
-<p>下午就回重庆了 . 突然又觉得江北机场好小 . 那么 , 旅途就圆满结束了 .</p>
-<h3 id="还没放图捏"><a href="#还没放图捏" class="headerlink" title="还没放图捏"></a>还没放图捏</h3><p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(3).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(1).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(2).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(15).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(4).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(5).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(12).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(11).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(10).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(13).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(14).jpg?raw=true"></p>
-<p><img src="https://github.com/Rui-Ethereal/Image-Host/blob/master/images/SH%20Travel/Day3/day3%20(6).jpg?raw=true"></p>
-<hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>费脚 , 但是真的好玩 . 第一次去上海 , 确实有被震撼到 .</p>
-<p><del>晒黑了www , 防晒霜得勤擦 .</del></p>
-<p>自己一个人不太有意思 ( 没有同学的一个人 ) .</p>
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>整理时发现重复的图片太多 ( 相似的重复 ) , 所以文章里面不会把所有图片都放出来 , 想看完整的可以到<a target="_blank" rel="noopener" href="https://github.com/Rui-Ethereal/Image-Host">「我的图床」</a>去找 .</p>
-<p>$$\text{EOF}$$</p>
-
             
         </div>
     </div>
@@ -638,85 +419,11 @@ inline auto Max(const _Tp &amp;a,const _Tp &amp;b) -&gt; _Tp &#123; return a &lt
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E8%AE%B0/" style="color: #00a596">游记</a>
+            <a href="/tags/%E6%B8%B8%E8%AE%B0/" style="color: #ffa2c4">游记</a>
         </span>
         
     </div>
     <a href="/2023/06/04/travel@sh/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2023/06/01/record-psolving@atcoder-beginner-contest-155/">
-        <h2 class="post-title">『做题记录』Atcoder Beginner Contest 155</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                做题记录
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/6/1
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h2 id="D-Pairs"><a href="#D-Pairs" class="headerlink" title="D Pairs"></a>D Pairs</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>$n$ 个数两两相乘的结果共有 $\dfrac{n(n - 1)}{2}$ 种 , 求第 $k$ 小的乘积 .</p>
-<p>输入 $a_i$ 到 $a_n$ .</p>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>求第 $k$ 小 , 相当于求第 $\dfrac{n(n - 1)}{2} - k + 1$ 大 .</p>
-<p>考虑二分 , 记该值为 $mid$</p>
-<ul>
-<li><p>当 $mid &lt; 0$ , 则任意 $a_i$ 为整数或 $0$ ,都满足要求 . 然后对于每个 $a_i &gt; 0$ , $a_j &lt; 0$ 的组合是否大于 $mid$ .</p>
-</li>
-<li><p>当 $mid = 0$ , 除了 $a_i &gt; 0$ , $a_j &lt; 0$ 的组合都满足要求 .</p>
-</li>
-<li><p>当 $mid &lt; 0$ , 当 $a_i$ 和 $a_j$ 同号时满足要求 .</p>
-</li>
-</ul>
-<p>复杂度 : $(n \log n)$ .</p>
-<hr>
-<h2 id="E-Payment"><a href="#E-Payment" class="headerlink" title="E Payment"></a>E Payment</h2><h3 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h3><p>有 $10^{100} + 1$ 种纸币 , 面值分别为 $10^0$ , $10^1$ , $10^2$ … , $10^{100}$ .</p>
-<p>给定正整数 $n$ , $f(x)$ 表示 $x$ ( 付的钱 ) 在十进制下各个数位的和 , 求一个正整数 $x$ , 满足 $x \geq n$ 且最小化 $f(x) + f(x - n)$ .</p>
-<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>$dp$ 一道 , 转移方程如下 :</p>
-<p>$$dp_{i,0} = \min (dp_{i - 1,0} + a_i,dp_{i - 1,1} + a_i + 1)$$</p>
-<p>$$dp_{i,1} = \min (dp_{i - 1,0} + 10 - a_i ,dp_{i - 1,1} + 10 - a_i - 1)$$</p>
-<hr>
-<h2 id="F-Perils-in-Parallel"><a href="#F-Perils-in-Parallel" class="headerlink" title="F Perils in Parallel"></a>F Perils in Parallel</h2><h3 id="题面-2"><a href="#题面-2" class="headerlink" title="题面"></a>题面</h3><p>有 $n$ 个电灯 , 编号为 $1$ 到 $n$ , 第 i 个电灯在 $a_i$ 处 , 状态为 $b_i$ ( 1 或 0 ) .</p>
-<p>有 $m$ 个开关 , 编号为 $1$ 到 $m$ , 第 $i$ 个开关控制 $[l_i,r_i]$ , 如果按下该开关 , 则该区间内电灯状态取反 .</p>
-<p>求是否有可行解 , 使得所有电灯状态为 0 . 有则输出方案 , 否则输出 -1 .</p>
-<h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><p>在异或的意义下进行差分 , 那么区间的操作就会变成点的操作 . 即给一个 01 串和一些点对 , 将统一对数 $\operatorname{xor}1$ , 得到全为 0 的串 .</p>
-<p>既然有点对了 , 那就直接上无向图了 . 即在无向图中选择一些边 , 将这些边 $\operatorname{xor}1$ , 问能否得到一张全 0 图 .</p>
-<p>将其简化为一棵树 , 进行搜索 , 用所有与该点对有关系的点对进行修改 . 由于每次操作奇偶性不变 , 所以如果 $\operatorname{xor}$ 的值不为 0 则无解 .</p>
-<p>另外 , 差分后 $n + 1$ 对答案是没有影响的 , 所以要先跑一个 $n + 1$ 的情况 .</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Atcoder/" style="color: #03a9f4">Atcoder</a>
-        </span>
-        
-    </div>
-    <a href="/2023/06/01/record-psolving@atcoder-beginner-contest-155/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
@@ -770,7 +477,7 @@ inline auto Max(const _Tp &amp;a,const _Tp &amp;b) -&gt; _Tp &#123; return a &lt
         
         <span class="tag">
             
-            <a href="/tags/Atcoder/" style="color: #ff7d73">Atcoder</a>
+            <a href="/tags/Atcoder/" style="color: #00bcd4">Atcoder</a>
         </span>
         
     </div>
@@ -832,7 +539,7 @@ inline auto Max(const _Tp &amp;a,const _Tp &amp;b) -&gt; _Tp &#123; return a &lt
         
         <span class="tag">
             
-            <a href="/tags/Atcoder/" style="color: #ff7d73">Atcoder</a>
+            <a href="/tags/Atcoder/" style="color: #00bcd4">Atcoder</a>
         </span>
         
     </div>
@@ -890,7 +597,7 @@ inline auto Max(const _Tp &amp;a,const _Tp &amp;b) -&gt; _Tp &#123; return a &lt
         
         <span class="tag">
             
-            <a href="/tags/Atcoder/" style="color: #ffa2c4">Atcoder</a>
+            <a href="/tags/Atcoder/" style="color: #00a596">Atcoder</a>
         </span>
         
     </div>
