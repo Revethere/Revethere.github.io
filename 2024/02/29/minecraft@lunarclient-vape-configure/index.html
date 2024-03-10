@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <title>『Minecraft』我的 LunarClient &amp; Vape 客户端配置分享 | Revethere の Blog</title>
+        <meta name="author" content="Revethere" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/favicon.png" />
+        <script src="https://cdn.staticfile.org/vue/3.2.47/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.3.0/css/all.min.css" />
+<link rel="stylesheet" href="/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://cdn.staticfile.org/KaTeX/0.16.4/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.4/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.4/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 5.4.2"></head>
+    <body>
+        <div id="layout">
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>加载过慢请开启缓存 浏览器默认开启</p>
+                        <p>建议搭配 steam++ 食用更佳</p>
+                        <img src="/images/loading.gif" />
+                    </div>
+                </div>
+            </transition>
+            <nav id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <div id="desktop-menu">
+        <a class="title" href="/">
+            <span>REVETHERE の BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;首页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;REVETHERE の BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">首页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </div>
+</nav>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div class="article">
+    <div>
+        <h1>『Minecraft』我的 LunarClient &amp; Vape 客户端配置分享</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/2/29
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Minecraft/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Minecraft
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/LunarClient/" style="color: #00a596">LunarClient</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" style="color: #00a596">配置文件</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Hacker/" style="color: #ffa2c4">Hacker</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>好就没写文章了 , 勉强能看看就行了捏 ~</p>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>毫无疑问的 <a target="_blank" rel="noopener" href="https://www.lunarclient.com/">「LunarClient」</a> 是全世界最好用的客户端 (</p>
+<p>有一说一啊 , 之前用过 Feather, 用过 Soar, 也看过一些客户端的评测 . 所以对不同的客户端的区别还是有直观的感受的 .</p>
+<p>以下观点仅代表个人看法 :</p>
+<p>Feather 能添加 mod 毫无疑问是相当不错的 , 总体观感不输 Lunar . 但是呢有件事非常玄学 : 在超平坦钟关闭天空 , 日月的情况下 , 朝天 1000fps + , 向地 150fps - 300fps , 水平看 30fps - 80 fps . 非常的难受 . 所以虽然它可以自己添加 mod 但是我还是选择不用 QAQ  .</p>
+<p>Soar 倒是没有 Feather 的帧数的问题 , 但是它的模块不能改颜色和透明度 , 好像连大小都不能改 ( 应该是 , 记性不好 , 有点忘了 ) . 总的来说好看是好看 , 但是我不是很能习惯这种风格 . Soar , OUT .</p>
+<p>这时候可能有些人会问 : Badlion 呢 ?</p>
+<p>额 . . . 不用它的原因更简单 , UI 不好看 (</p>
+<h2 id="外设-amp-电脑配置-非常的-fw-但是勉强能-van"><a href="#外设-amp-电脑配置-非常的-fw-但是勉强能-van" class="headerlink" title="外设 &amp; 电脑配置 ( 非常的 fw , 但是勉强能 van )"></a>外设 &amp; 电脑配置 ( 非常的 fw , 但是勉强能 van )</h2><p>键盘 : IQUNIX ZX75 Le Petit Prince ( 联名款 ) <del>不多做评价 , 颜值入手</del></p>
+<p>鼠标 : Incott Zero Pro DB ( DPI : 1600 )</p>
+<p>电脑配置 : CPU : i9-12900H . GPU : 核显 Intel ( R ) Iris ( R ) Xe Graphics</p>
+<h2 id="LunarClient"><a href="#LunarClient" class="headerlink" title="LunarClient"></a>LunarClient</h2><h3 id="模块页面"><a href="#模块页面" class="headerlink" title="模块页面"></a>模块页面</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/images/lunar.png?raw=true"></p>
+<p>最开始的时候方向轴和 FPS 显示是放在顶端居中的 , 但是后来发现档 TAB 列表就把这俩换了位置 .</p>
+<h3 id="视频设置"><a href="#视频设置" class="headerlink" title="视频设置"></a>视频设置</h3><p><img src="https://github.com/Revethere/Image-Host/blob/master/images/VideoSettings.png?raw=true"></p>
+<p><img src="https://github.com/Revethere/Image-Host/blob/master/images/DetaliSettings.png?raw=true"></p>
+<p><img src="https://github.com/Revethere/Image-Host/blob/master/images/AnimationSettings.png?raw=true"></p>
+<p><img src="https://github.com/Revethere/Image-Host/blob/master/images/PerformasSettings.png?raw=true"></p>
+<p>关闭快速渲染 200fps - 300 fps , 开启最高直飙 700 fps ++ . 打 Boxing 的时候的地图大概也有 400 fps 左右 .</p>
+<p><img src="https://github.com/Revethere/Image-Host/blob/master/images/QualitySettings.png?raw=true"></p>
+<p>音量设置没有截 , 毕竟根据个人情况而定 . 我的话方块和玩家声音开的都比较大 , 毕竟有时候要打 bw 嘛 .</p>
+<p>然后 mod 内的具体设置也取决于个人 , 这里不做展示 <del>( 绝不是太多懒得截了 )</del></p>
+<h2 id="VapeV4"><a href="#VapeV4" class="headerlink" title="VapeV4"></a>VapeV4</h2><p><img src="https://github.com/Revethere/Image-Host/blob/master/images/vape.png?raw=true"></p>
+<p>细说一下配置 :</p>
+<h3 id="Combat"><a href="#Combat" class="headerlink" title="Combat"></a>Combat</h3><p>AutoClicher : </p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2023 - 2024 Revethere の Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Revethere
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            
+            <transition name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </transition>
+            
+        </div>
+        <canvas
+            id="fireworks"
+            style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+        ></canvas>
+        <script src="/js/fireworks.min.js"></script>
+        <script src="/js/main.js"></script>
+        
+        
+
+
+
+
+        
+    </body>
+</html>
