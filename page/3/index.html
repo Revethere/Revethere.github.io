@@ -236,7 +236,7 @@
         
         <span class="tag">
             
-            <a href="/tags/10-1-143-113/" style="color: #ff7d73">10.1.143.113</a>
+            <a href="/tags/10-1-143-113/" style="color: #00a596">10.1.143.113</a>
         </span>
         
     </div>
@@ -300,12 +300,12 @@
         
         <span class="tag">
             
-            <a href="/tags/10-1-143-113/" style="color: #00bcd4">10.1.143.113</a>
+            <a href="/tags/10-1-143-113/" style="color: #03a9f4">10.1.143.113</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/YCOJ/" style="color: #00a596">YCOJ</a>
+            <a href="/tags/YCOJ/" style="color: #ffa2c4">YCOJ</a>
         </span>
         
     </div>
@@ -364,7 +364,7 @@
         
         <span class="tag">
             
-            <a href="/tags/YCOJ/" style="color: #03a9f4">YCOJ</a>
+            <a href="/tags/YCOJ/" style="color: #00a596">YCOJ</a>
         </span>
         
     </div>
@@ -416,7 +416,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%B0%8F%E5%91%A8/" style="color: #ffa2c4">小周</a>
+            <a href="/tags/%E5%B0%8F%E5%91%A8/" style="color: #ff7d73">小周</a>
         </span>
         
     </div>
@@ -465,7 +465,7 @@
         
         <span class="tag">
             
-            <a href="/tags/fread-fwrite/" style="color: #ffa2c4">fread/fwrite</a>
+            <a href="/tags/fread-fwrite/" style="color: #03a9f4">fread/fwrite</a>
         </span>
         
     </div>
@@ -515,7 +515,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E7%A0%81%E9%A3%8E/" style="color: #00bcd4">码风</a>
+            <a href="/tags/%E7%A0%81%E9%A3%8E/" style="color: #00a596">码风</a>
         </span>
         
     </div>
@@ -563,7 +563,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E6%B8%B8%E8%AE%B0/" style="color: #ffa2c4">游记</a>
+            <a href="/tags/%E6%B8%B8%E8%AE%B0/" style="color: #03a9f4">游记</a>
         </span>
         
     </div>
@@ -571,8 +571,8 @@
 </div>
 
 <div class="post">
-    <a href="/2023/06/01/record-psolving@atcoder-beginner-contest-155/">
-        <h2 class="post-title">『做题记录』Atcoder Beginner Contest 155</h2>
+    <a href="/2023/06/01/record-psolving@atcoder-beginner-contest-151/">
+        <h2 class="post-title">『做题记录』Atcoder Beginner Contest 151</h2>
     </a>
     <div class="category-and-date">
         
@@ -597,33 +597,17 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h2 id="D-Pairs"><a href="#D-Pairs" class="headerlink" title="D Pairs"></a>D Pairs</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>$n$ 个数两两相乘的结果共有 $\dfrac{n(n - 1)}{2}$ 种 , 求第 $k$ 小的乘积 .</p>
-<p>输入 $a_i$ 到 $a_n$ .</p>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>求第 $k$ 小 , 相当于求第 $\dfrac{n(n - 1)}{2} - k + 1$ 大 .</p>
-<p>考虑二分 , 记该值为 $mid$</p>
-<ul>
-<li><p>当 $mid &lt; 0$ , 则任意 $a_i$ 为整数或 $0$ ,都满足要求 . 然后对于每个 $a_i &gt; 0$ , $a_j &lt; 0$ 的组合是否大于 $mid$ .</p>
-</li>
-<li><p>当 $mid = 0$ , 除了 $a_i &gt; 0$ , $a_j &lt; 0$ 的组合都满足要求 .</p>
-</li>
-<li><p>当 $mid &lt; 0$ , 当 $a_i$ 和 $a_j$ 同号时满足要求 .</p>
-</li>
-</ul>
-<p>复杂度 : $(n \log n)$ .</p>
-<hr>
-<h2 id="E-Payment"><a href="#E-Payment" class="headerlink" title="E Payment"></a>E Payment</h2><h3 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h3><p>有 $10^{100} + 1$ 种纸币 , 面值分别为 $10^0$ , $10^1$ , $10^2$ … , $10^{100}$ .</p>
-<p>给定正整数 $n$ , $f(x)$ 表示 $x$ ( 付的钱 ) 在十进制下各个数位的和 , 求一个正整数 $x$ , 满足 $x \geq n$ 且最小化 $f(x) + f(x - n)$ .</p>
-<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>$dp$ 一道 , 转移方程如下 :</p>
-<p>$$dp_{i,0} = \min (dp_{i - 1,0} + a_i,dp_{i - 1,1} + a_i + 1)$$</p>
-<p>$$dp_{i,1} = \min (dp_{i - 1,0} + 10 - a_i ,dp_{i - 1,1} + 10 - a_i - 1)$$</p>
-<hr>
-<h2 id="F-Perils-in-Parallel"><a href="#F-Perils-in-Parallel" class="headerlink" title="F Perils in Parallel"></a>F Perils in Parallel</h2><h3 id="题面-2"><a href="#题面-2" class="headerlink" title="题面"></a>题面</h3><p>有 $n$ 个电灯 , 编号为 $1$ 到 $n$ , 第 i 个电灯在 $a_i$ 处 , 状态为 $b_i$ ( 1 或 0 ) .</p>
-<p>有 $m$ 个开关 , 编号为 $1$ 到 $m$ , 第 $i$ 个开关控制 $[l_i,r_i]$ , 如果按下该开关 , 则该区间内电灯状态取反 .</p>
-<p>求是否有可行解 , 使得所有电灯状态为 0 . 有则输出方案 , 否则输出 -1 .</p>
-<h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><p>在异或的意义下进行差分 , 那么区间的操作就会变成点的操作 . 即给一个 01 串和一些点对 , 将统一对数 $\operatorname{xor}1$ , 得到全为 0 的串 .</p>
-<p>既然有点对了 , 那就直接上无向图了 . 即在无向图中选择一些边 , 将这些边 $\operatorname{xor}1$ , 问能否得到一张全 0 图 .</p>
-<p>将其简化为一棵树 , 进行搜索 , 用所有与该点对有关系的点对进行修改 . 由于每次操作奇偶性不变 , 所以如果 $\operatorname{xor}$ 的值不为 0 则无解 .</p>
-<p>另外 , 差分后 $n + 1$ 对答案是没有影响的 , 所以要先跑一个 $n + 1$ 的情况 .</p>
+            <h2 id="E-Max-Min-Sums"><a href="#E-Max-Min-Sums" class="headerlink" title="E Max-Min Sums"></a>E Max-Min Sums</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>给一个整数集合 $A$ , $\lvert A \rvert = n$ 和一个整数 $k$ .</p>
+<p>求 :</p>
+<p>$$\sum_{S \in A} [ \lvert S \rvert = k]\ f(s)$$</p>
+<p>并对 $10^9 + 7$ 取模 .</p>
+<p>其中 , $f(x) = \max_{x \in S} - \min_{x \in S}$</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>最暴力的方法就是枚举 $C_n^k$ 元素个数为 $k$ 的子集 , 然后找 $\max$ 和 $\min$ , <del>复杂度爆炸</del> .</p>
+<p>考虑集合的无序性 . 将集合中的元素从小到大排序 , 然后计算每个数可能子多少个子集中成为最大值 / 最小值 .</p>
+<p>考虑如何统计作为子集中最大值的次数 :</p>
+<p>对于前 $k - 1$ 个数 , 不可能成为任何子集的最大值 . 对于其它的数 , 第 $i$ 个数成为最大值的可能有 $C_{i - 1}^{k - 1}$ 种 , 即在前 $i - 1$ 个数中选 $k - 1$ 个数 , 与第 $i$ 个数构成子集 , 使其成为最大值 .</p>
+<p>对于最小值 , 同理 .</p>
+<p>记得用逆元 .</p>
 
             
         </div>
@@ -641,7 +625,7 @@
         </span>
         
     </div>
-    <a href="/2023/06/01/record-psolving@atcoder-beginner-contest-155/" class="go-post">阅读全文</a>
+    <a href="/2023/06/01/record-psolving@atcoder-beginner-contest-151/" class="go-post">阅读全文</a>
 </div>
 
 
