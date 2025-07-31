@@ -308,7 +308,7 @@
     line-height: 1.7;
 }
 #home-posts .post-title {
-    color: #72ada2;
+    color: #85bac0;
     text-align: center;
 }
 #home-posts .post:hover {
@@ -662,7 +662,7 @@ body::-webkit-scrollbar-track {
     color: unset;
 }
 a {
-    color: #66afef;
+    color: #dfa4c9;
     text-decoration: none;
 }
 a:hover,
@@ -708,7 +708,7 @@ body {
     width: 100%;
 }
 code {
-    background: #bddcf76b;
+    background: #f1d9e88d;
     border-radius: 4px;
     line-height: 2.5;
     padding: 4px 8px;
