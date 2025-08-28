@@ -6,7 +6,7 @@
     <title>Revethere&#39;s Blog</title>
     <meta name="author" content="Revethere₂₀₂₄" />
     <meta name="description" content="分享一些超级有用的芝士" />
-    <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP" />
+    <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP, Code" />
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
@@ -222,6 +222,113 @@
 </div>
 
 <div class="post">
+    <a href="/2025/08/07/tutorials@how-2-play-sumo/">
+        <h2 class="post-title">『sumo 打法分析 &amp; 浅层理论解释 &amp; 心里博弈』</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%95%99%E7%A8%8B/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                教程
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/8/7
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="阅读文章前，你需要知道的…"><a href="#阅读文章前，你需要知道的…" class="headerlink" title="阅读文章前，你需要知道的…"></a>阅读文章前，你需要知道的…</h2><p>文章中所有的定义（以及一些生僻概念）仅为了规范与统一文章的内容，<strong>不代表圈内叫法</strong>👌🏼</p>
+<p>文章中所有涉及的操作均通过 dbc 点击方式实现，同时您也需要熟练使用间隔点</p>
+<p>大部分技巧主要讲一下原理，极少部分会从底层分析</p>
+<p>有一些会重复出现，基本都是适用于多个 part 但是放单一 part 不方便</p>
+<p><del>原本想试试图文的但是图片太难做了，受限于样式这种做视频其实会好点</del></p>
+<p><strong>因为某参考文献的实体机制是基于 1.16 的，我又没有 IDEA 反编译所以不保证完全正确 😗</strong></p>
+<p><strong>仅个人观点❗❗❗</strong></p>
+<h2 id="Early-Game-基本技巧原理简述-部分技巧的细分与重定义"><a href="#Early-Game-基本技巧原理简述-部分技巧的细分与重定义" class="headerlink" title="Early Game - 基本技巧原理简述 &amp; 部分技巧的细分与重定义"></a>Early Game - 基本技巧原理简述 &amp; 部分技巧的细分与重定义</h2><h3 id="基本技巧"><a href="#基本技巧" class="headerlink" title="基本技巧"></a>基本技巧</h3><ul>
+<li><p>wtap &#x2F; 重置疾跑（严格意义上是两个技巧，但在这里不作区别）</p>
+<p>烂大街的技巧，这里提一下或许很多人都忘记的一件事：wtap 可以增大对方的 kb 同时自己的 kb 也会增大，不要一味地叠 wtap，根据情况 hold w 也可以获得非常优秀的 kb</p>
+</li>
+<li><p>stap</p>
+<p>细分为 s-tap 和 ws-tap，s-tap 是松开 w 按 s（会有较明显的后退），ws-tap 则是 hold w 并 tap s（有点类似急停）</p>
+<p>s-tap 适用于完全预判对手 hitselect，ws-tap 则相对保守，更多见 「End Game - 心理博弈」这部分</p>
+<p>据说打的时候下落阶段按 s 可以更快下落但是我真没研究明白（</p>
+<p>staper 是真重，也是真稳</p>
+</li>
+<li><p>hitselect ( hs )</p>
+</li>
+<li><p>midtrade ( mt )</p>
+</li>
+<li><p>jumpreset ( jr )</p>
+</li>
+</ul>
+<h3 id="衍生技巧（后续应该会补很多）"><a href="#衍生技巧（后续应该会补很多）" class="headerlink" title="衍生技巧（后续应该会补很多）"></a>衍生技巧（后续应该会补很多）</h3><ul>
+<li><p>负 kb</p>
+<p>仅仅依靠间隔点实现的极小 kb + 间隔期间前进的位移实现的负 kb</p>
+<p>一般适用于对方 wtap 频率不高，同样对于 lowping 的 sumo 对局（一般为 50ms 一下）一直卡 3reach 的对刀有一定的效果</p>
+</li>
+<li><p>mt 偏移</p>
+<p>指在玩家之间相互 midtrade 的间隙通过走位干扰对方瞄准并在下次攻击时改变对方击退方向，一般是在本次攻击之后玩家之间距离拉近或是穿身时使用（这个就需要多打打判断了）</p>
+</li>
+<li><p>release w</p>
+<p>这个技巧归类到心里博弈会好点，这里单独提出来，会累赘一点但是问题不大。</p>
+<p>在玩家之间相互 midtrade 时<strong>判断</strong>本次攻击之后会穿身因此在本次攻击时松开 w 并在对方的攻击注册时重新按下 w 并攻击（在平台边缘并且处于优势位置效果最佳，毕竟要是没处理好穿身后自己就被创下去了）</p>
+<p>一般对方会<strong>以为</strong>穿身往后瞄准（但事实上并没有）被创下台或者进入 combo，另一种就是避免自己进入劣势局面</p>
+</li>
+<li><p>midtrade 反制（mt cm）</p>
+<p>不会。</p>
+<p>会了再补 o.O</p>
+<p>还有那什么高低位，也不懂（</p>
+</li>
+<li><p>air jump</p>
+<p>非常<strong>猎奇</strong>的我觉得应该不能称之为技巧的技巧，我一般对其解释为在服务端玩家被<strong>判定</strong>为 <code>onGround</code> 但在客户端玩家视角是在空中进行跳跃重置。非常有用，但是很吃 timing（似乎 1.8 更容易触发？）</p>
+</li>
+</ul>
+<h3 id="关于-dbc-间隔点-kb"><a href="#关于-dbc-间隔点-kb" class="headerlink" title="关于 dbc 间隔点 &amp; kb"></a>关于 dbc 间隔点 &amp; kb</h3><p>在这里将两指分别敲击一次鼠标（一般为 4cps）的操作称为 1t。一般的，8cps 间隔点简称为 2t，12cps 为 3t</p>
+<p>这只是一种叫法，与有没有<strong>触发</strong>双倍点无关</p>
+<h2 id="Mid-Game-从长久计的打法习惯养成"><a href="#Mid-Game-从长久计的打法习惯养成" class="headerlink" title="Mid Game - 从长久计的打法习惯养成"></a>Mid Game - 从长久计的打法习惯养成</h2><h3 id="关于默认打法"><a href="#关于默认打法" class="headerlink" title="关于默认打法"></a>关于默认打法</h3><h3 id="特定场景下的打法优化-实例分析（或许会有图文）"><a href="#特定场景下的打法优化-实例分析（或许会有图文）" class="headerlink" title="特定场景下的打法优化 &amp; 实例分析（或许会有图文）"></a>特定场景下的打法优化 &amp; 实例分析<del>（或许会有图文）</del></h3><h3 id="一些畸形打法"><a href="#一些畸形打法" class="headerlink" title="一些畸形打法"></a>一些畸形打法</h3><h3 id="关于延迟"><a href="#关于延迟" class="headerlink" title="关于延迟"></a>关于延迟</h3><h2 id="End-Game-心理博弈"><a href="#End-Game-心理博弈" class="headerlink" title="End Game - 心理博弈"></a>End Game - 心理博弈</h2><h3 id="技巧推测"><a href="#技巧推测" class="headerlink" title="技巧推测"></a>技巧推测</h3><h3 id="mt-时机把控"><a href="#mt-时机把控" class="headerlink" title="mt 时机把控"></a>mt 时机把控</h3><h3 id="其它博弈"><a href="#其它博弈" class="headerlink" title="其它博弈"></a>其它博弈</h3><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="观赏性-sumo"><a href="#观赏性-sumo" class="headerlink" title="观赏性 sumo"></a>观赏性 sumo</h3><h3 id="部分圈内玩家打法分析（不代表最新）"><a href="#部分圈内玩家打法分析（不代表最新）" class="headerlink" title="部分圈内玩家打法分析（不代表最新）"></a>部分圈内玩家打法分析（不代表最新）</h3><p>原本是想把这个放到打法优化那个 part 写的，在这里单独列出来</p>
+<p>很久以后再补吧 QAQ</p>
+<h3 id="黑客鉴别（不保证完全准确）"><a href="#黑客鉴别（不保证完全准确）" class="headerlink" title="黑客鉴别（不保证完全准确）"></a>黑客鉴别（不保证完全准确）</h3><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="http://lovexyn0827.space/mcdocs/docs/Minecraft%E5%AE%9E%E4%BD%93%E8%BF%90%E5%8A%A8%E7%A0%94%E7%A9%B6%E4%B8%8E%E5%BA%94%E7%94%A8/0-Minecraft%E5%AE%9E%E4%BD%93%E8%BF%90%E5%8A%A8%E7%9B%B8%E5%85%B3%E7%A0%94%E7%A9%B6%E4%B8%8E%E5%BA%94%E7%94%A8.html">Minecraft实体运动研究与应用 - lovexyn0827</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=nU9ExXBL9Ss">The only Minecraft sumo guide you’ll ever need - crracky</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=X0z7U6hRpLo">How Minecraft PvP really works - luzis</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=o-a0szldhs8">The ULTIMATE Guide to PING - sceyna</a></p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/sumo/" style="color: #ff7d73">sumo</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #00bcd4">博弈</a>
+        </span>
+        
+    </div>
+    <a href="/2025/08/07/tutorials@how-2-play-sumo/" class="go-post">MORE</a>
+</div>
+
+<div class="post">
     <a href="/2025/07/30/config@obs-blur-configure-sharing/">
         <h2 class="post-title">『录制 &amp; 渲染配置分享（OBS &amp; Blur）』</h2>
     </a>
@@ -284,90 +391,16 @@
         
         <span class="tag">
             
-            <a href="/tags/OBS/" style="color: #00bcd4">OBS</a>
+            <a href="/tags/OBS/" style="color: #00a596">OBS</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Blur/" style="color: #ff7d73">Blur</a>
+            <a href="/tags/Blur/" style="color: #00bcd4">Blur</a>
         </span>
         
     </div>
     <a href="/2025/07/30/config@obs-blur-configure-sharing/" class="go-post">MORE</a>
-</div>
-
-<div class="post">
-    <a href="/2025/07/30/config@lunarclient-configure-sharing/">
-        <h2 class="post-title">『Lunar Client 客户端配置分享』</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E9%85%8D%E7%BD%AE/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                配置
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/7/30
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>如果想要偷懒可以直接下载我的配置文件（只提供 Minecraft 和 Optfine 的配置文件，因为 LC 的太乱了）：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/config%40lunarclient-configure-sharing/options.txt">options</a> </p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/config%40lunarclient-configure-sharing/optionsof.txt">optionsof</a></p>
-<p>下载后将这两个文件移动到您的 <code>.mincraft</code> 文件夹中重启客户端即可获得同款效果</p>
-<p><code>options.txt</code> 文件中包含了按键绑定、鼠标灵敏度等因个人习惯而异的选项，酌情替换</p>
-<h2 id="Minecraft-Optfine-Settings"><a href="#Minecraft-Optfine-Settings" class="headerlink" title="Minecraft &amp; Optfine Settings"></a>Minecraft &amp; Optfine Settings</h2><h3 id="Chat-Settings"><a href="#Chat-Settings" class="headerlink" title="Chat Settings"></a>Chat Settings</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40lunarclient-configure-sharing/Chat-Settings.png?raw=true"></p>
-<h3 id="Music-Sound-Settings"><a href="#Music-Sound-Settings" class="headerlink" title="Music &amp; Sound Settings"></a>Music &amp; Sound Settings</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40lunarclient-configure-sharing/Music%26Sound-Options.png?raw=true"></p>
-<h3 id="Video-Settings"><a href="#Video-Settings" class="headerlink" title="Video Settings"></a>Video Settings</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40lunarclient-configure-sharing/Video-Settings.png?raw=true"></p>
-<p>亮度可以选择拉满，我拉到 80% 只是因为看着比较舒服（但是这图片截出来感觉颜色好脏）</p>
-<h3 id="Detail-Settings"><a href="#Detail-Settings" class="headerlink" title="Detail Settings"></a>Detail Settings</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40lunarclient-configure-sharing/Detail-Settings.png?raw=true"></p>
-<p>如果想要良好的迷雾效果，天空和星星选项一定要关闭。迷雾建议选择 Fancy，Fast 模式下的迷雾过度并不是很舒服</p>
-<h3 id="Animation-Settings"><a href="#Animation-Settings" class="headerlink" title="Animation Settings"></a>Animation Settings</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40lunarclient-configure-sharing/Animation-Settings.png?raw=true"></p>
-<h3 id="Quailty-Settings"><a href="#Quailty-Settings" class="headerlink" title="Quailty Settings"></a>Quailty Settings</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40lunarclient-configure-sharing/Quality-Settings.png?raw=true"></p>
-<h3 id="Performance-Settings"><a href="#Performance-Settings" class="headerlink" title="Performance Settings"></a>Performance Settings</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40lunarclient-configure-sharing/Performance-Settings.png?raw=true"></p>
-<p>在开启动态模糊 &#x2F; 光影的情况下 Fast Render 不可用。这些选项很多都可开可不开。根据您的需求和实际情况而定</p>
-<h3 id="Other-Settings"><a href="#Other-Settings" class="headerlink" title="Other Settings"></a>Other Settings</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40lunarclient-configure-sharing/Other-Settings.png?raw=true"></p>
-<h2 id="Lunar-Client-Settings"><a href="#Lunar-Client-Settings" class="headerlink" title="Lunar Client Settings"></a>Lunar Client Settings</h2>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/LunarClient/" style="color: #ffa2c4">LunarClient</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/Minecraft/" style="color: #ff7d73">Minecraft</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/Optfine/" style="color: #00a596">Optfine</a>
-        </span>
-        
-    </div>
-    <a href="/2025/07/30/config@lunarclient-configure-sharing/" class="go-post">MORE</a>
 </div>
 
 <div class="post">
@@ -609,17 +642,17 @@ template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123
         
         <span class="tag">
             
-            <a href="/tags/C/" style="color: #00a596">C++</a>
+            <a href="/tags/C/" style="color: #03a9f4">C++</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="color: #03a9f4">快读快写</a>
+            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="color: #ff7d73">快读快写</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="color: #ff7d73">模板</a>
+            <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="color: #00a596">模板</a>
         </span>
         
     </div>
@@ -646,7 +679,7 @@ template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123
         </div>
         <div class="name">Revethere₂₀₂₄</div>
         <div class="description">
-            <p>😶‍🌫️好想谈恋爱😶‍🌫️<br><del>INTP</del></p>
+            <p><del>INTP-A</del><br>好想谈恋爱 o.O</p>
 
         </div>
         

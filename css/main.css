@@ -693,8 +693,8 @@ strong {
     line-height: 2.5;
 }
 blockquote {
-    background: #d9e8ff6b;
-    border-left: 3px solid #1e3e3f;
+    background: #eccbe040;
+    border-left: 3px solid #ebb2d6a9;
     border-radius: 3px;
     margin: 15px 0;
     overflow: auto;
@@ -708,7 +708,7 @@ body {
     width: 100%;
 }
 code {
-    background: #f1d9e88d;
+    background: #ffddf47e;
     border-radius: 4px;
     line-height: 2.5;
     padding: 4px 8px;
