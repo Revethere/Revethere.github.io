@@ -252,6 +252,7 @@
 <p>文章中所有涉及的操作均通过 dbc 点击方式实现，同时您也需要熟练使用间隔点</p>
 <p>大部分技巧主要讲一下原理，极少部分会从底层分析</p>
 <p>有一些会重复出现，基本都是适用于多个 part 但是放单一 part 不方便</p>
+<p>为了方便表示，大部分 click 都用单数</p>
 <p><del>原本想试试图文的但是图片太难做了，受限于样式这种做视频其实会好点</del></p>
 <p><strong>因为某参考文献的实体机制是基于 1.16 的，我又没有 IDEA 反编译所以不保证完全正确 😗</strong></p>
 <p><strong>仅个人观点❗❗❗</strong></p>
@@ -309,11 +310,14 @@
 <li><p><strong>midtrade 反制（mt cm）</strong></p>
 <p>不会。</p>
 <p>会了再补 o.O</p>
+<p>其实也不算完全会</p>
+<p>反制手段要么就是 trade 回去，相互保持 trade（对于不会直接创下台的情景）；或者是 spam click</p>
+<p>都是等对面失误</p>
 <p>还有那什么高低位，也不懂（</p>
 </li>
 <li><p>air jump</p>
 <p>非常猎奇的我觉得应该不能称之为技巧的技巧，我一般对其解释为在服务端玩家被判定为 <code>onGround</code> 但在客户端玩家视角是在空中进行跳跃重置。非常有用，但是很吃 timing（似乎 1.8 更容易触发？）</p>
-<p>mmc 这个赛季（25.9.7 - ） air jump 触发的手感挺奇怪的，tap space 和触发 air jump 有延迟而且成功概率挺大，感觉 combo 时只要 3combos 没问题基本对面逃不了</p>
+<p>mmc 这个赛季（Season 9） air jump 触发的手感挺奇怪的，tap space 到触发 air jump 之间有延迟而且成功概率挺大，感觉 combo 时只要 3combos 没问题基本对面逃不了</p>
 </li>
 <li><p>backtrack（此 backtrack 非彼此 backtrack）</p>
 <p>其实就是 misplace 刀</p>
@@ -323,10 +327,44 @@
 <p>奇妙 😱</p>
 </li>
 </ul>
-<h3 id="关于-dbc-间隔点-kb"><a href="#关于-dbc-间隔点-kb" class="headerlink" title="关于 dbc 间隔点 &amp; kb"></a>关于 dbc 间隔点 &amp; kb</h3><p>在这里将两指分别敲击一次鼠标（一般为 4cps）的操作称为 1tc。一般的，8cps 间隔点简称为 2tc，12cps 为 3tc</p>
+<h3 id="关于-dbc-间隔点-kb"><a href="#关于-dbc-间隔点-kb" class="headerlink" title="关于 dbc 间隔点 &amp; kb"></a>关于 dbc 间隔点 &amp; kb</h3><p>在这里将两指分别敲击一次鼠标（一般为 4cps）的操作称为 1tc；一般地，8cps 间隔点简称为 2tc，12cps 为 3tc</p>
 <p><strong>这只是一种叫法</strong>，与有没有触发双倍点无关</p>
 <p><strong>相关减 kb 底层原理待补<del>其实是找不到文章（</del></strong></p>
-<h2 id="Mid-Game-从长久计的打法习惯养成"><a href="#Mid-Game-从长久计的打法习惯养成" class="headerlink" title="Mid Game - 从长久计的打法习惯养成"></a>Mid Game - 从长久计的打法习惯养成</h2><h3 id="关于默认打法"><a href="#关于默认打法" class="headerlink" title="关于默认打法"></a>关于默认打法</h3><p>毫无疑问有一个默认打法然后基于此打法进行衍生是极其重要的（听君一席话，如听一席话 😶‍🌫️</p>
+<h3 id="一些奇妙的想法"><a href="#一些奇妙的想法" class="headerlink" title="一些奇妙的想法"></a>一些奇妙的想法</h3><ul>
+<li><p>忘记从哪看的聊天记录了简单来说就是在 1gt 内你的点击无限接近于 12cps 并且不超过这个值（还是 13cps 来着我忘了），能够触发 double hit</p>
+<p>不知道这个是不是真的，毕竟触发条件相当严苛。如果是真的等哪天我能用 IDEA 了那我可就得去好好研究下代码了（</p>
+</li>
+<li><p>（不太合法的）减 kb 的新思路</p>
+<p>在解释这个思路之前，补充一点理论：</p>
+<ol>
+<li><p>Minecraft 中所有可运动实体都有一个 motion 的属性，这个属性可以认为是一个存储速度及运算其中间量和一个三维向量的容器；速度属性被表示为在一段时间内表示坐标值变化量的三维向量。但是此处不对这两个概念进行区分，后文不管是用 motion 还是速度可以相互转换</p>
+</li>
+<li><p>三个非常重要的公式</p>
+<p>$\frac{dv}{dt} &#x3D; a - fv$</p>
+<p>$\frac{v}{v_0} &#x3D; \lim\limits_{t_0 \to 0} (1 - f t_0)^{\frac{t}{t_0}}, a &#x3D; 0$</p>
+<p>$v &#x3D; v_0 e^{-ft} + \frac{a}{f} (1 - e^{-ft})$</p>
+<p>其中 $f$ 是阻力系数（这里仅考虑空气阻力和点击受到的减速效果的阻力，这里称为点击阻力），$t_0 &#x3D; 1 gt$ </p>
+<p><del>虽然都很重要</del>但最重要的是公式三，其描述了物体从初始到任意的整个时间 $t$ 内，速度的完整变化过程。但最重点的不是这个 😶‍🌫️</p>
+<p>最最重要但很显然的是，在 Minecraft 中这一设定无法精准实现，Minecraft 中最小的时间单位是 1gt，$dt$ 和 $t_0$ 显然无法小于 1gt。游戏中对于这一运算的实现简单来讲则是通过将受阻力的各轴对应的 motion 减去对应轴上以 $gt^{-1}$ 为单位的阻力系数的乘积；从物理上来说，实体在 $t_0$ 内的 motion 可以看作一个平均值 M，那么 motion 与阻力系数的乘积可视为其在 $t_0$ 时间内的冲量，即：</p>
+<p>$M_{作用后} &#x3D; M_{作用前} - f t_0 M_{作用前} &#x3D; (1 - f t_0)M_{作用前}$</p>
+<p>其中 $(1 - f t_0)$ 在这里称为速度乘数，记作 $k$。也就是说，实体受到阻力的本质就是 motion 乘以了这个数。这也就是为什么你刷到的有些减 kb 的分析很多是说速度乘以 0.6❗</p>
+</li>
+</ol>
+<p>接下来该进入正题了</p>
+<p>这里暂且不考虑击退刻的问题，假设玩家的 1s 内一直都受到击退（当然实际情况不是这样）</p>
+<p>对于分布均匀的 dbc 20cps，放到时间轴上大概长这样（左键可放大）：</p>
+<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/tutorials%40how-2-play-sumo/dbc-20cps-uniform-clicks.png?raw=true"></p>
+<p>玩家的 double click 每次只落在了一个 gt 上</p>
+<p>其 motion 受到阻力作用的时间（只考虑点击阻力）只有 10gt</p>
+<p>如果将点击偏移一下（大概半个 gt 左右）：</p>
+<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/tutorials%40how-2-play-sumo/dbc-20cps-uniform-clicks-both-ticks.png?raw=true"></p>
+<p>double click 的第一下落在上一 gt 末，第二下落在下一 gt 的开始，两次 click 分别落在了两个 gt 上。这样玩家在 1s（20gt）内都能受到阻力的作用</p>
+<p>恭喜你成为了胖子 🥳</p>
+<p>当然在现实中你的点击肯定不会这么均匀</p>
+<p>真实的点击大概长这样：</p>
+</li>
+</ul>
+<h2 id="Mid-Game-从长久计的打法习惯养"><a href="#Mid-Game-从长久计的打法习惯养" class="headerlink" title="Mid Game - 从长久计的打法习惯养"></a>Mid Game - 从长久计的打法习惯养</h2><h3 id="关于默认打法"><a href="#关于默认打法" class="headerlink" title="关于默认打法"></a>关于默认打法</h3><p>毫无疑问有一个默认打法然后基于此打法进行衍生是极其重要的（听君一席话，如听一席话 😶‍🌫️</p>
 <p>建议你的默认打法满足以下几点：</p>
 <ol>
 <li>尽可能地简洁</li>
@@ -423,17 +461,17 @@
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #00bcd4">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #ffa2c4">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/sumo/" style="color: #ff7d73">sumo</a>
+            <a href="/tags/sumo/" style="color: #00a596">sumo</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #00a596">博弈</a>
+            <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #ff7d73">博弈</a>
         </span>
         
     </div>
@@ -508,7 +546,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Blur/" style="color: #03a9f4">Blur</a>
+            <a href="/tags/Blur/" style="color: #ff7d73">Blur</a>
         </span>
         
     </div>
@@ -754,12 +792,12 @@ template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123
         
         <span class="tag">
             
-            <a href="/tags/C/" style="color: #03a9f4">C++</a>
+            <a href="/tags/C/" style="color: #00bcd4">C++</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="color: #ff7d73">快读快写</a>
+            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="color: #ffa2c4">快读快写</a>
         </span>
         
         <span class="tag">
