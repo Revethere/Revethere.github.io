@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>『这个 mod 将重新定义视频录制...』 | Revethere&#39;s Blog</title>
+    <meta name="author" content="Revethere₂₀₂₄" />
+    <meta name="description" content="Could it be MAGIC~" />
+    <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP, Code" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>REVETHERE&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;首页 | Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于 | About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档 | Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类 | Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签 | Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;REVETHERE&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">首页 | Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于 | About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档 | Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类 | Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签 | Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>『这个 mod 将重新定义视频录制...』</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/9/28
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E4%BB%8B%E7%BB%8D/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                介绍
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Minecraft/" style="color: #00a596">
+                    Minecraft
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/LunarClient/" style="color: #ffa2c4">
+                    LunarClient
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Rewind/" style="color: #03a9f4">
+                    Rewind
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前写过一篇<a href="https://revethere.github.io/2025/07/30/config@obs-blur-configure-sharing/">『录制 &amp; 渲染配置分享（OBS &amp; Blur）』</a></p>
+<p>后来调录制参数一直没调好过（</p>
+<p>120fps 下的素材跑 blur 之后就会变得非常非常糊 🤬，但是提高帧速率会带来更高的占用、游戏的卡顿以及可能卡炸的素材</p>
+<p>很难去找到一个平衡点</p>
+<p>Lunar 最近更新的新模组 Rewind，一定程度上解决了上述的问题：</p>
+<p><a target="_blank" rel="noopener" href="https://www.lunarclient.com/news/how-to-use-rewind-on-lunar-client?utm_source=launcher&utm_medium=blog-post&utm_campaign=lead">HOW TO USE REWIND ON LUNAR CLIENT</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=hr8tofL1U9I">Lunar Client | Introducing Rewind</a></p>
+<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/rewind-mod.png?raw=true"></p>
+<p><del>不要在意上面这张图左上角的 logo 为什么这么奇怪，扒不到高清的图拿 AI 跑的超清像素</del></p>
+<h2 id="Rewind-简介"><a href="#Rewind-简介" class="headerlink" title="Rewind 简介"></a>Rewind 简介</h2><p>Rewind 是一款功能全面的剪辑、录制和编辑软件，并完全集成于 Lunar Client。无需任何外部软件即可录制 Minecraft 游戏内容</p>
+<p>Rewind 提供广泛的功能。与大多数编辑软件一样，可以导入视频媒体，并进行组织和修剪。该 mod 专为 Minecraft 和 Lunar Client 量身定制</p>
+<h2 id="如何导出"><a href="#如何导出" class="headerlink" title="如何导出"></a>如何导出</h2><h3 id="Rewind-设置"><a href="#Rewind-设置" class="headerlink" title="Rewind 设置"></a>Rewind 设置</h3><p>启动界面进入 Rewind Editor：</p>
+<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/rewind-editor.png?raw=true"></p>
+<p>选择你刚才的 Recording，创建项目</p>
+<p>分辨率（Resolution）建议选择你玩游戏时的分辨率，不然 ui 大小会变，非常难受 ):):):</p>
+<p>帧率（framerate）建议直接拉满，毕竟后续还要变速</p>
+<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/create-project.png?raw=true"></p>
+<p>进入后在 Properties 功能区中将 Speed 选项拉到 0.25（根据情况而定，拉的越低后续渲染会更舒服，但是导出时间也会更长）</p>
+<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/rewind-properties.png?raw=true"></p>
+<h3 id="时间对比"><a href="#时间对比" class="headerlink" title="时间对比"></a>时间对比</h3><p>电脑配置：</p>
+<ul>
+<li>CPU : Intel(R) Core(TM) Ultra 9 285H</li>
+<li>GPU : NVIDIA GeForce RTX 5080 Laptop GPU</li>
+</ul>
+<p>开启性能模式</p>
+<p>相同 15s 素材，1440p</p>
+<table>
+<thead>
+<tr>
+<th align="left">时间线帧率</th>
+<th>慢放倍数</th>
+<th>时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">120fps</td>
+<td>0.2</td>
+<td>1 : 42</td>
+</tr>
+<tr>
+<td align="left">240fps</td>
+<td>0.4</td>
+<td>1 : 38</td>
+</tr>
+<tr>
+<td align="left">240fps</td>
+<td>0.25</td>
+<td>2 : 55</td>
+</tr>
+</tbody></table>
+<p>120fps 与 240fps 导出时间的误差可以忽略不计</p>
+<h3 id="Blur-设置"><a href="#Blur-设置" class="headerlink" title="Blur 设置"></a>Blur 设置</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/blur-config_0.png?raw=true"></p>
+<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/blur-config_1.png?raw=true"></p>
+<p>output timescale 根据你原素材慢放倍数进行调整</p>
+<p>注意需要一条没有变速的素材的音频轨道</p>
+<h3 id="动态模糊渲染对比"><a href="#动态模糊渲染对比" class="headerlink" title="动态模糊渲染对比"></a>动态模糊渲染对比</h3><p>左 960 -&gt; 60，右 600 -&gt; 60</p>
+<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/rendering-comparison.png?raw=true"></p>
+<h2 id="其它功能"><a href="#其它功能" class="headerlink" title="其它功能"></a>其它功能</h2><p>自己摸索摸索吧，这次更新的这个 mod 真的挺好 $\phantom{其实是懒(}$</p>
+<p>甚至能做绿幕❗</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2024 - 2025 Revethere&#39;s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Revethere₂₀₂₄
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+
+    <canvas
+        id="background"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+    ></canvas>
+    <script src="/js/background.min.js"></script>
+
+    <canvas
+        id="fireworks"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+    ></canvas>
+    <script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="/js/fireworks.min.js"></script>
+
+    
+    
+
+
+
+
+    
+</body>
+</html>

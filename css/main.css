@@ -784,13 +784,13 @@ table:not(.hljs-ln) {
     margin: 15px 0;
 }
 table:not(.hljs-ln) td:nth-child(even) {
-    background: #c7e0fb4d;
+    background: #db9ec521;
 }
 table:not(.hljs-ln) td:nth-child(odd) {
-    background: #d9e8ff4d;
+    background: #e0adce1a;
 }
 table:not(.hljs-ln) th {
-    background: #a3ddfb;
+    background: #ea97cd41;
 }
 table:not(.hljs-ln) tr th,
 table:not(.hljs-ln) tr td {
