@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>Revethere&#39;s Blog</title>
+    <title>『sumo 打法教学 &amp; 浅层理论分析 &amp; 心理博弈』 | Revethere&#39;s Blog</title>
     <meta name="author" content="Revethere₂₀₂₄" />
     <meta name="description" content="Could it be MAGIC~" />
     <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP, Code" />
@@ -47,7 +47,9 @@
 
 
 
-<script src="/js/lib/home.js"></script>
+
+
+
 
 
 <link rel="stylesheet" href="/css/main.css" />
@@ -158,198 +160,17 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="home-head">
-    <div
-        id="home-background"
-        ref="homeBackground"
-        data-images="/images/background_01.png,/images/background_02.png,/images/background_03.png,/images/background_04.png,/images/background_05.png,/images/background_06.png,/images/background_07.png"
-    ></div>
-    <div id="home-info" @click="homeClick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>Revethere&#39;s Blog</h1>
-                <h3>分享一些超级有用的芝士</h3>
-                <h5>Could it be MAGIC~</h5>
-            </div>
-        </span>
+            <div class="article">
+    <div>
+        <h1>『sumo 打法教学 &amp; 浅层理论分析 &amp; 心理博弈』</h1>
     </div>
-</div>
-<div
-    id="home-posts-wrap"
-    ref="homePostsWrap"
-    true
->
-    <div id="home-posts">
-        
-
-<div class="post">
-    <a href="/posts/logs/">
-        <h2 class="post-title">『博客日志 &amp; 大事祭』</h2>
-    </a>
-    <div class="category-and-date">
-        
+    <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/6/1
+            2025/8/7
         </span>
-        
-        
-        <span class="special">
-            <i class="fa-solid fa-grip-vertical fa-fw"></i>
-        </span>
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>25.6.1 emm 好久好久没写博客了删了点东西就当重新开始吧 😉</p>
-<p>25.10.11 压缩了博客的大部分图片，提高响应速度</p>
-<p>25.11.9</p>
-<ul>
-<li>permalinks 更新，由 <code>:year/:month/:day/:title</code> 转为 <code>posts/:title</code></li>
-<li>per_page 由每页 8 篇变为每页 5 篇文章</li>
-</ul>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/posts/logs/" class="go-post">MORE</a>
-</div>
-
-<div class="post">
-    <a href="/posts/introduction@rewind-mod-redefine-video-recording/">
-        <h2 class="post-title">『这个 mod 将重新定义视频录制...』</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E4%BB%8B%E7%BB%8D/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                介绍
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/9/28
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前写过一篇<a href="https://revethere.github.io/2025/07/30/config@obs-blur-configure-sharing/">『录制 &amp; 渲染配置分享（OBS &amp; Blur）』</a></p>
-<p>后来调录制参数一直没调好过（</p>
-<p>120fps 下的素材跑 blur 之后就会变得非常非常糊 🤬，但是提高帧速率会带来更高的占用、游戏的卡顿以及可能卡炸的素材</p>
-<p>很难去找到一个平衡点</p>
-<p>Lunar 最近更新的新模组 Rewind，一定程度上解决了上述的问题：</p>
-<p><a target="_blank" rel="noopener" href="https://www.lunarclient.com/news/how-to-use-rewind-on-lunar-client?utm_source=launcher&utm_medium=blog-post&utm_campaign=lead">HOW TO USE REWIND ON LUNAR CLIENT</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=hr8tofL1U9I">Lunar Client | Introducing Rewind</a></p>
-<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/rewind-mod.png?raw=true"></p>
-<p><del>不要在意上面这张图左上角的 logo 为什么这么奇怪，扒不到高清的图拿 AI 跑的超清像素</del></p>
-<h2 id="Rewind-简介"><a href="#Rewind-简介" class="headerlink" title="Rewind 简介"></a>Rewind 简介</h2><p>Rewind 是一款功能全面的剪辑、录制和编辑软件，并完全集成于 Lunar Client。无需任何外部软件即可录制 Minecraft 游戏内容</p>
-<p>Rewind 提供广泛的功能。与大多数编辑软件一样，可以导入视频媒体，并进行组织和修剪。该 mod 专为 Minecraft 和 Lunar Client 量身定制</p>
-<h2 id="如何导出"><a href="#如何导出" class="headerlink" title="如何导出"></a>如何导出</h2><h3 id="Rewind-设置"><a href="#Rewind-设置" class="headerlink" title="Rewind 设置"></a>Rewind 设置</h3><p>启动界面进入 Rewind Editor：</p>
-<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/rewind-editor.png?raw=true"></p>
-<p>选择你刚才的 Recording，创建项目</p>
-<p>分辨率（Resolution）建议选择你玩游戏时的分辨率，不然 ui 大小会变，非常难受 ):):):</p>
-<p>帧率（framerate）建议直接拉满，毕竟后续还要变速</p>
-<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/create-project.png?raw=true"></p>
-<p>进入后在 Properties 功能区中将 Speed 选项拉到 0.25（根据情况而定，拉的越低后续渲染会更舒服，但是导出时间也会更长）</p>
-<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/rewind-properties.png?raw=true"></p>
-<h3 id="时间对比"><a href="#时间对比" class="headerlink" title="时间对比"></a>时间对比</h3><p>电脑配置：</p>
-<ul>
-<li>CPU : Intel(R) Core(TM) Ultra 9 285H</li>
-<li>GPU : NVIDIA GeForce RTX 5080 Laptop GPU</li>
-</ul>
-<p>开启性能模式</p>
-<p>相同 15s 素材，1440p</p>
-<table>
-<thead>
-<tr>
-<th align="left">时间线帧率</th>
-<th>慢放倍数</th>
-<th>时间</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">120fps</td>
-<td>0.2</td>
-<td>1 : 42</td>
-</tr>
-<tr>
-<td align="left">240fps</td>
-<td>0.4</td>
-<td>1 : 38</td>
-</tr>
-<tr>
-<td align="left">240fps</td>
-<td>0.25</td>
-<td>2 : 55</td>
-</tr>
-</tbody></table>
-<p>120fps 与 240fps 导出时间的误差可以忽略不计</p>
-<h3 id="Blur-设置"><a href="#Blur-设置" class="headerlink" title="Blur 设置"></a>Blur 设置</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/blur-config_0.png?raw=true"></p>
-<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/blur-config_1.png?raw=true"></p>
-<p>output timescale 根据你原素材慢放倍数进行调整</p>
-<p>注意需要一条没有变速的素材的音频轨道</p>
-<h3 id="动态模糊渲染对比"><a href="#动态模糊渲染对比" class="headerlink" title="动态模糊渲染对比"></a>动态模糊渲染对比</h3><p>左 960 -&gt; 60，右 600 -&gt; 60</p>
-<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/rendering-comparison.png?raw=true"></p>
-<p>渲染效果 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pnHWzkEbY">Render Test #7 ( Recorded by Rewind ) - Revethere</a></p>
-<h2 id="其它功能"><a href="#其它功能" class="headerlink" title="其它功能"></a>其它功能</h2><p>自己摸索摸索吧，这次更新的这个 mod 真的挺好 $\phantom{其实是懒(}$</p>
-<p>甚至能做绿幕❗</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Minecraft/" style="color: #03a9f4">Minecraft</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/LunarClient/" style="color: #00a596">LunarClient</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/Rewind/" style="color: #ffa2c4">Rewind</a>
-        </span>
-        
-    </div>
-    <a href="/posts/introduction@rewind-mod-redefine-video-recording/" class="go-post">MORE</a>
-</div>
-
-<div class="post">
-    <a href="/posts/tutorials@how-2-play-sumo/">
-        <h2 class="post-title">『sumo 打法教学 &amp; 浅层理论分析 &amp; 心理博弈』</h2>
-    </a>
-    <div class="category-and-date">
         
         <span class="category">
             <a href="/categories/%E6%95%99%E7%A8%8B/">
@@ -360,19 +181,40 @@
             </a>
         </span>
         
-        <span class="date">
+        
+        <span class="tags">
             <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
+                <i class="fa-solid fa-tags fa-fw"></i>
             </span>
-            2025/8/7
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Minecraft/" style="color: #ff7d73">
+                    Minecraft
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/sumo/" style="color: #00bcd4">
+                    sumo
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #00a596">
+                    博弈
+                </a>
+            </span>
+            
         </span>
         
-        
     </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h2 id="阅读文章前，你需要知道的…"><a href="#阅读文章前，你需要知道的…" class="headerlink" title="阅读文章前，你需要知道的…"></a>阅读文章前，你需要知道的…</h2><ul>
+    
+    <div class="content" v-pre>
+        <h2 id="阅读文章前，你需要知道的…"><a href="#阅读文章前，你需要知道的…" class="headerlink" title="阅读文章前，你需要知道的…"></a>阅读文章前，你需要知道的…</h2><ul>
 <li><p>文章中所有的定义（以及一些生僻概念）仅为了规范与统一文章的内容，<strong>不代表圈内叫法</strong>👌🏼</p>
 </li>
 <li><p>文章中所有涉及的操作均通过 dbc 点击方式实现，同时您也需要熟练使用间隔点</p>
@@ -628,444 +470,13 @@
 <p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=o-a0szldhs8">The ULTIMATE Guide to PING - sceyna</a></p>
 <h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>25.10.6 -（主体）完结撒花🥰🥳🎉</p>
 
-            
-        </div>
     </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Minecraft/" style="color: #ff7d73">Minecraft</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/sumo/" style="color: #00a596">sumo</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #00bcd4">博弈</a>
-        </span>
-        
-    </div>
-    <a href="/posts/tutorials@how-2-play-sumo/" class="go-post">MORE</a>
-</div>
-
-<div class="post">
-    <a href="/posts/config@obs-blur-configure-sharing/">
-        <h2 class="post-title">『录制 &amp; 渲染配置分享（OBS &amp; Blur）』</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E9%85%8D%E7%BD%AE/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                配置
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/7/30
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>超级省流版：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/config%40obs-blur-configure-sharing/recordEncoder.json">编码器配置文件</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/config%40obs-blur-configure-sharing/.blur-config.cfg">Blur 渲染配置文件</a></p>
-<h2 id="OBS-设置"><a href="#OBS-设置" class="headerlink" title="OBS 设置"></a>OBS 设置</h2><h3 id="常规设置"><a href="#常规设置" class="headerlink" title="常规设置"></a>常规设置</h3><h3 id=""><a href="#" class="headerlink" title=""></a><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40obs-blur-configure-sharing/conventional.png?raw=true"></h3><h3 id="录制设置"><a href="#录制设置" class="headerlink" title="录制设置"></a>录制设置</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40obs-blur-configure-sharing/record.png?raw=true"></p>
-<h3 id="编码器设置"><a href="#编码器设置" class="headerlink" title="编码器设置"></a>编码器设置</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40obs-blur-configure-sharing/encode.png?raw=true"></p>
-<h3 id="一些录制建议"><a href="#一些录制建议" class="headerlink" title="一些录制建议"></a>一些录制建议</h3><p>分辨率一般建议缩放为 1080p，略微提高分辨率后期做视频的容错更高，酌情选择</p>
-<p>录制帧数 120fps 在进行渲染后基本够用，B 站压缩后与 240fps 的渲染差别应该不大</p>
-<p>如果你的内存足够用的话选择 H.264 编码器也无妨。</p>
-<ul>
-<li><p>240fps、1080p 的录制规格下 H.264 的视频码率大约在 100mbps 左右？</p>
-</li>
-<li><p>240fps、2k 的录制规格下 H.265 编码的视频码率大约在 45mbps 左右，以此类推</p>
-</li>
-</ul>
-<p>目标质量设为 16 为视觉无损，大部分情况也够用，更高的质量带来的视频观感的提升并不明显</p>
-<h2 id="Blur-设置"><a href="#Blur-设置" class="headerlink" title="Blur 设置"></a>Blur 设置</h2><p><a target="_blank" rel="noopener" href="https://github.com/f0e/blur/releases/latest">软件下载</a></p>
-<h3 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40obs-blur-configure-sharing/blur-config_0.png?raw=true"></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40obs-blur-configure-sharing/blur-config_1.png?raw=true"></h3><h3 id="一些渲染建议-错误处理"><a href="#一些渲染建议-错误处理" class="headerlink" title="一些渲染建议 &amp; 错误处理"></a>一些渲染建议 &amp; 错误处理</h3><p>blur-weighting 建议选择 vegas（目前观感最好）</p>
-<p>插针倍数（interpolated fps）不建议超过 6x，建议使用 svp 而不是 rife 模式进行插针（否则您将会体验到非常慢的速度以及报错的视频）</p>
-<p>AI 补帧（pre-interpolation）视个人喜好而定，开启画面会有一种粘腻感。倍数越高，渲染速度越慢</p>
-<p>质量（quality）拉到 16 差不多就够了，似乎是因为软件没有进行多次编码导致输出文件过于庞大（如果您不在意内存消耗可以掠过）</p>
-<p>如果你遇到了与该 <a target="_blank" rel="noopener" href="https://github.com/f0e/blur/issues/226">issues</a> 相同的问题，尝试关闭 GPU 编码，如果还是不行，请重置渲染设置</p>
-<p>更多详见 <a target="_blank" rel="noopener" href="https://github.com/f0e/blur/blob/master/README.md">README</a></p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/OBS/" style="color: #03a9f4">OBS</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/Blur/" style="color: #ff7d73">Blur</a>
-        </span>
-        
-    </div>
-    <a href="/posts/config@obs-blur-configure-sharing/" class="go-post">MORE</a>
-</div>
-
-<div class="post">
-    <a href="/posts/code@cplusplus-fastio/">
-        <h2 class="post-title">『奇淫巧技之最强 C++ 封装快读快写模板』</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E7%AB%9E%E8%B5%9B/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                竞赛
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/7/26
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>源码见 <a target="_blank" rel="noopener" href="https://github.com/Revethere/Algorithm/blob/master/IO/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99%20-%20BetterIO/BetterIO.cpp">Github</a></p>
-<p>或直接在以下代码块中直接复制：</p>
-<pre><code class="cpp">#include &lt;iostream&gt;
-#include &lt;cstring&gt;
-#include &lt;cstdio&gt;
-#include &lt;string&gt;
-#include &lt;new&gt;
-#include &lt;type_traits&gt;
-
-namespace BetterIO &#123;
-    namespace ExtraType &#123;
-        inline bool isDigit(const char &amp;ch) &#123;
-            return &#39;0&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;9&#39;;
-        &#125;
-        inline bool isLetter(const char &amp;ch) &#123;
-            return &#39;A&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;Z&#39;
-                || &#39;a&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;z&#39;;
-        &#125;
-        inline bool isChar(const char &amp;ch) &#123;
-            return isDigit(ch) || isLetter(ch);
-        &#125;
-        inline bool isVaild(const char &amp;ch) &#123;
-            return &#39;!&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;~&#39;;
-        &#125;
-    &#125;
-    using std::string, std::is_same_v;
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 1 &lt;&lt; 16
-#endif
-    class betterInput &#123;
-        FILE *stream;
-        char *buffer, *iter;
-        int buffer_size, volume;
-        void input() &#123;
-            volume = fread(buffer, 1, buffer_size, stream);
-            iter = buffer;
-        &#125;
-        inline void getChar(void) &#123;
-            if(iter - buffer == volume) input();
-            else ++iter;
-        &#125;
-    public:
-        betterInput(FILE *stream = stdin) &#123;
-            this -&gt; stream = stream;
-            buffer_size = BUFFER_SIZE;
-            buffer = new char [buffer_size];
-            iter = buffer;
-            volume = 0;
-        &#125;
-        template &lt;typename _Tp&gt; betterInput&amp; operator &gt;&gt; (_Tp &amp;var) &#123;
-            if constexpr(is_same_v&lt;_Tp, char&gt; || is_same_v&lt;_Tp, string&gt;) return inputCharType(var);
-            else &#123;
-                static bool neg = false;
-                while(!ExtraType::isDigit(*iter)) &#123;
-                    neg ^= *iter == &#39;-&#39;;
-                    getChar();
-                &#125;
-                var = 0;
-                if constexpr(is_same_v&lt;_Tp, float&gt; || is_same_v&lt;_Tp, double&gt;) return inputFloat(var, neg);
-                else &#123;
-                    while(ExtraType::isDigit(*iter)) &#123;
-                        var = (var &lt;&lt; 1) + (var &lt;&lt; 3) + (*iter ^ &#39;0&#39;);
-                        getChar();
-                    &#125;
-                    if(neg) var = ~var + 1;
-                &#125;
-            &#125;
-            return *this;
-        &#125;
-        template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123;
-            while(!ExtraType::isVaild(*iter)) getChar();
-            if constexpr(is_same_v&lt;_Tp, char&gt;) var = *iter, getChar();
-            else &#123;
-                var.clear();
-                while(ExtraType::isVaild(*iter)) &#123;
-                    var.push_back(*iter);
-                    getChar();
-                &#125;
-            &#125;
-            return *this;
-        &#125;
-        template &lt;typename _Tp&gt; betterInput&amp; inputFloat(_Tp &amp;var, const bool &amp;neg) &#123;
-            while(ExtraType::isDigit(*iter)) &#123;
-                var = var * 10 + (*iter ^ &#39;0&#39;);
-                getChar();
-            &#125;
-            if(*iter == &#39;.&#39;) &#123;
-                getChar(); 
-                _Tp dec = 0.1;
-                while(ExtraType::isDigit(*iter)) &#123;
-                    var += dec * (*iter ^ &#39;0&#39;);
-                    dec /= 10;
-                    getChar();
-                &#125;
-            &#125; else getChar();
-            if(neg) var = -var;
-            return *this;
-        &#125;
-        ~betterInput() &#123; delete[] buffer; &#125;
-    &#125;;
-    class betterOutput &#123;
-        FILE *stream;
-        char *buffer;
-        int buffer_size, volume;
-        inline void putChar(const char &amp;ch) &#123;
-            if(buffer_size == volume) flush();
-            buffer[volume++] = ch;
-        &#125;
-    public:
-        betterOutput(FILE *stream = stdout) &#123;
-            this -&gt; stream = stream;
-            buffer_size = BUFFER_SIZE;
-            buffer = new char [buffer_size];
-            volume = 0;
-        &#125;
-        void flush(void) &#123;
-            fwrite(buffer, 1, volume, stream);
-            volume = 0;
-        &#125;
-        template &lt;typename _Tp&gt; betterOutput&amp; operator &lt;&lt; (_Tp var) &#123;
-            if(var &lt; 0) putChar(&#39;-&#39;), var = -var;
-            if constexpr(is_same_v&lt;_Tp, float&gt; || is_same_v&lt;_Tp, double&gt;) return outputFloat(var);
-            else &#123;
-                static char digit[25];
-                static short cur = 0;
-                do digit[cur++] = static_cast&lt;char&gt; (var % 10 + &#39;0&#39;); while(var /= 10);
-                while(cur) putChar(digit[--cur]);
-            &#125;
-            return *this;
-        &#125;
-        betterOutput&amp; operator &lt;&lt; (const char &amp;var) &#123;
-            putChar(var);
-            return *this;
-        &#125;
-        betterOutput&amp; operator &lt;&lt; (const char *var) &#123;
-            while(*var) putChar(*var++);
-            return *this;
-        &#125;
-        betterOutput&amp; operator &lt;&lt; (const string &amp;var) &#123;
-            for(auto cur: var) putChar(cur);
-            return *this;
-        &#125;
-        template &lt;typename _Tp&gt; betterOutput&amp; outputFloat(_Tp &amp;var) &#123;
-            const string str_var = std::to_string(var);
-            for(auto cur: str_var) putChar(cur);
-            return *this;
-        &#125;
-        ~betterOutput() &#123; flush(); delete[] buffer; &#125;
-    &#125;;
-#undef BUFFER_SIZE
-&#125;
-
-signed main() &#123;
-
-    return 0;
-&#125;
-</code></pre>
-<h2 id="模板简介"><a href="#模板简介" class="headerlink" title="模板简介"></a>模板简介</h2><p>为了更好地食用模板，<strong>请务必仔细阅读以下内容</strong></p>
-<ul>
-<li><p>完整版代码长度4.7k，不考虑写成头文件（毕竟竞赛没有多文件）。或者也可以选择 <a target="_blank" rel="noopener" href="https://github.com/Revethere/Algorithm/blob/master/IO/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99%20-%20BetterIO/BetterIO%20-%20Lite.cpp">Lite 版</a> 模板</p>
-</li>
-<li><p>使用 <code>fread/fwrite</code> 函数实现。默认缓冲区大小为 $2^{16}$，也可以通过更改模板中 <code>BUFFER_SIZE</code> 的值来更改缓冲区大小（不建议超过 $2^{23}$）</p>
-</li>
-<li><p>重载了 <code>&gt;&gt;</code> 和 <code>&lt;&lt;</code>，可以像使用 <code>cin/cout</code> 的方式来进行读写</p>
-</li>
-<li><p>不要与相应的输入输出流<strong>混合使用</strong>（比如同时使用 <code>fread</code> 和 <code>cin</code>，<code>fwrite</code> 和 <code>cout</code>），<code>fread/fwrite</code>是一次性从缓存中读取 &#x2F; 输出数据，混合使用会导致变量数据错误等无法解决的问题</p>
-<p>支持 Linux 和 Windows 环境，<strong>如果可能</strong>，<strong>会尝试</strong>写一个 <code>mmap</code> 版本（Windows下通过 <code>CreateFileMapping</code> 实现）</p>
-</li>
-<li><p>经调试应该没有什么大的问题，如果有的话可以 Luogu 私信我，会尽快修改</p>
-<p><strong>请保证您传入的参数是合法的，出现任何未知的问题概不负责</strong></p>
-</li>
-</ul>
-<h2 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h2><ul>
-<li><p>若要使用此模板，请通过 <code>BetterIO::betterInput in</code> 和 <code>BetterIO::betterOutput out</code> 来创建对象</p>
-</li>
-<li><p>支持整形、字符、字符串、浮点数的输入，整形、字符、字符串、浮点数、<code>char*</code> 的输出（在现在的竞赛环境下几乎不会用到 <code>char*</code> 类型的输入，故舍弃）</p>
-<p>关于 <code>bool</code> 类型的数据，对其单独写一个输入 &#x2F; 输出函数是没有任何意义的，故舍弃</p>
-</li>
-<li><p>您可以使用 <code>in &gt;&gt; x;</code> 读入一个以上任意的一个类型的数据，使用 <code>in &gt;&gt; x &gt;&gt; y &gt;&gt; z &gt;&gt; ...;</code> 读入任意个以上支持的数据类型</p>
-</li>
-<li><p>对于 <code>char</code> 与 <code>std::string</code> 类型的输入，默认有效字符的范围为 ACSII 码表中的 33 至 126</p>
-<p>您可以通过更改以上输入类型的判定条件输入特定字符范围的数据</p>
-<pre><code class="cpp">...
-template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123;
-    while(!ExtraType::isVaild(*iter)) getChar(); // 更改 ExtraType::isVaild 函数以输入特定字符范围数据
-        if constexpr(is_same_v&lt;_Tp, char&gt;) var = *iter, getChar();
-...
-</code></pre>
-</li>
-<li><p><strong>命令行</strong>输入完数据后，使用 <code>ctrl + z</code> 刷新缓冲读入数据。文件流无需注意此项</p>
-</li>
-<li><p>您可以使用 <code>out &lt;&lt; x;</code> 输出一个以上任意的一个类型的数据，使用 <code>out &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z ...;</code> 输出任意个以上支持的数据类型（带空格）</p>
-</li>
-<li><p>对于浮点类型的数据（<code>float</code> 和 <code>double</code>），默认输出精度为 6 位小数，<strong>不支持更改精度</strong><del>绝不是我太懒了懒得写</del></p>
-<p>若有其它精度输出的需求请用其它输出方式</p>
-</li>
-</ul>
-<h2 id="性能比较"><a href="#性能比较" class="headerlink" title="性能比较"></a>性能比较</h2><p>待补 —— 25.7.26</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/C/" style="color: #00a596">C++</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="color: #00bcd4">快读快写</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="color: #ffa2c4">模板</a>
-        </span>
-        
-    </div>
-    <a href="/posts/code@cplusplus-fastio/" class="go-post">MORE</a>
-</div>
-
-
-        <div class="page-current">
     
-    <span class="current">1</span>
     
     
     
     
-</div>
-
-    </div>
     
-    <div id="home-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="/images/avatar.jpg" alt="avatar" />
-        </div>
-        <div class="name">Revethere₂₀₂₄</div>
-        <div class="description">
-            <p>INTP-A<br>好想谈恋爱 😳</p>
-
-        </div>
-        
-        <div class="icon-links">
-            
-            <span class="icon-link">
-                <a href="mailto:neverland-revethere@outlook.com">
-                    <i
-                        class="fa-solid fa-envelope fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=103325164&site=qq&menu=yes">
-                    <i
-                        class="fa-brands fa-qq fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://github.com/Revethere">
-                    <i
-                        class="fa-brands fa-github fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://space.bilibili.com/3493089175931788">
-                    <i
-                        class="fa-brands fa-bilibili fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-        </div>
-        
-        
-        <div class="friend-links">
-            
-            <div class="friend-link">
-                <a href="https:/revethere.github.io/">Revethere</a>
-            </div>
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://aimerny.top/">Aimerny</a>
-            </div>
-            
-        </div>
-        
-    </div>
-</div>
-
-    </div>
     
 </div>
 
@@ -1110,6 +521,12 @@ template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123
     ></canvas>
     <script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="/js/fireworks.min.js"></script>
+
+    
+    
+
+
+
 
     
 </body>

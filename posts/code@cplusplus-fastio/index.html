@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>『奇淫巧技之最强 C++ 封装快读快写模板』 | Revethere&#39;s Blog</title>
+    <meta name="author" content="Revethere₂₀₂₄" />
+    <meta name="description" content="Could it be MAGIC~" />
+    <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP, Code" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>REVETHERE&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;首页 | Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于 | About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档 | Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类 | Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签 | Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;REVETHERE&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">首页 | Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于 | About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档 | Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类 | Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签 | Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>『奇淫巧技之最强 C++ 封装快读快写模板』</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/7/26
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%AB%9E%E8%B5%9B/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                竞赛
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/C/" style="color: #00a596">
+                    C++
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="color: #03a9f4">
+                    快读快写
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="color: #00a596">
+                    模板
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>源码见 <a target="_blank" rel="noopener" href="https://github.com/Revethere/Algorithm/blob/master/IO/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99%20-%20BetterIO/BetterIO.cpp">Github</a></p>
+<p>或直接在以下代码块中直接复制：</p>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;cstdio&gt;
+#include &lt;string&gt;
+#include &lt;new&gt;
+#include &lt;type_traits&gt;
+
+namespace BetterIO &#123;
+    namespace ExtraType &#123;
+        inline bool isDigit(const char &amp;ch) &#123;
+            return &#39;0&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;9&#39;;
+        &#125;
+        inline bool isLetter(const char &amp;ch) &#123;
+            return &#39;A&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;Z&#39;
+                || &#39;a&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;z&#39;;
+        &#125;
+        inline bool isChar(const char &amp;ch) &#123;
+            return isDigit(ch) || isLetter(ch);
+        &#125;
+        inline bool isVaild(const char &amp;ch) &#123;
+            return &#39;!&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;~&#39;;
+        &#125;
+    &#125;
+    using std::string, std::is_same_v;
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 1 &lt;&lt; 16
+#endif
+    class betterInput &#123;
+        FILE *stream;
+        char *buffer, *iter;
+        int buffer_size, volume;
+        void input() &#123;
+            volume = fread(buffer, 1, buffer_size, stream);
+            iter = buffer;
+        &#125;
+        inline void getChar(void) &#123;
+            if(iter - buffer == volume) input();
+            else ++iter;
+        &#125;
+    public:
+        betterInput(FILE *stream = stdin) &#123;
+            this -&gt; stream = stream;
+            buffer_size = BUFFER_SIZE;
+            buffer = new char [buffer_size];
+            iter = buffer;
+            volume = 0;
+        &#125;
+        template &lt;typename _Tp&gt; betterInput&amp; operator &gt;&gt; (_Tp &amp;var) &#123;
+            if constexpr(is_same_v&lt;_Tp, char&gt; || is_same_v&lt;_Tp, string&gt;) return inputCharType(var);
+            else &#123;
+                static bool neg = false;
+                while(!ExtraType::isDigit(*iter)) &#123;
+                    neg ^= *iter == &#39;-&#39;;
+                    getChar();
+                &#125;
+                var = 0;
+                if constexpr(is_same_v&lt;_Tp, float&gt; || is_same_v&lt;_Tp, double&gt;) return inputFloat(var, neg);
+                else &#123;
+                    while(ExtraType::isDigit(*iter)) &#123;
+                        var = (var &lt;&lt; 1) + (var &lt;&lt; 3) + (*iter ^ &#39;0&#39;);
+                        getChar();
+                    &#125;
+                    if(neg) var = ~var + 1;
+                &#125;
+            &#125;
+            return *this;
+        &#125;
+        template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123;
+            while(!ExtraType::isVaild(*iter)) getChar();
+            if constexpr(is_same_v&lt;_Tp, char&gt;) var = *iter, getChar();
+            else &#123;
+                var.clear();
+                while(ExtraType::isVaild(*iter)) &#123;
+                    var.push_back(*iter);
+                    getChar();
+                &#125;
+            &#125;
+            return *this;
+        &#125;
+        template &lt;typename _Tp&gt; betterInput&amp; inputFloat(_Tp &amp;var, const bool &amp;neg) &#123;
+            while(ExtraType::isDigit(*iter)) &#123;
+                var = var * 10 + (*iter ^ &#39;0&#39;);
+                getChar();
+            &#125;
+            if(*iter == &#39;.&#39;) &#123;
+                getChar(); 
+                _Tp dec = 0.1;
+                while(ExtraType::isDigit(*iter)) &#123;
+                    var += dec * (*iter ^ &#39;0&#39;);
+                    dec /= 10;
+                    getChar();
+                &#125;
+            &#125; else getChar();
+            if(neg) var = -var;
+            return *this;
+        &#125;
+        ~betterInput() &#123; delete[] buffer; &#125;
+    &#125;;
+    class betterOutput &#123;
+        FILE *stream;
+        char *buffer;
+        int buffer_size, volume;
+        inline void putChar(const char &amp;ch) &#123;
+            if(buffer_size == volume) flush();
+            buffer[volume++] = ch;
+        &#125;
+    public:
+        betterOutput(FILE *stream = stdout) &#123;
+            this -&gt; stream = stream;
+            buffer_size = BUFFER_SIZE;
+            buffer = new char [buffer_size];
+            volume = 0;
+        &#125;
+        void flush(void) &#123;
+            fwrite(buffer, 1, volume, stream);
+            volume = 0;
+        &#125;
+        template &lt;typename _Tp&gt; betterOutput&amp; operator &lt;&lt; (_Tp var) &#123;
+            if(var &lt; 0) putChar(&#39;-&#39;), var = -var;
+            if constexpr(is_same_v&lt;_Tp, float&gt; || is_same_v&lt;_Tp, double&gt;) return outputFloat(var);
+            else &#123;
+                static char digit[25];
+                static short cur = 0;
+                do digit[cur++] = static_cast&lt;char&gt; (var % 10 + &#39;0&#39;); while(var /= 10);
+                while(cur) putChar(digit[--cur]);
+            &#125;
+            return *this;
+        &#125;
+        betterOutput&amp; operator &lt;&lt; (const char &amp;var) &#123;
+            putChar(var);
+            return *this;
+        &#125;
+        betterOutput&amp; operator &lt;&lt; (const char *var) &#123;
+            while(*var) putChar(*var++);
+            return *this;
+        &#125;
+        betterOutput&amp; operator &lt;&lt; (const string &amp;var) &#123;
+            for(auto cur: var) putChar(cur);
+            return *this;
+        &#125;
+        template &lt;typename _Tp&gt; betterOutput&amp; outputFloat(_Tp &amp;var) &#123;
+            const string str_var = std::to_string(var);
+            for(auto cur: str_var) putChar(cur);
+            return *this;
+        &#125;
+        ~betterOutput() &#123; flush(); delete[] buffer; &#125;
+    &#125;;
+#undef BUFFER_SIZE
+&#125;
+
+signed main() &#123;
+
+    return 0;
+&#125;
+</code></pre>
+<h2 id="模板简介"><a href="#模板简介" class="headerlink" title="模板简介"></a>模板简介</h2><p>为了更好地食用模板，<strong>请务必仔细阅读以下内容</strong></p>
+<ul>
+<li><p>完整版代码长度4.7k，不考虑写成头文件（毕竟竞赛没有多文件）。或者也可以选择 <a target="_blank" rel="noopener" href="https://github.com/Revethere/Algorithm/blob/master/IO/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99%20-%20BetterIO/BetterIO%20-%20Lite.cpp">Lite 版</a> 模板</p>
+</li>
+<li><p>使用 <code>fread/fwrite</code> 函数实现。默认缓冲区大小为 $2^{16}$，也可以通过更改模板中 <code>BUFFER_SIZE</code> 的值来更改缓冲区大小（不建议超过 $2^{23}$）</p>
+</li>
+<li><p>重载了 <code>&gt;&gt;</code> 和 <code>&lt;&lt;</code>，可以像使用 <code>cin/cout</code> 的方式来进行读写</p>
+</li>
+<li><p>不要与相应的输入输出流<strong>混合使用</strong>（比如同时使用 <code>fread</code> 和 <code>cin</code>，<code>fwrite</code> 和 <code>cout</code>），<code>fread/fwrite</code>是一次性从缓存中读取 &#x2F; 输出数据，混合使用会导致变量数据错误等无法解决的问题</p>
+<p>支持 Linux 和 Windows 环境，<strong>如果可能</strong>，<strong>会尝试</strong>写一个 <code>mmap</code> 版本（Windows下通过 <code>CreateFileMapping</code> 实现）</p>
+</li>
+<li><p>经调试应该没有什么大的问题，如果有的话可以 Luogu 私信我，会尽快修改</p>
+<p><strong>请保证您传入的参数是合法的，出现任何未知的问题概不负责</strong></p>
+</li>
+</ul>
+<h2 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h2><ul>
+<li><p>若要使用此模板，请通过 <code>BetterIO::betterInput in</code> 和 <code>BetterIO::betterOutput out</code> 来创建对象</p>
+</li>
+<li><p>支持整形、字符、字符串、浮点数的输入，整形、字符、字符串、浮点数、<code>char*</code> 的输出（在现在的竞赛环境下几乎不会用到 <code>char*</code> 类型的输入，故舍弃）</p>
+<p>关于 <code>bool</code> 类型的数据，对其单独写一个输入 &#x2F; 输出函数是没有任何意义的，故舍弃</p>
+</li>
+<li><p>您可以使用 <code>in &gt;&gt; x;</code> 读入一个以上任意的一个类型的数据，使用 <code>in &gt;&gt; x &gt;&gt; y &gt;&gt; z &gt;&gt; ...;</code> 读入任意个以上支持的数据类型</p>
+</li>
+<li><p>对于 <code>char</code> 与 <code>std::string</code> 类型的输入，默认有效字符的范围为 ACSII 码表中的 33 至 126</p>
+<p>您可以通过更改以上输入类型的判定条件输入特定字符范围的数据</p>
+<pre><code class="cpp">...
+template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123;
+    while(!ExtraType::isVaild(*iter)) getChar(); // 更改 ExtraType::isVaild 函数以输入特定字符范围数据
+        if constexpr(is_same_v&lt;_Tp, char&gt;) var = *iter, getChar();
+...
+</code></pre>
+</li>
+<li><p><strong>命令行</strong>输入完数据后，使用 <code>ctrl + z</code> 刷新缓冲读入数据。文件流无需注意此项</p>
+</li>
+<li><p>您可以使用 <code>out &lt;&lt; x;</code> 输出一个以上任意的一个类型的数据，使用 <code>out &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z ...;</code> 输出任意个以上支持的数据类型（带空格）</p>
+</li>
+<li><p>对于浮点类型的数据（<code>float</code> 和 <code>double</code>），默认输出精度为 6 位小数，<strong>不支持更改精度</strong><del>绝不是我太懒了懒得写</del></p>
+<p>若有其它精度输出的需求请用其它输出方式</p>
+</li>
+</ul>
+<h2 id="性能比较"><a href="#性能比较" class="headerlink" title="性能比较"></a>性能比较</h2><p>待补 —— 25.7.26</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2024 - 2025 Revethere&#39;s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Revethere₂₀₂₄
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+
+    <canvas
+        id="background"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+    ></canvas>
+    <script src="/js/background.min.js"></script>
+
+    <canvas
+        id="fireworks"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+    ></canvas>
+    <script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="/js/fireworks.min.js"></script>
+
+    
+    
+
+
+
+
+    
+</body>
+</html>
