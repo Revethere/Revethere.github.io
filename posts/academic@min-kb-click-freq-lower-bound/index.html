@@ -197,14 +197,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/sumo/" style="color: #03a9f4">
+                <a href="/tags/sumo/" style="color: #00a596">
                     sumo
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Java/" style="color: #ff7d73">
+                <a href="/tags/Java/" style="color: #ffa2c4">
                     Java
                 </a>
             </span>
@@ -484,7 +484,7 @@ public class BlockSlime extends BlockBreakable &#123;
 <p><strong>即「有效双击」的触发概率为 43%.</strong></p>
 <p>如果你不想阅读这部分略微令人头皮发麻的积分还可以通过条件期望来推导该概率：</p>
 <p>$$P(T + D \geq 50) &#x3D; P(T \geq 50 - D) &#x3D; E[P(T \geq 50 - D \mid D)]$$</p>
-<p>对于固定的 $D,\ T \sim U(0, 50)$，且 $50 - D \in [23, 34] \subseteq [0, 50]$，有：</p>
+<p>对于固定的 $D,\ T \sim \mathcal{U}(0, 50)$，且 $50 - D \in [23, 34] \subseteq [0, 50]$，有：</p>
 <p>$$P(T \geq 50 - D \mid D) &#x3D; \frac{50 - (50 - D)}{50} &#x3D; \frac{D}{50}$$</p>
 <p>得到：</p>
 <p>$$P(T + D \geq 50) &#x3D; E\left[\frac{D}{50}\right] &#x3D; \frac{1}{50} E[D] &#x3D; \frac{1}{50} \times \frac{16 + 27}{2} &#x3D; \frac{43}{100}$$</p>
