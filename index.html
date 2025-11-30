@@ -228,6 +228,573 @@
 </div>
 
 <div class="post">
+    <a href="/posts/academic@min-kb-click-freq-lower-bound/">
+        <h2 class="post-title">『低版本 pvp 中玩家最优 kb 的点击频率下限分析』</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E7%90%86%E8%AE%BA/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                理论
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/10/18
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>⚠️<strong>硬核警告</strong>⚠️</p>
+<p>英译版见<a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound-en/">『Minimum KB Click Frequency Lower Bound Analysis』</a>.</p>
+<p>本文包含大量数学公式和代码分析，建议具备一定理论基础阅读。</p>
+<p>欢迎各位大佬指正🥰。</p>
+<p><del>嗯……AI 帮了点小忙，还是挺好看出来的，对吧。</del></p>
+<hr>
+<h2 id="物理学框架下的-Minecraft-实体运动"><a href="#物理学框架下的-Minecraft-实体运动" class="headerlink" title="物理学框架下的 Minecraft 实体运动"></a>物理学框架下的 Minecraft 实体运动</h2><h3 id="经典力学下的运动"><a href="#经典力学下的运动" class="headerlink" title="经典力学下的运动"></a>经典力学下的运动</h3><p>$$\frac{dv}{dt} &#x3D; a - fv \tag{1.1.1}$$</p>
+<p>$$v &#x3D; v_0 e^{-ft} + \frac{a}{f} (1 - e^{-ft}) \tag{1.1.2}$$</p>
+<p>$$\frac{v}{v_0} &#x3D; \lim\limits_{t_0 \to 0} (1 - f t_0)^{\frac{t}{t_0}}, a &#x3D; 0 \tag{1.1.3}$$</p>
+<p>公式 (1.1.1) 描述了物体在恒定驱动力和正比于速度的阻力共同作用下，速度从变化逐渐达到稳定平衡的动态过程。这也是后续所有公式推导的基础。</p>
+<p>公式 (1.1.2) 是通过求解公式 (1.1.1) 得到的精确解（通解）。其描述了在任何初始速度 $v_0$ 和任何驱动力 $a$ 的情况下，速度随时间变化的完整规律。</p>
+<p>公式 (1.1.3) 则是将驱动力 $a&#x3D;0$ 时的特殊情况代入公式 (1.1.2) 得到的结果。表明物体仅在阻力作用下，速度从初值 $v_0$ 开始指数衰减到零的过程。</p>
+<blockquote>
+<p>其中，$f$ 为阻力系数。</p>
+</blockquote>
+<blockquote>
+<p>但是，Minecraft 是以 tick（后续将称为 gt）为单位进行离散更新，即 $dt$ 和 $t_0$ 的最小值为 1gt，不能无限趋近于 0。因此这一规则在游戏中不能精确实现。</p>
+</blockquote>
+<h3 id="Mojang-对于实体运动的实现"><a href="#Mojang-对于实体运动的实现" class="headerlink" title="Mojang 对于实体运动的实现"></a>Mojang 对于实体运动的实现</h3><p>以下是实体在水平和空中运动源代码简化版。已删去不必要和不相关的代码。</p>
+<ul>
+<li><p>在 <code>net/minecraft/entity/EntityLivingBase.java</code> 中：</p>
+<pre><code class="java">public void moveEntityWithHeading(float strafe, float forward) &#123;
+    /**
+     * 环境检测与移动类型判断
+     * isInWater()、isInLava()、isFlying
+     * 水、岩浆、梯子等特殊状态移动处理（else if）
+     */
+    
+    float f4 = 0.91F; // 惯性系数
+    
+    if (this.onGround) &#123;
+        f4 = this.worldObj.getBlockState(
+            new BlockPos(
+                MathHelper.floor_double(this.posX),
+                MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1,
+                MathHelper.floor_double(this.posZ)
+            )
+        )
+        .getBlock()
+        .slipperiness * 0.91F;
+    &#125; // 获取下方方块滑度（后续将 slipperiness 称为滑度系数）
+    
+    float f = 0.16277136F / (f4 * f4 * f4);
+    /**
+     * (0.6*0.91)^3 = 0.16277136
+     * 移动系数
+     */
+    float f5;
+    
+    if (this.onGround) f5 = this.getAIMoveSpeed() * f;
+    /**
+     * f5 = this.landMovementFactor * f;
+     * landMovementFactor 基础情况下为 0.1，疾跑时*1.3，受药水效果影响
+     */
+    else f5 = this.jumpMovementFactor;
+    /**
+     * jumpMovementFactor = 0.02;
+     * 疾跑时*1.3，与药水效果无关
+     */
+    this.moveFlying(strafe, forward, f5); // 速度计算
+    
+    // 重新计算 f4
+    // 嗯···屎山代码这一块（
+    
+    this.moveEntity(this.motionX, this.motionY, this.motionZ); // 实体移动
+    
+    // 未加载区块重力处理
+    
+    this.motionY -= 0.08D; // 重力
+    this.motionY *= 0.9800000190734863D; // 空气阻力
+    this.motionX *= (double)f4; this.motionZ *= (double)f4; // 摩擦力（水平）
+    
+    // 玩家肢体动画更新
+&#125;
+</code></pre>
+</li>
+<li><p>方块的滑度系数在 <code>net/minecraft/block/Block.java</code> 等文件中定义：</p>
+<pre><code class="java">// Block.java
+public class Block &#123;
+    // 其它方块属性
+    public float slipperiness;
+    public Block(Material blockMaterialIn, MapColor blockMapColorIn) &#123;
+        // 其它属性初始化
+        this.slipperiness = 0.6F;
+    &#125;
+&#125;
+
+// BlockIce.java
+public class BlockIce extends BlockBreakable &#123;
+    public BlockIce() &#123;
+        this.slipperiness = 0.98F;
+    &#125;
+&#125; // 冰
+
+//BlockPackedIce.java
+public class BlockPackedIce extends Block &#123;
+    public BlockPackedIce() &#123;
+        this.slipperiness = 0.98F;
+    &#125;
+&#125; // 浮冰
+
+// BlockSlime.java
+public class BlockSlime extends BlockBreakable &#123;
+    public BlockSlime() &#123;
+        this.slipperiness = 0.8F;
+    &#125;
+&#125; // 史莱姆块
+</code></pre>
+<p>滑度系数将用 $f_s$ 在后续的公式推导中来表示。</p>
+<blockquote>
+<p>特别地，蓝冰在 1.13 被加入，滑度为 0.989。此处仅作补充。</p>
+</blockquote>
+</li>
+<li><p>实体在地面的移速（通过 <code>getAIMoveSpeed()</code> 函数返回，本质上是变量 <code>landMovementFactor</code> 的值）在文件 <code>net/minecraft/entity/EntityLivingBase.java</code> 定义：</p>
+<pre><code class="java">public abstract class EntityLivingBase extends Entity &#123;
+    private float landMovementFactor;
+    public float getAIMoveSpeed() &#123;
+        return this.landMovementFactor;
+    &#125;
+&#125;
+</code></pre>
+<p>其基本值在 <code>net/minecraft/entity/player/PlayerCapabilities.java</code> 给出：</p>
+<pre><code class="java">public class PlayerCapabilities &#123;
+    private float walkSpeed = 0.1F;
+&#125;
+</code></pre>
+<p>疾跑状态的修饰在 <code>net/minecraft/entity/EntityLivingBase.java</code> 中定义：</p>
+<pre><code class="java">public abstract class EntityLivingBase extends Entity &#123;
+    private static final AttributeModifier sprintingSpeedBoostModifier = 
+        (new AttributeModifier(
+            sprintingSpeedBoostModifierUUID,
+            &quot;Sprinting speed boost&quot;,
+            0.30000001192092896D,
+            2
+        )).setSaved(false);
+&#125;
+</code></pre>
+<p>疾跑速度则是通过 <code>net/minecraft/entity/ai/attributes/ModifiableAttributeInstance.java</code> 中的方法实现：</p>
+<pre><code class="java">private double computeValue() &#123;
+    double d0 = this.getBaseValue(); // 属性基本值获取
+    
+    for (AttributeModifier attributemodifier : this.func_180375_b(0)) &#123;
+        d0 += attributemodifier.getAmount();
+    &#125;
+    double d1 = d0;
+    for (AttributeModifier attributemodifier1 : this.func_180375_b(1)) &#123;
+        d1 += d0 * attributemodifier1.getAmount();
+    &#125;
+    for (AttributeModifier attributemodifier2 : this.func_180375_b(2)) &#123;
+        d1 *= 1.0D + attributemodifier2.getAmount();
+    &#125;
+    // 三种类型修饰叠加
+    
+    return this.genericAttribute.clampValue(d1);
+&#125;
+</code></pre>
+<p>实体在空中的移速（<code>jumpMovementFactor</code>）在 <code>net/minecraft/entity/EntityLivingBase.java</code> 中定义：</p>
+<pre><code class="java">public abstract class EntityLivingBase extends Entity &#123;
+    public float jumpMovementFactor = 0.02F;
+&#125;
+</code></pre>
+<p>疾跑时在 <code>net/minecraft/entity/player/EntityPlayer.java</code> 中更新：</p>
+<pre><code class="java">public abstract class EntityPlayer extends EntityLivingBase &#123;
+    public void onLivingUpdate() &#123;
+        if (this.isSprinting()) &#123;
+            this.jumpMovementFactor = (float)(
+                (double)this.jumpMovementFactor +
+                (double)this.speedInAir * 0.3D
+            );
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p><del>屎山代码这两种运动实现还不一样 ):</del></p>
+</li>
+<li><p>实体的「motion」在 <code>net/minecraft/entity/Entity.java</code> 中更新：</p>
+<pre><code class="java">public void moveFlying(float strafe, float forward, float friction) &#123;
+    float f = strafe * strafe + forward * forward;
+    
+    if (f &gt;= 1.0E-4F) &#123;
+        f = MathHelper.sqrt_float(f); // 模长为 1 的单位向量
+        if (f &lt; 1.0F) &#123;
+            f = 1.0F; // 避免斜向速度异常
+        &#125;
+        
+        f = friction / f;
+        strafe = strafe * f;
+        forward = forward * f;
+        // 摩擦系数应用
+        
+        float f1 = MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F);
+        float f2 = MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F);
+        
+        this.motionX += (double)(strafe * f2 - forward * f1);
+        this.motionZ += (double)(forward * f2 + strafe * f1);
+        // 2D 旋转矩阵
+    &#125;
+&#125;
+</code></pre>
+<p><code>strafe</code> 和 <code>forward</code> 变量在 <code>net/minecraft/util/MovementInputFromOptions.java</code> 中获取按键输入更新：</p>
+<pre><code class="java">public void updatePlayerMoveState() &#123;
+    this.moveStrafe = 0.0F;
+    this.moveForward = 0.0F;
+
+    if (this.gameSettings.keyBindForward.isKeyDown()) &#123;
+        ++this.moveForward;
+    &#125;
+    if (this.gameSettings.keyBindBack.isKeyDown()) &#123;
+        --this.moveForward;
+    &#125;
+    if (this.gameSettings.keyBindLeft.isKeyDown()) &#123;
+        ++this.moveStrafe;
+    &#125;
+    if (this.gameSettings.keyBindRight.isKeyDown()) &#123;
+        --this.moveStrafe;
+    &#125;
+    
+    // 其它按键事件
+    
+    /**
+     * 潜行事件
+     * moveStrafe 和 moveForward 乘以 0.3
+     */
+&#125;
+</code></pre>
+</li>
+</ul>
+<p>通过分析上述代码实现可以得知：</p>
+<p>实体在水平方向上的「motion 属性」，在数值上等于当前速度向量在<strong>各坐标轴的分量乘以对应的阻力系数</strong>（垂直方向上的「motion」计算略有不同）。</p>
+<p>若将 $t_0$ 时间内的「motion」视为平均速度 $M$，那么「motion」与阻力系数的乘积在物理意义上表示在该时间段内阻力对实体产生的<strong>冲量</strong>。</p>
+<blockquote>
+<p>实体的「motion 属性」本质上是实体运动计算过程中的中间量，仅在游戏执行 <code>moveFlying()</code> 函数计算后，「motion 属性」可被视为实体的速度（或该时间段内的平均速度近似值）。</p>
+</blockquote>
+<h3 id="线性运动公式推导"><a href="#线性运动公式推导" class="headerlink" title="线性运动公式推导"></a>线性运动公式推导</h3><p>为了方便理解公式，在这里定义一些必要参数：</p>
+<ul>
+<li>速度：$v_H$、$v_Y$，实体在水平与垂直上的速度。</li>
+<li>初始垂直速度：$v_{Y,1}$，取决于跳跃速度或服务器垂直击退参数。</li>
+<li>滑度系数：$f_s &#x3D; 0.6$（空气中不受该阻力影响）。</li>
+<li>移动乘数：$k_M &#x3D; 1.3 \times 0.98 &#x3D; 1.274$（停止状态下为 0）。</li>
+<li>效果乘数：$k_E &#x3D; 1 \times 1 &#x3D; 1$.</li>
+<li>动量阈值：$v_{th} &#x3D; 0.005$，当实体在某条轴上的速度经衰减后小于该值时，对应轴上的速度归零。</li>
+</ul>
+<p>由此推导得到实体运动的递推关系（主要参考 <a target="_blank" rel="noopener" href="https://www.mcpk.wiki/wiki/Main_Page">Minecraft Parkour Wiki</a>）：</p>
+<ul>
+<li><p><strong>地面水平速度公式：</strong>$$v_{H,t} &#x3D; \underbrace{v_{H,t-1} \times f_{s, t-1} \times 0.91} _ \text{动量保留} + \underbrace{0.1 \times \left( \frac{0.6}{f_{s,t}}\right)^3 \times k_M \times k_E} _ \text{加速度} \tag{1.3.1}$$</p>
+</li>
+<li><p><strong>空中水平速度公式：</strong>$$v_{H,t} &#x3D; \underbrace{v_{H,t-1} \times 0.91} _ \text{动量保留} + \underbrace{0.02 \times k_M} _ \text{加速度} \tag{1.3.2}$$</p>
+</li>
+<li><p><strong>垂直速度公式：</strong>$$v_{Y,t} &#x3D; ( v_{Y,t-1} - \mathop{0.08}\limits_\text{重力} ) \times \mathop{0.98}\limits_\text{阻力} \tag{1.3.3}$$</p>
+</li>
+</ul>
+<blockquote>
+<p>考虑到实际应用场景，上述推导中大部分系数或乘数均使用特殊值。</p>
+</blockquote>
+<blockquote>
+<p>在后续『最优 kb 的点击频率下限分析』章节中，将加入点击行为对速度的影响机制。</p>
+</blockquote>
+<hr>
+<h2 id="鼠标点击分析"><a href="#鼠标点击分析" class="headerlink" title="鼠标点击分析"></a>鼠标点击分析</h2><h3 id="双击延迟"><a href="#双击延迟" class="headerlink" title="双击延迟"></a>双击延迟</h3><p>经测试，鼠标双击的触发延迟主要分布在 $[16, 27]\ \mathrm{ms}$ 区间范围内，受硬件性能、驱动程序、系统环境等影响，在不同的测试环境下略有差异。</p>
+<p>若两次点击分别落在相邻的 tick 中，则称为「有效双击」。</p>
+<h3 id="有效双击的概率计算"><a href="#有效双击的概率计算" class="headerlink" title="有效双击的概率计算"></a>有效双击的概率计算</h3><p>设第一次点击的时间为 $T$，服从区间 $[0,50]$ 上的均匀分布：$$T \sim \mathcal{U}(0,50)$$</p>
+<p>双击延迟为 $D$，服从区间 $[16,27]$ 上的均匀分布：$$D \sim \mathcal{U}(16,27)$$</p>
+<p>则「有效双击」的概率：$$P(T + D \geq 50)$$</p>
+<p>$T$ 和 $D$ 相互独立，其联合概率密度函数为：</p>
+<p>$$f_{T,D}(t,d) &#x3D; \frac{1}{50} \times \frac{1}{11} &#x3D; \frac{1}{550},\ t \in [0，50],\ d \in [16,27]$$</p>
+<p>展开积分并计算所求概率：</p>
+<p>$$P(T + D \geq 50) &#x3D; \iint\limits_{t + d \geq 50} f_{T,D}(t, d)\ dt\ dd &#x3D; \int_{16}^{27} \int_{50 - d}^{50} \frac{1}{550}\ dt\ dd &#x3D; \frac{473}{1100} &#x3D; \frac{43}{100}$$</p>
+<p><strong>即「有效双击」的触发概率为 43%.</strong></p>
+<p>如果你不想阅读这部分略微令人头皮发麻的积分还可以通过条件期望来推导该概率：</p>
+<p>$$P(T + D \geq 50) &#x3D; P(T \geq 50 - D) &#x3D; E[P(T \geq 50 - D \mid D)]$$</p>
+<p>对于固定的 $D,\ T \sim U(0, 50)$，且 $50 - D \in [23, 34] \subseteq [0, 50]$，有：</p>
+<p>$$P(T \geq 50 - D \mid D) &#x3D; \frac{50 - (50 - D)}{50} &#x3D; \frac{D}{50}$$</p>
+<p>得到：</p>
+<p>$$P(T + D \geq 50) &#x3D; E\left[\frac{D}{50}\right] &#x3D; \frac{1}{50} E[D] &#x3D; \frac{1}{50} \times \frac{16 + 27}{2} &#x3D; \frac{43}{100}$$</p>
+<p>与积分计算的结果一致。</p>
+<p>🧠☠️</p>
+<hr>
+<h2 id="击退算法杂谈"><a href="#击退算法杂谈" class="headerlink" title="击退算法杂谈"></a>击退算法杂谈</h2><h3 id="原版击退算法"><a href="#原版击退算法" class="headerlink" title="原版击退算法"></a>原版击退算法</h3><p>当玩家攻击时调用 <code>net/minecraft/entity/player/EntityPlayer.java</code>  文件中的  <code>attackTargetEntityWithCurrentItem()</code> 函数处理该过程：</p>
+<pre><code class="java">public abstract class EntityPlayer extends EntityLivingBase &#123;
+    public void attackTargetEntityWithCurrentItem(Entity targetEntity) &#123; 
+        /**
+         * 可攻击检查
+         * 基础伤害计算
+         * 附魔伤害计算
+         */
+        
+        int i = 0;
+        i = i + EnchantmentHelper.getKnockbackModifier(this);
+        if (this.isSprinting()) &#123;
+            ++i;
+        &#125;
+        // 击退效果计算
+             
+        /** 
+         * 伤害有效性检查
+         * 暴击判断
+         * 火焰附加
+         */
+        
+        double d0 = targetEntity.motionX;
+        double d1 = targetEntity.motionY;
+        double d2 = targetEntity.motionZ;
+        boolean flag2 = targetEntity.attackEntityFrom(DamageSource.causePlayerDamage(this), f);
+        // 伤害应用
+        
+        if (flag2) &#123;
+            if (i &gt; 0) &#123;
+                targetEntity.addVelocity(
+                    (double)(-MathHelper.sin(
+                            this.rotationYaw * (float)Math.PI / 180.0F) * (float)i * 0.5F),
+                            0.1D,
+                    (double)(MathHelper.cos(
+                            this.rotationYaw * (float)Math.PI / 180.0F) * (float)i * 0.5F)
+                    ); // 第二阶段击退计算
+                
+                this.motionX *= 0.6D;
+                this.motionZ *= 0.6D;
+                this.setSprinting(false);
+                // 攻击者减速并取消疾跑状态
+            &#125;
+            
+            if (targetEntity instanceof EntityPlayerMP &amp;&amp; targetEntity.velocityChanged) &#123;
+                ((EntityPlayerMP)targetEntity).playerNetServerHandler.sendPacket(
+                    new S12PacketEntityVelocity(targetEntity)
+                );
+                targetEntity.velocityChanged = false;
+                targetEntity.motionX = d0;
+                targetEntity.motionY = d1;
+                targetEntity.motionZ = d2;
+            &#125; // 避免重复叠加击退
+        
+        /**
+         * 伤害成功后续处理
+         * 攻击失败处理
+         */
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">// net/minecraft/entity/EntityLivingBase.java
+public abstract class EntityLivingBase extends Entity &#123;
+    public boolean attackEntityFrom(DamageSource source, float amount) &#123;
+        /**
+         * 检查实体是否对特定伤害源免疫
+         * 客户端检查
+         * 死亡检查
+         * 特殊伤害免疫（抗火）
+         * 装备减伤
+         * 伤害刻（特别地，该时间段内更高的伤害会覆盖原有伤害）
+         * 攻击者判断
+         * 视觉更新（伤害动画）
+         */
+    
+        double d1 = entity.posX - this.posX;
+        double d0;
+        for(d0 = entity.posZ - this.posZ;
+            d1 * d1 + d0 * d0 &lt; 1.0E-4D;
+            d0 = (Math.random() - Math.random()) * 0.01D) &#123;
+            d1 = (Math.random() - Math.random()) * 0.01D;
+        &#125; // 距离过近的随机击退
+
+        this.attackedAtYaw = (float)(
+            MathHelper.atan2(d0, d1) * 180.0D / Math.PI 
+            - (double)this.rotationYaw
+        );
+        
+        this.knockBack(entity, amount, d1, d0);  // 执行击退
+        
+        // 其它操作
+    &#125;
+    
+    public void knockBack(Entity entityIn, float amount, double d0, double d1) &#123;
+        if (this.rand.nextDouble() &gt;= this.getEntityAttribute(
+            SharedMonsterAttributes.knockbackResistance).getAttributeValue()) &#123;
+            this.isAirBorne = true;
+            float f = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
+            float f1 = 0.4F;
+
+            this.motionX /= 2.0D;
+            this.motionY /= 2.0D;
+            this.motionZ /= 2.0D;
+            // 受击者速度衰减
+
+            this.motionX -= d0 / (double)f * (double)f1;
+            this.motionY += (double)f1;
+            this.motionZ -= d1 / (double)f * (double)f1;
+            // 第一阶段击退计算
+
+            if (this.motionY &gt; 0.4000000059604645D) &#123;
+                this.motionY = 0.4000000059604645D;
+            &#125; // 垂直击退上限
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">// net/minecraft/entity/Entity.java
+public abstract class Entity implements ICommandSender &#123;
+    protected void setBeenAttacked() &#123;
+        this.velocityChanged = true;
+    &#125;
+    public boolean attackEntityFrom(DamageSource source, float amount) &#123;
+        if (this.isEntityInvulnerable(source)) &#123;
+            return false;
+        &#125; else &#123;
+            this.setBeenAttacked();
+            return false;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>为了更清晰地理解击退机制，在这里定义以下参数：</p>
+<ul>
+<li><code>horizontal</code>：基础水平击退。对应 <code>knockBack()</code> 函数中的 <code>f1</code> 变量，默认值为 0.4</li>
+<li><code>vertical</code>：基础垂直击退。其数值与基础水平击退相同，为 0.4</li>
+<li><code>horizontalExtra</code>：额外水平击退。仅考虑疾跑的因素，即 <code>i = 1</code>，值为 0.5</li>
+<li><code>verticalExtra</code>：额外垂直击退。<code>addVelocity()</code> 函数中的叠加固定额外垂直击退，默认值为 0.1</li>
+<li><code>verticalLimit</code>：垂直击退上限。<code>motionY</code> 的最大值 0.4</li>
+<li><code>friction</code>：暂无合适的译法。表示玩家受击时各轴的速度衰减（区别于方块的 friction），默认值为 2.0</li>
+</ul>
+<p>基于上述代码分析可知玩家受到的击退效果主要分为两个阶段：</p>
+<ul>
+<li><strong>击退的第一阶段：</strong>仅与双方在 XZ 轴上的相对位置相关。</li>
+<li><strong>击退的第二阶段</strong>：仅与攻击者的偏航角（yaw）和攻击者的状态（本文只考虑疾跑）相关。</li>
+</ul>
+<h3 id="MMC-击退算法"><a href="#MMC-击退算法" class="headerlink" title="MMC 击退算法"></a>MMC 击退算法</h3><p>本小节重点讨论与原版击退算法不同之处。</p>
+<blockquote>
+<p> 详细实现见 <a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/academic%40how-does-kb-work-exactly/How%20MMC%20Knockback%20Actually%20Works.pdf">How MMC Knockback Actually Works</a>.</p>
+</blockquote>
+<p>MMC 引入了以下新的或修改的参数：</p>
+<pre><code class="java">totalHorizontal = 0.8835d    // 总水平击退
+totalVertical = 0.9055d      // 总垂直击退
+rangeFactor = 0.035d         // 距离影响系数
+maxReduction = 0.4d          // 最大距离减免
+startRange = 3.0d            // 距离减免起始计算距离
+idleReduction = 0.6d         // 基础击退倍率
+attackBuffer = 1             // 攻击缓存
+
+// 计算后的实际值
+horizontal = totalHorizontal * idleReduction             // 基础水平击退
+horizontalExtra = totalHorizontal * (1 - idleReduction)  // 额外水平击退
+vertical = totalVertical * 0.4d                          // 基础垂直击退
+verticalExtra = 0.0d                                     // 额外垂直击退
+verticalLimit = 0.4d                                     // 垂直击退上限
+attackerSlowdown = 0.6d
+friction = 0.0d
+</code></pre>
+<p>不难看出：</p>
+<ul>
+<li><code>idleReduction</code> 决定了基础水平击退和额外水平击退的大小，并与 <code>totalHorizontal</code> 的值紧密相关。</li>
+<li><code>verticalExtra</code> 的值归零，即玩家的垂直击退固定。</li>
+<li><code>attackBuffer</code> 提供伤害刻结束前的攻击窗口。</li>
+<li>增加了 <code>rangeFactor</code>、<code>maxReduction</code>、<code>startRange</code> 参数用于减免由于延迟造成的远距离攻击注册的击退。</li>
+</ul>
+<blockquote>
+<p>特别地，当 <code>friction = 0.0</code> 时，受击者的动量归零，即击退完全覆盖原速度。</p>
+</blockquote>
+<p>第一阶段击退算法：</p>
+<pre><code class="java">void firstStage(EntityLiving attacker, EntityLiving victim) &#123;
+    // 省略部分伪代码
+    
+    double distance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
+    double rangeReduction = calculateRangeReduction(distance)
+    double modifiedHorizontal = horizontal - rangeReduction // 远距离击退衰减
+    
+    double magnitude = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ)
+    
+    victim.motX -= (distanceX / magnitude) * (modifiedHorizontal * 0.5d)
+    victim.motZ -= (distanceZ / magnitude) * (modifiedHorizontal * 0.5d)
+    
+    double yaw = Math.toRadians(attacker.yaw)
+    victim.motX += -Math.sin(yaw) * (modifiedHorizontal * 0.5d)
+    victim.motZ += Math.cos(yaw) * (modifiedHorizontal * 0.5d)
+&#125;
+</code></pre>
+<p>与原版不同的是，MMC 算法中第一阶段的击退同时与玩家的相对位置和攻击者的偏航角相关（占比各 50%）。并增加了 <code>calculateRangeReduction()</code> 函数用于减免远距离击退。</p>
+<p>第二阶段击退算法与第一阶段相似：</p>
+<pre><code class="java">void secondStage(EntityLiving attacker, EntityLiving victim, int knockbackEnchantLevel) &#123;
+    // 省略部分伪代码
+    
+    if (extraKBMult &gt; 0) &#123;
+        double distanceX = attacker.locX - victim.locX
+        double distanceZ = attacker.locZ - victim.locZ
+        double distance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ)
+        double modifiedExtraHorizontal = horizontalExtra * extraKBMult // 额外击退
+        
+        double magnitude = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ)
+        
+        victim.motX -= (distanceX / magnitude) * (modifiedExtraHorizontal * 0.5d)
+        victim.motZ -= (distanceZ / magnitude) * (modifiedExtraHorizontal * 0.5d)
+        
+        double yaw = Math.toRadians(attacker.yaw)  
+        victim.motX += -Math.sin(yaw) * (modifiedExtraHorizontal * 0.5d)
+        victim.motZ += Math.cos(yaw) * (modifiedExtraHorizontal * 0.5d)
+    &#125;
+&#125;
+</code></pre>
+<p>额外水平击退由 <code>horizontalExtra</code> 参数和 <code>extraKBMult</code> 共同决定。并保持与第一阶段相同的 50&#x2F;50 分配。</p>
+<hr>
+<h2 id="最优-kb-的点击频率下限分析"><a href="#最优-kb-的点击频率下限分析" class="headerlink" title="最优 kb 的点击频率下限分析"></a>最优 kb 的点击频率下限分析</h2><hr>
+<h2 id="一起来品鉴赤石-Mojang-的代码"><a href="#一起来品鉴赤石-Mojang-的代码" class="headerlink" title="一起来品鉴赤石 Mojang 的代码"></a>一起来<del>品鉴</del>赤石 Mojang 的代码</h2><hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.mcpk.wiki/wiki/Movement_Formulas">运动公式 - Minecraft Parkour Wiki</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/academic%40how-does-kb-work-exactly/How%20MMC%20Knockback%20Actually%20Works.pdf">How MMC Knockback Actually Works</a></p>
+<p><a target="_blank" rel="noopener" href="https://pages.carm.cc/dev/knockback-study.html">对我的世界中PVP击退的研究报告 - LSeng, CarmJos</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/opus/175537636967628180">关于修正并改进 xwj 的 MC 实体运动公式 —— 适用于MC中所有实体 - Bio-Hazard</a></p>
+<p><a target="_blank" rel="noopener" href="http://lovexyn0827.space/mcdocs/docs/Minecraft%E5%AE%9E%E4%BD%93%E8%BF%90%E5%8A%A8%E7%A0%94%E7%A9%B6%E4%B8%8E%E5%BA%94%E7%94%A8/0-Minecraft%E5%AE%9E%E4%BD%93%E8%BF%90%E5%8A%A8%E7%9B%B8%E5%85%B3%E7%A0%94%E7%A9%B6%E4%B8%8E%E5%BA%94%E7%94%A8.html">Minecraft 实体运动研究与应用 - lovexyn0827</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=o-a0szldhs8">The ULTIMATE Guide to PING - sceyna</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Marcelektro/MCP-919">MCP-919 ( Fully decompiled )</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/CobbleSword/NachoSpigot">NachoSpigot</a></p>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p><a target="_blank" rel="noopener" href="https://space.bilibili.com/298238084">蔚蓝天空Azure_Sky</a></p>
+<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/165837583">时代地产</a></p>
+<h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/Minecraft/" style="color: #ffa2c4">Minecraft</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/sumo/" style="color: #00a596">sumo</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/Java/" style="color: #03a9f4">Java</a>
+        </span>
+        
+    </div>
+    <a href="/posts/academic@min-kb-click-freq-lower-bound/" class="go-post">MORE</a>
+</div>
+
+<div class="post">
     <a href="/posts/introduction@rewind-mod-redefine-video-recording/">
         <h2 class="post-title">『这个 mod 将重新定义视频录制...』</h2>
     </a>
@@ -333,7 +900,7 @@
         
         <span class="tag">
             
-            <a href="/tags/LunarClient/" style="color: #00a596">LunarClient</a>
+            <a href="/tags/LunarClient/" style="color: #00bcd4">LunarClient</a>
         </span>
         
         <span class="tag">
@@ -477,7 +1044,7 @@
 </li>
 <li><p>三个非常重要的公式</p>
 <p>$\frac{dv}{dt} &#x3D; a - fv$</p>
-<p>$\frac{v}{v_0} &#x3D; \lim\limits_{t_0 \to 0} (1 - f t_0)^{\frac{t}{t_0}}, a &#x3D; 0$</p>
+<p>$\frac{v}{v_0} &#x3D; \lim\limits_{t_0 \to 0} (1 - f t_0)^{\frac{t}{t_0}}, a &#x3D; 0 $</p>
 <p>$v &#x3D; v_0 e^{-ft} + \frac{a}{f} (1 - e^{-ft})$</p>
 <p>其中 $f$ 是阻力系数（这里仅考虑空气阻力和点击受到的减速效果的阻力，这里称为点击阻力），$t_0 &#x3D; 1 gt$ </p>
 <p><del>虽然都很重要</del>但最重要的是公式三，其描述了物体从初始到任意的整个时间 $t$ 内，速度的完整变化过程。但最重点的不是这个😶‍🌫️</p>
@@ -641,12 +1208,12 @@
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #ff7d73">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #00bcd4">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/sumo/" style="color: #00a596">sumo</a>
+            <a href="/tags/sumo/" style="color: #ff7d73">sumo</a>
         </span>
         
         <span class="tag">
@@ -733,269 +1300,21 @@
     <a href="/posts/config@obs-blur-configure-sharing/" class="go-post">MORE</a>
 </div>
 
-<div class="post">
-    <a href="/posts/code@cplusplus-fastio/">
-        <h2 class="post-title">『奇淫巧技之最强 C++ 封装快读快写模板』</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E7%AB%9E%E8%B5%9B/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                竞赛
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/7/26
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>源码见 <a target="_blank" rel="noopener" href="https://github.com/Revethere/Algorithm/blob/master/IO/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99%20-%20BetterIO/BetterIO.cpp">Github</a></p>
-<p>或直接在以下代码块中直接复制：</p>
-<pre><code class="cpp">#include &lt;iostream&gt;
-#include &lt;cstring&gt;
-#include &lt;cstdio&gt;
-#include &lt;string&gt;
-#include &lt;new&gt;
-#include &lt;type_traits&gt;
-
-namespace BetterIO &#123;
-    namespace ExtraType &#123;
-        inline bool isDigit(const char &amp;ch) &#123;
-            return &#39;0&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;9&#39;;
-        &#125;
-        inline bool isLetter(const char &amp;ch) &#123;
-            return &#39;A&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;Z&#39;
-                || &#39;a&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;z&#39;;
-        &#125;
-        inline bool isChar(const char &amp;ch) &#123;
-            return isDigit(ch) || isLetter(ch);
-        &#125;
-        inline bool isVaild(const char &amp;ch) &#123;
-            return &#39;!&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;~&#39;;
-        &#125;
-    &#125;
-    using std::string, std::is_same_v;
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 1 &lt;&lt; 16
-#endif
-    class betterInput &#123;
-        FILE *stream;
-        char *buffer, *iter;
-        int buffer_size, volume;
-        void input() &#123;
-            volume = fread(buffer, 1, buffer_size, stream);
-            iter = buffer;
-        &#125;
-        inline void getChar(void) &#123;
-            if(iter - buffer == volume) input();
-            else ++iter;
-        &#125;
-    public:
-        betterInput(FILE *stream = stdin) &#123;
-            this -&gt; stream = stream;
-            buffer_size = BUFFER_SIZE;
-            buffer = new char [buffer_size];
-            iter = buffer;
-            volume = 0;
-        &#125;
-        template &lt;typename _Tp&gt; betterInput&amp; operator &gt;&gt; (_Tp &amp;var) &#123;
-            if constexpr(is_same_v&lt;_Tp, char&gt; || is_same_v&lt;_Tp, string&gt;) return inputCharType(var);
-            else &#123;
-                static bool neg = false;
-                while(!ExtraType::isDigit(*iter)) &#123;
-                    neg ^= *iter == &#39;-&#39;;
-                    getChar();
-                &#125;
-                var = 0;
-                if constexpr(is_same_v&lt;_Tp, float&gt; || is_same_v&lt;_Tp, double&gt;) return inputFloat(var, neg);
-                else &#123;
-                    while(ExtraType::isDigit(*iter)) &#123;
-                        var = (var &lt;&lt; 1) + (var &lt;&lt; 3) + (*iter ^ &#39;0&#39;);
-                        getChar();
-                    &#125;
-                    if(neg) var = ~var + 1;
-                &#125;
-            &#125;
-            return *this;
-        &#125;
-        template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123;
-            while(!ExtraType::isVaild(*iter)) getChar();
-            if constexpr(is_same_v&lt;_Tp, char&gt;) var = *iter, getChar();
-            else &#123;
-                var.clear();
-                while(ExtraType::isVaild(*iter)) &#123;
-                    var.push_back(*iter);
-                    getChar();
-                &#125;
-            &#125;
-            return *this;
-        &#125;
-        template &lt;typename _Tp&gt; betterInput&amp; inputFloat(_Tp &amp;var, const bool &amp;neg) &#123;
-            while(ExtraType::isDigit(*iter)) &#123;
-                var = var * 10 + (*iter ^ &#39;0&#39;);
-                getChar();
-            &#125;
-            if(*iter == &#39;.&#39;) &#123;
-                getChar(); 
-                _Tp dec = 0.1;
-                while(ExtraType::isDigit(*iter)) &#123;
-                    var += dec * (*iter ^ &#39;0&#39;);
-                    dec /= 10;
-                    getChar();
-                &#125;
-            &#125; else getChar();
-            if(neg) var = -var;
-            return *this;
-        &#125;
-        ~betterInput() &#123; delete[] buffer; &#125;
-    &#125;;
-    class betterOutput &#123;
-        FILE *stream;
-        char *buffer;
-        int buffer_size, volume;
-        inline void putChar(const char &amp;ch) &#123;
-            if(buffer_size == volume) flush();
-            buffer[volume++] = ch;
-        &#125;
-    public:
-        betterOutput(FILE *stream = stdout) &#123;
-            this -&gt; stream = stream;
-            buffer_size = BUFFER_SIZE;
-            buffer = new char [buffer_size];
-            volume = 0;
-        &#125;
-        void flush(void) &#123;
-            fwrite(buffer, 1, volume, stream);
-            volume = 0;
-        &#125;
-        template &lt;typename _Tp&gt; betterOutput&amp; operator &lt;&lt; (_Tp var) &#123;
-            if(var &lt; 0) putChar(&#39;-&#39;), var = -var;
-            if constexpr(is_same_v&lt;_Tp, float&gt; || is_same_v&lt;_Tp, double&gt;) return outputFloat(var);
-            else &#123;
-                static char digit[25];
-                static short cur = 0;
-                do digit[cur++] = static_cast&lt;char&gt; (var % 10 + &#39;0&#39;); while(var /= 10);
-                while(cur) putChar(digit[--cur]);
-            &#125;
-            return *this;
-        &#125;
-        betterOutput&amp; operator &lt;&lt; (const char &amp;var) &#123;
-            putChar(var);
-            return *this;
-        &#125;
-        betterOutput&amp; operator &lt;&lt; (const char *var) &#123;
-            while(*var) putChar(*var++);
-            return *this;
-        &#125;
-        betterOutput&amp; operator &lt;&lt; (const string &amp;var) &#123;
-            for(auto cur: var) putChar(cur);
-            return *this;
-        &#125;
-        template &lt;typename _Tp&gt; betterOutput&amp; outputFloat(_Tp &amp;var) &#123;
-            const string str_var = std::to_string(var);
-            for(auto cur: str_var) putChar(cur);
-            return *this;
-        &#125;
-        ~betterOutput() &#123; flush(); delete[] buffer; &#125;
-    &#125;;
-#undef BUFFER_SIZE
-&#125;
-
-signed main() &#123;
-
-    return 0;
-&#125;
-</code></pre>
-<h2 id="模板简介"><a href="#模板简介" class="headerlink" title="模板简介"></a>模板简介</h2><p>为了更好地食用模板，<strong>请务必仔细阅读以下内容</strong></p>
-<ul>
-<li><p>完整版代码长度4.7k，不考虑写成头文件（毕竟竞赛没有多文件）。或者也可以选择 <a target="_blank" rel="noopener" href="https://github.com/Revethere/Algorithm/blob/master/IO/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99%20-%20BetterIO/BetterIO%20-%20Lite.cpp">Lite 版</a> 模板</p>
-</li>
-<li><p>使用 <code>fread/fwrite</code> 函数实现。默认缓冲区大小为 $2^{16}$，也可以通过更改模板中 <code>BUFFER_SIZE</code> 的值来更改缓冲区大小（不建议超过 $2^{23}$）</p>
-</li>
-<li><p>重载了 <code>&gt;&gt;</code> 和 <code>&lt;&lt;</code>，可以像使用 <code>cin/cout</code> 的方式来进行读写</p>
-</li>
-<li><p>不要与相应的输入输出流<strong>混合使用</strong>（比如同时使用 <code>fread</code> 和 <code>cin</code>，<code>fwrite</code> 和 <code>cout</code>），<code>fread/fwrite</code>是一次性从缓存中读取 &#x2F; 输出数据，混合使用会导致变量数据错误等无法解决的问题</p>
-<p>支持 Linux 和 Windows 环境，<strong>如果可能</strong>，<strong>会尝试</strong>写一个 <code>mmap</code> 版本（Windows下通过 <code>CreateFileMapping</code> 实现）</p>
-</li>
-<li><p>经调试应该没有什么大的问题，如果有的话可以 Luogu 私信我，会尽快修改</p>
-<p><strong>请保证您传入的参数是合法的，出现任何未知的问题概不负责</strong></p>
-</li>
-</ul>
-<h2 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h2><ul>
-<li><p>若要使用此模板，请通过 <code>BetterIO::betterInput in</code> 和 <code>BetterIO::betterOutput out</code> 来创建对象</p>
-</li>
-<li><p>支持整形、字符、字符串、浮点数的输入，整形、字符、字符串、浮点数、<code>char*</code> 的输出（在现在的竞赛环境下几乎不会用到 <code>char*</code> 类型的输入，故舍弃）</p>
-<p>关于 <code>bool</code> 类型的数据，对其单独写一个输入 &#x2F; 输出函数是没有任何意义的，故舍弃</p>
-</li>
-<li><p>您可以使用 <code>in &gt;&gt; x;</code> 读入一个以上任意的一个类型的数据，使用 <code>in &gt;&gt; x &gt;&gt; y &gt;&gt; z &gt;&gt; ...;</code> 读入任意个以上支持的数据类型</p>
-</li>
-<li><p>对于 <code>char</code> 与 <code>std::string</code> 类型的输入，默认有效字符的范围为 ACSII 码表中的 33 至 126</p>
-<p>您可以通过更改以上输入类型的判定条件输入特定字符范围的数据</p>
-<pre><code class="cpp">...
-template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123;
-    while(!ExtraType::isVaild(*iter)) getChar(); // 更改 ExtraType::isVaild 函数以输入特定字符范围数据
-        if constexpr(is_same_v&lt;_Tp, char&gt;) var = *iter, getChar();
-...
-</code></pre>
-</li>
-<li><p><strong>命令行</strong>输入完数据后，使用 <code>ctrl + z</code> 刷新缓冲读入数据。文件流无需注意此项</p>
-</li>
-<li><p>您可以使用 <code>out &lt;&lt; x;</code> 输出一个以上任意的一个类型的数据，使用 <code>out &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z ...;</code> 输出任意个以上支持的数据类型（带空格）</p>
-</li>
-<li><p>对于浮点类型的数据（<code>float</code> 和 <code>double</code>），默认输出精度为 6 位小数，<strong>不支持更改精度</strong><del>绝不是我太懒了懒得写</del></p>
-<p>若有其它精度输出的需求请用其它输出方式</p>
-</li>
-</ul>
-<h2 id="性能比较"><a href="#性能比较" class="headerlink" title="性能比较"></a>性能比较</h2><p>待补 —— 25.7.26</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/C/" style="color: #00a596">C++</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="color: #00bcd4">快读快写</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="color: #ffa2c4">模板</a>
-        </span>
-        
-    </div>
-    <a href="/posts/code@cplusplus-fastio/" class="go-post">MORE</a>
-</div>
-
 
         <div class="page-current">
     
     <span class="current">1</span>
     
+    <a class="page-num" href="/page/2">
+        2
+    </a>
     
     
+    
+    
+    <a class="page-num" href="/page/2/">
+        <i class="fa-solid fa-caret-right fa-fw"></i>
+    </a>
     
 </div>
 
@@ -1009,7 +1328,7 @@ template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123
         </div>
         <div class="name">Revethere₂₀₂₄</div>
         <div class="description">
-            <p>INTP-A<br>好想谈恋爱 😳</p>
+            <p>INTP-A<br>好想谈恋爱😳</p>
 
         </div>
         
