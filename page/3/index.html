@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>Revethere&#39;s Blog</title>
+    <meta name="author" content="Revethere₂₀₂₄" />
+    <meta name="description" content="Could it be MAGIC~" />
+    <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP, Code" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="/js/lib/home.js"></script>
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>REVETHERE&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;首页 | Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于 | About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档 | Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类 | Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签 | Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;REVETHERE&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">首页 | Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于 | About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档 | Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类 | Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签 | Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div id="home-head">
+    <div
+        id="home-background"
+        ref="homeBackground"
+        data-images="/images/background_01.png,/images/background_02.png,/images/background_03.png,/images/background_04.png,/images/background_05.png,/images/background_06.png,/images/background_08.png,/images/background_09.png,/images/background_10.png,/images/background_11.png"
+    ></div>
+    <div id="home-info" @click="homeClick">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>Revethere&#39;s Blog</h1>
+                <h3>分享一些超级有用的芝士</h3>
+                <h5>Could it be MAGIC~</h5>
+            </div>
+        </span>
+    </div>
+</div>
+<div
+    id="home-posts-wrap"
+    ref="homePostsWrap"
+    true
+>
+    <div id="home-posts">
+        
+
+<div class="post">
+    <a href="/posts/probsol-oi@test-23-8-18/">
+        <h2 class="post-title">『做题记录』Test 8.18</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                做题记录
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/8/19
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="手语的-Gnsi"><a href="#手语的-Gnsi" class="headerlink" title="手语的 Gnsi"></a>手语的 Gnsi</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/probsol-oi%40test-23-8-18/question_image.png?raw=true"></p>
+<p>给定三个正交矩形和一个点 , 问是否存在一个三角形 , 使得该三角形的三个顶点分别在三个正交矩形内且该三角形的重心为给定点 .</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>重心 $G &#x3D; (\dfrac{x_1 + x_2 + x_3}{3} , \dfrac{y_1 + y_2 + y_3}{3})$ . 加上两个边界 :</p>
+<ul>
+<li><p>$x_G &#x3D; \begin{bmatrix} \dfrac{minx_1 + minx_2 + minx_3}{3} + \dfrac{maxx_1 + maxx_2 + maxx_3}{3} \end{bmatrix}$</p>
+</li>
+<li><p>$y_G &#x3D; \begin{bmatrix} \dfrac{miny_1 + miny_2 + miny_3}{3} + \dfrac{maxy_1 + maxy_2 + maxy_3}{3} \end{bmatrix}$</p>
+</li>
+</ul>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/OI/" style="color: #00a596">OI</a>
+        </span>
+        
+    </div>
+    <a href="/posts/probsol-oi@test-23-8-18/" class="go-post">MORE</a>
+</div>
+
+<div class="post">
+    <a href="/posts/probsol-oi@test-23-8-16/">
+        <h2 class="post-title">『做题记录』Test 8.16</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                做题记录
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/8/17
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="数学-Math"><a href="#数学-Math" class="headerlink" title="数学 Math"></a>数学 Math</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/probsol-oi%40test-23-8-16/question_image.png?raw=true"></p>
+<p>在射线 $ON$ 上有两个定点 $A$ , $B$ . 在射线 $OM$ 上取一点 $P$ , 使得 $\angle APB$ 最大 ( 有且只有一个解 ) . 求点 $P$ 的坐标 .</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/probsol-oi%40test-23-8-16/answer_image.png?raw=true"></p>
+<p>如图 , 构造以点 $P$ , $A$ , $B$ 为外接圆且 $OM$ 与点 $P$ 相切 . 此时 $\angle APB$ 最大 .</p>
+<p>证明过程 : 在 $OM$ 上任取一点 $Q$ , 设 $AF$ 与 $\odot QAB$ 交于点 $Q^\prime$ , 则 $\angle AQB &lt; \angle AQ^\prime B$ .</p>
+<p>求点 $Q$ 的坐标可以用相似 , ${OE}^2 &#x3D; OA \times OB$ . 求出 $OQ$ 长即可 .</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/OI/" style="color: #00a596">OI</a>
+        </span>
+        
+    </div>
+    <a href="/posts/probsol-oi@test-23-8-16/" class="go-post">MORE</a>
+</div>
+
+<div class="post">
+    <a href="/posts/probsol-oi@test-23-8-14/">
+        <h2 class="post-title">『做题记录』Test 8.14</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                做题记录
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/8/15
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="你所热爱的就是你的生活-ll"><a href="#你所热爱的就是你的生活-ll" class="headerlink" title="你所热爱的就是你的生活 ll"></a>你所热爱的就是你的生活 ll</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>给定一个序列 $price$ , 从序列内任取若干个数 , 使得价值和不超过 $m$ . 求方案总数 .</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>折半搜索 , $l$ 和 $r$ 分别统计左右价值 , 去掉不满足条件的即可 .</p>
+<hr>
+<h2 id="家人-Family"><a href="#家人-Family" class="headerlink" title="家人 Family"></a>家人 Family</h2><h3 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h3><p>在一个 $2 \times n$ 的迷宫中有 2 种状态 , 能走和不能走 . 求给定两点 $u$ , $v$ 的最短路 .</p>
+<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>线段树维护 $[l , r]$ 列的 $2 \times (r - l + 1)$ 的左上到右上 &#x2F; 下 , 左下到右上 &#x2F; 下的最短路的值 .</p>
+<p>对两个节点的答案合并 , 经过 $(0 , mid)$ 和 $(1 , mid)$ 的 $\min$ .</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/OI/" style="color: #ff7d73">OI</a>
+        </span>
+        
+    </div>
+    <a href="/posts/probsol-oi@test-23-8-14/" class="go-post">MORE</a>
+</div>
+
+<div class="post">
+    <a href="/posts/probsol-oi@test-23-8-12/">
+        <h2 class="post-title">『做题记录』Test 8.12</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                做题记录
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/8/13
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="网格行走-Path"><a href="#网格行走-Path" class="headerlink" title="网格行走 Path"></a>网格行走 Path</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>有一个 $n \times m$ 的网格 , 第 $i$ 行第 $j$ 列写有一个数 $a_{i,j}$ ( 从 0 开始 ) , 每个数仅出现一次 .</p>
+<p>一条行走路径的价值为所有经过的点的集合的 $\operatorname{mex}$ 的值 .</p>
+<p>定义一个集合的 $\operatorname{mex}$ 的值为最小的没有在集合中出现的非负整数 .</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>要想 $\operatorname{mex}$ 的值大于等于 $d$ , 那么需要经过 $0 \ldots d$ 的所有点 .</p>
+<p>非法方案是需要两个点即可 : $x_1 &lt; x_2$ , $y_1 &gt; y_2$ . 对于任意一个的点来说 , 在以它为原点的第 1 象限和第 3 象限的点都是非法的 . 数据结构判断 :</p>
+<ul>
+<li>Method 1 : 二分答案 $d$ , 将对应点排序 , 以 $x$ 为第一关键字 , $y$ 为第二关键字 , 相邻点满足 $x$ , $y$ 均不降即可 ( 不需要真正的排序 ) . 复杂度 $O(nm \log nm)$ .</li>
+<li>Method 2 : 动态加点判断 , 复杂度 $O(nm \log n)$ . ( 目前不会 ＞﹏＜</li>
+</ul>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/OI/" style="color: #00bcd4">OI</a>
+        </span>
+        
+    </div>
+    <a href="/posts/probsol-oi@test-23-8-12/" class="go-post">MORE</a>
+</div>
+
+<div class="post">
+    <a href="/posts/probsol-oi@test-23-8-11/">
+        <h2 class="post-title">『做题记录』Test 8.11</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                做题记录
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/8/12
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="计数练习-Perm"><a href="#计数练习-Perm" class="headerlink" title="计数练习 Perm"></a>计数练习 Perm</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>统计有多少 $m$ 阶排列比自己的逆排列的字典序小 .</p>
+<p>即 $q(p)_{p_i} &#x3D; i$ 并且存在一个 $i$ 使得 $\forall 1 \le j &lt; i$ , $p_j &#x3D; q(p)_j$ 且 $p_i &lt; q(p)_i$ .</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>排列的逆变换是有规律的 , 即 $q(q(p)) &#x3D; p$ . 从 $p$ 和 $q(p)$ 来看 , 有关字典序的关系是相反的 , 所以只要 $q(p) \not &#x3D; P$ , $(P , q(P))$ 就会对答案产生贡献 .</p>
+<p>统计 $n$ 阶排列的数量 , 发现所有轮换大小不超过 2 的排列的逆排列就是它自己 . 记这样的 $n$ 阶排列的数量为 $f_n$ . 则 :</p>
+<p>$$f_n &#x3D; f_{n - 1} + (n - 1) \times f_{n - 2}$$</p>
+<p>$$v_i &#x3D; \dfrac{(i! - f_i)}{2}$$</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/OI/" style="color: #00a596">OI</a>
+        </span>
+        
+    </div>
+    <a href="/posts/probsol-oi@test-23-8-11/" class="go-post">MORE</a>
+</div>
+
+
+        <div class="page-current">
+    
+    <a class="page-num" href="/page/2/">
+        <i class="fa-solid fa-caret-left fa-fw"></i>
+    </a>
+    <a class="page-num" href="/">1</a>
+    <span class="page-omit">...</span>
+    
+    <span class="current">3</span>
+    
+    <a class="page-num" href="/page/4">
+        4
+    </a>
+    
+    
+    <a class="page-num" href="/page/5">
+        5
+    </a>
+    
+    
+    <span class="page-omit">...</span>
+    <a class="page-num" href="/page/6">6</a>
+    
+    
+    <a class="page-num" href="/page/4/">
+        <i class="fa-solid fa-caret-right fa-fw"></i>
+    </a>
+    
+</div>
+
+    </div>
+    
+    <div id="home-card">
+        <div id="card-style">
+    <div id="card-div">
+        <div class="avatar">
+            <img src="/images/avatar.jpg" alt="avatar" />
+        </div>
+        <div class="name">Revethere₂₀₂₄</div>
+        <div class="description">
+            <p>INTP-A<br>好想谈恋爱😳</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a href="mailto:neverland-revethere@outlook.com">
+                    <i
+                        class="fa-solid fa-envelope fa-fw"
+                    ></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=103325164&site=qq&menu=yes">
+                    <i
+                        class="fa-brands fa-qq fa-fw"
+                    ></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/Revethere">
+                    <i
+                        class="fa-brands fa-github fa-fw"
+                    ></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://space.bilibili.com/3493089175931788">
+                    <i
+                        class="fa-brands fa-bilibili fa-fw"
+                    ></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a href="https:/revethere.github.io/">Revethere</a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://aimerny.top/">Aimerny</a>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
+    </div>
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2024 - 2026 Revethere&#39;s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Revethere₂₀₂₄
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+
+    <canvas
+        id="background"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+    ></canvas>
+    <script src="/js/background.min.js"></script>
+
+    <canvas
+        id="fireworks"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+    ></canvas>
+    <script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="/js/fireworks.min.js"></script>
+
+    
+</body>
+</html>
