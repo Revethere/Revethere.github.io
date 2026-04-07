@@ -190,21 +190,21 @@
             
             <span class="tag">
                 
-                <a href="/tags/Minecraft/" style="color: #ffa2c4">
+                <a href="/tags/Minecraft/" style="color: #03a9f4">
                     Minecraft
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/sumo/" style="color: #00a596">
+                <a href="/tags/sumo/" style="color: #ffa2c4">
                     sumo
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #00bcd4">
+                <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #03a9f4">
                     博弈
                 </a>
             </span>
@@ -215,20 +215,12 @@
     
     <div class="content" v-pre>
         <h2 id="阅读文章前，你需要知道的…"><a href="#阅读文章前，你需要知道的…" class="headerlink" title="阅读文章前，你需要知道的…"></a>阅读文章前，你需要知道的…</h2><ul>
-<li><p>文章中所有的定义（以及一些生僻概念）仅为了规范与统一文章的内容，<strong>不代表圈内叫法</strong>👌🏼</p>
-</li>
-<li><p>文章中所有涉及的操作均通过 dbc 点击方式实现，同时您也需要熟练使用间隔点</p>
-</li>
-<li><p>大部分技巧讲简述原理，少数从底层机制分析</p>
-</li>
-<li><p>部分技巧因适用于多个场景会重复出现</p>
-</li>
-<li><p>为了方便表示，大部分 click 都用单数</p>
-</li>
-<li><p>gt（game tick）和 tick 是一样的，文中没有统一叫法</p>
-</li>
-<li><p><del>原本想试试图文的但是图片太难做了，受限于样式这种做视频其实会好点</del></p>
-</li>
+<li>文章中所有的定义（以及一些生僻概念）仅为了规范与统一文章的内容，<strong>不代表圈内叫法</strong>👌🏼</li>
+<li>大部分技巧讲简述原理，少数从底层机制分析</li>
+<li>部分技巧因适用于多个场景会重复出现</li>
+<li>为了方便表示，大部分 click 都用单数</li>
+<li>gt（game tick）和 tick 是一样的，文中没有统一叫法</li>
+<li><del>原本想试试图文的但是图片太难做了，受限于样式这种做视频其实会好点</del></li>
 </ul>
 <p><strong>本文内容仅代表个人观点❗❗❗</strong></p>
 <h2 id="Early-Game-基本技巧原理简述-部分技巧的细分与重定义"><a href="#Early-Game-基本技巧原理简述-部分技巧的细分与重定义" class="headerlink" title="Early Game - 基本技巧原理简述 &amp; 部分技巧的细分与重定义"></a>Early Game - 基本技巧原理简述 &amp; 部分技巧的细分与重定义</h2><h3 id="基本技巧"><a href="#基本技巧" class="headerlink" title="基本技巧"></a>基本技巧</h3><ul>
@@ -274,6 +266,7 @@
 <li><p><strong>负 kb</strong></p>
 <p>仅仅依靠间隔点实现的极小 kb + 间隔期间（相对更多）向前的位移实现的负 kb</p>
 <p>一般适用于对方 wtap 频率不高，或者一直卡 3blocks 的对刀有一定的效果</p>
+<p>如果 kb 合适（对于垂直速度上限而直接拉下来并且落地后的 trade 几乎没有垂直 kb ），holdw + <del>根据情况 wtap +</del> 1jr &#x2F; 3trades 在台边劣势的时候可以搏一搏。更高的 wtap 频率可以尝试将对手推飞，建议 holdw 找机会穿身</p>
 </li>
 <li><p><strong>mt 偏移</strong></p>
 <p>指在玩家之间相互 midtrade 的间隙通过走位干扰对方瞄准并在下次攻击时改变对方击退方向，一般是在本次攻击之后玩家之间距离拉近或是穿身时使用（这个就需要多打打判断了）</p>
@@ -286,13 +279,14 @@
 <p>一般对方会以为穿身往后瞄准（但事实上并没有）被创下台或者进入 combo，另一种就是避免自己进入劣势局面</p>
 <p>当然这个也一定程度上能够反制</p>
 </li>
-<li><p><strong>midtrade 反制（mt cm）</strong></p>
+<li><p><strong>midtrade 反制（counter mt）</strong></p>
 <p>不会。</p>
 <p>会了再补 o.O</p>
 <p>其实也不算完全会</p>
 <p>反制手段要么就是 trade 回去，相互保持 trade（对于不会直接创下台的情况）；或者是 spam click（trade 节奏较长的时候）</p>
 <p>那什么高低位，不懂（</p>
 <p><del>sumo 的尽头是抓对面失误</del></p>
+<p>关于上文中 mt 偏移的反制手段常用为预判、瞄准跟随与反方向抵消</p>
 </li>
 <li><p><strong>air jump</strong></p>
 <p>非常猎奇的我觉得应该不能称之为技巧的技巧，我一般对其解释为在服务端玩家被判定为 <code>onGround</code> 但在客户端玩家视角是在空中进行跳跃重置。非常有用，但是很吃 timing（似乎 1.8 更容易触发？）</p>
@@ -306,11 +300,12 @@
 <p>😱</p>
 </li>
 </ul>
-<h3 id="关于-dbc-间隔点"><a href="#关于-dbc-间隔点" class="headerlink" title="关于 dbc 间隔点"></a>关于 dbc 间隔点</h3><p>将两指分别敲击一次鼠标（一般为 4cps）的操作称为 1tc；一般地，8cps 间隔点简称为 2tc，12cps 为 3tc</p>
+<h3 id="关于-dbc-间隔点及-dc"><a href="#关于-dbc-间隔点及-dc" class="headerlink" title="关于 dbc 间隔点及 dc"></a>关于 dbc 间隔点及 dc</h3><p>将两指分别敲击一次鼠标（一般为 4cps）的操作称为 1tc；一般地，8cps 间隔点简称为 2tc，12cps 为 3tc</p>
 <p><strong>这只是一种叫法，与有没有触发双倍点无关</strong></p>
 <p>如果能够做到在短时间内的 4tc 点击，那你的 kb 将会进化到下一个 level</p>
 <p>2tc 和 3tc 的点击建议放长一点，不然点击之间间隙太大容易创飞</p>
 <p>一般来说对于主流服务器的水平击退参数只要 4clicks（1click &#x2F; tick）并按住 w 就能抵消击退，在加上一些容错的话 2tc 在大部分情况下够用</p>
+<p>dc 由于更高的点击密度可以做到更稳定、（少部分情况下）更小的 kb，代价是相对不灵活的瞄准，更长的间隔以及（对于部分人可能存在的）点击不稳定性</p>
 <h3 id="一些奇妙的想法"><a href="#一些奇妙的想法" class="headerlink" title="一些奇妙的想法"></a>一些奇妙的想法</h3><ul>
 <li><p>（不太合法的）减 kb 的新思路</p>
 <p>一些助于理解的理论补充见<a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound/">这里</a></p>
@@ -388,7 +383,7 @@
 <p>其实 90ms 以上的延迟打起来就已经很难受了</p>
 <p>更多关于延迟的讲解见下一部分『关于延迟』</p>
 </li>
-<li><p><strong>trader</strong></p>
+<li><p><strong>midtrader</strong></p>
 <p>对刀严重依赖 mt，具体表现为每一刀的攻击节奏慢于正常节奏 $\phantom{比如某个lowA Tier}$</p>
 <p><strong>很难说这个习惯是好是坏</strong>，trade 节奏不好很容易失误（但是又很难定义「不好的 trade 节奏」，大概就是你和对面相互 trade 但是先后手基本没变或是同时，然后你 spam click 不再 trade 拼几刀后对面会被推走，对面就是「不好的 trade 节奏」）</p>
 <p>瞄准不好的话被对面 mt 偏移直接被创飞</p>
@@ -423,7 +418,7 @@
 <p>经典的反制手段是在三次 trade 后 spam click 加快对刀节奏，对手点击间隔长的话会直接被创飞（更多时候需要根据 trade 间隔时间判断）</p>
 <p>另一种是叠 4tc 点击拼体重（对于体重较重的）</p>
 </li>
-<li><p><strong>反 trade 节奏</strong></p>
+<li><p><strong>间接性 trade 节奏</strong></p>
 <p>本质上是对手为了转变先后手而进行 mt，可以理解为间歇性 mt</p>
 <p>要么就是你 trade 一下我 trade 一下看谁先失误</p>
 <p>要么就让着对面后手拼体重</p>
@@ -454,6 +449,7 @@
 <p><a target="_blank" rel="noopener" href="https://weave.op-ffa.net/">Weave Mod</a></p>
 <h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>25.10.6 -（主体）完结撒花🥰🥳🎉</p>
 <p>26.4.4 - 修正 &#x2F; 删除了部分理论，补充 &#x2F; 添加了一些不知道有没有用的内容，删掉了参考资料（因为根本没用上😗）</p>
+<p>26.4.7 - 一点小更新</p>
 
     </div>
     
