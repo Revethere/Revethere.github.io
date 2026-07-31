@@ -555,6 +555,55 @@
     margin-bottom: 50px;
     z-index: 1000;
 }
+#search-results .search-result {
+    background: #fff;
+    border: 1px solid #0002;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    padding: 24px;
+    transition: box-shadow 0.5s;
+}
+#search-results .search-result:hover {
+    box-shadow: 0 2px 8px #00000017;
+}
+#search-results .search-result .search-result-date {
+    color: #5c6b72;
+    margin-bottom: 8px;
+}
+#search-results .search-result h3 {
+    margin: 10px 0;
+}
+#search-results .search-result .info {
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+#search-results .search-excerpts {
+    margin-top: 15px;
+}
+#search-results .search-excerpt {
+    color: #5c6b72;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 8px 0;
+    white-space: pre-line;
+    word-break: break-all;
+}
+#search-results .search-excerpt-sep {
+    border-top: 1px dashed #e0e0e0;
+    margin: 12px 0;
+}
+#search-results .search-empty {
+    color: #5c6b72;
+    font-size: 16px;
+    padding: 40px 0;
+    text-align: center;
+}
+#search-results mark {
+    background: #fff13360;
+    border-radius: 3px;
+    color: unset;
+    padding: 2px 4px;
+}
 #timeline-wrap {
     display: flex;
     flex-direction: column-reverse;
