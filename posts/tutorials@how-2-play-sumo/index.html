@@ -97,6 +97,11 @@
             <span>&ensp;标签 | Tags</span>
         </a>
         
+        <a href="/friends">
+            <i class="fa-solid fa-link fa-fw"></i>
+            <span>&ensp;友链 | Friends</span>
+        </a>
+        
     </nav>
     <nav id="mobile-menu">
         <div class="title" @click="showMenuItems = !showMenuItems">
@@ -151,6 +156,15 @@
                     </div>
                 </a>
                 
+                <a href="/friends">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-link fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">友链 | Friends</div>
+                    </div>
+                </a>
+                
             </div>
         </transition>
     </nav>
@@ -190,14 +204,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Minecraft/" style="color: #03a9f4">
+                <a href="/tags/Minecraft/" style="color: #ff7d73">
                     Minecraft
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/sumo/" style="color: #ffa2c4">
+                <a href="/tags/sumo/" style="color: #00bcd4">
                     sumo
                 </a>
             </span>
@@ -292,11 +306,12 @@
 <p>非常猎奇的我觉得应该不能称之为技巧的技巧，我一般对其解释为在服务端玩家被判定为 <code>onGround</code> 但在客户端玩家视角是在空中进行跳跃重置。非常有用，但是很吃 timing（似乎 1.8 更容易触发？）</p>
 <p>mmc 这个赛季（Season 9） air jump 触发的手感挺奇怪的，tap space 到触发 air jump 之间有延迟而且成功概率挺大，感觉 combo 时只要 3combos 没问题基本对面逃不了</p>
 </li>
-<li><p><strong>backtrack</strong></p>
-<p>此 backtrack 非彼此 backtrack，其实就是 misplace</p>
+<li><p><strong>不知道该怎么解释</strong></p>
+<p>类似 misplace 但应该不算是 misplace</p>
 <p>当你和对手的 ping 处于一个暧昧的关系时，你 &#x2F; 对手会莫名其妙在推开之后老远再摸到一刀</p>
 <p>总之当你能触发就能恶心对面，对面触发容易被打红温（</p>
 <p>而且一旦能够触发那大概率一长段时间内都能恶心对面（</p>
+<p>似乎跟客户端和服务器 tick 错开时间有关，可以窗口标题蒙一蒙（</p>
 <p>😱</p>
 </li>
 </ul>

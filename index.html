@@ -95,6 +95,11 @@
             <span>&ensp;标签 | Tags</span>
         </a>
         
+        <a href="/friends">
+            <i class="fa-solid fa-link fa-fw"></i>
+            <span>&ensp;友链 | Friends</span>
+        </a>
+        
     </nav>
     <nav id="mobile-menu">
         <div class="title" @click="showMenuItems = !showMenuItems">
@@ -146,6 +151,15 @@
                             <i class="fa-solid fa-tags fa-fw"></i>
                         </div>
                         <div style="min-width: 100px; max-width: 150%; width: 20%">标签 | Tags</div>
+                    </div>
+                </a>
+                
+                <a href="/friends">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-link fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">友链 | Friends</div>
                     </div>
                 </a>
                 
@@ -218,6 +232,13 @@
 <p>25.12.21 提前 R.I.P. 预计 12.28 电脑被收www</p>
 <p>26.3.2 短暂复活，上传了部分 23 年写的文章（至于原来稀烂的排版将就看吧）</p>
 <p>26.3.3 ☠️</p>
+<p>26.7.30 复活</p>
+<p>26.7.31 博客界面调整</p>
+<ul>
+<li><code>friendlink</code> 移至 <code>desktop-menu</code></li>
+<li>增加统计信息</li>
+<li><del>梁文峰的恩情还不完</del></li>
+</ul>
 
             
         </div>
@@ -409,7 +430,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #03a9f4">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #ff7d73">Minecraft</a>
         </span>
         
         <span class="tag">
@@ -972,17 +993,17 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #00a596">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #00bcd4">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/sumo/" style="color: #ffa2c4">sumo</a>
+            <a href="/tags/sumo/" style="color: #ff7d73">sumo</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Java/" style="color: #00a596">Java</a>
+            <a href="/tags/Java/" style="color: #ffa2c4">Java</a>
         </span>
         
     </div>
@@ -1090,7 +1111,7 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #03a9f4">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #ffa2c4">Minecraft</a>
         </span>
         
         <span class="tag">
@@ -1212,11 +1233,12 @@ friction = 0.0d
 <p>非常猎奇的我觉得应该不能称之为技巧的技巧，我一般对其解释为在服务端玩家被判定为 <code>onGround</code> 但在客户端玩家视角是在空中进行跳跃重置。非常有用，但是很吃 timing（似乎 1.8 更容易触发？）</p>
 <p>mmc 这个赛季（Season 9） air jump 触发的手感挺奇怪的，tap space 到触发 air jump 之间有延迟而且成功概率挺大，感觉 combo 时只要 3combos 没问题基本对面逃不了</p>
 </li>
-<li><p><strong>backtrack</strong></p>
-<p>此 backtrack 非彼此 backtrack，其实就是 misplace</p>
+<li><p><strong>不知道该怎么解释</strong></p>
+<p>类似 misplace 但应该不算是 misplace</p>
 <p>当你和对手的 ping 处于一个暧昧的关系时，你 &#x2F; 对手会莫名其妙在推开之后老远再摸到一刀</p>
 <p>总之当你能触发就能恶心对面，对面触发容易被打红温（</p>
 <p>而且一旦能够触发那大概率一长段时间内都能恶心对面（</p>
+<p>似乎跟客户端和服务器 tick 错开时间有关，可以窗口标题蒙一蒙（</p>
 <p>😱</p>
 </li>
 </ul>
@@ -1384,17 +1406,17 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #00a596">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #ffa2c4">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/sumo/" style="color: #ff7d73">sumo</a>
+            <a href="/tags/sumo/" style="color: #00bcd4">sumo</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #ffa2c4">博弈</a>
+            <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #00a596">博弈</a>
         </span>
         
     </div>
@@ -1436,7 +1458,7 @@ friction = 0.0d
         </div>
         <div class="name">Revethere₂₀₂₄</div>
         <div class="description">
-            <p>INTP-A<br>好想谈恋爱😳</p>
+            <p>INTP-A<br>好想谈恋爱OwO</p>
 
         </div>
         
@@ -1477,22 +1499,20 @@ friction = 0.0d
         </div>
         
         
-        <div class="friend-links">
-            
-            <div class="friend-link">
-                <a href="https:/revethere.github.io/">Revethere</a>
+        <div class="statistics">
+            <div class="stat-item">
+                <span class="stat-num">25</span>
+                <span class="stat-label">Posts</span>
             </div>
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://aimerny.top/">Aimerny</a>
+            <div class="stat-item">
+                <span class="stat-num">45.4k</span>
+                <span class="stat-label">Words</span>
             </div>
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://www.pinterest.com/sakyvo/">Sakyvo</a>
+            <div class="stat-item">
+                <span class="stat-num">425</span>
+                <span class="stat-label">Days</span>
             </div>
-            
         </div>
-        
     </div>
 </div>
 

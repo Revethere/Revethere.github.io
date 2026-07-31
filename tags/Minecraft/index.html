@@ -93,6 +93,11 @@
             <span>&ensp;标签 | Tags</span>
         </a>
         
+        <a href="/friends">
+            <i class="fa-solid fa-link fa-fw"></i>
+            <span>&ensp;友链 | Friends</span>
+        </a>
+        
     </nav>
     <nav id="mobile-menu">
         <div class="title" @click="showMenuItems = !showMenuItems">
@@ -147,6 +152,15 @@
                     </div>
                 </a>
                 
+                <a href="/friends">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-link fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">友链 | Friends</div>
+                    </div>
+                </a>
+                
             </div>
         </transition>
     </nav>
@@ -159,39 +173,6 @@
             <div id="archives">
     
     <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/tags/C/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                C++
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                快读快写
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                模板
-            </a>
-        </span>
         
         
         
@@ -209,29 +190,7 @@
         
         
         <span>
-            <a href="/tags/sumo/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                sumo
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Java/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Java
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%95%B0%E5%AD%A6/" style="background: #00bcd4">
+            <a href="/tags/%E6%95%B0%E5%AD%A6/" style="background: #ffa2c4">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -242,51 +201,7 @@
         
         
         <span>
-            <a href="/tags/LunarClient/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                LunarClient
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Rewind/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Rewind
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Atcoder/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Atcoder
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/OI/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                OI
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/OBS/" style="background: #00bcd4">
+            <a href="/tags/OBS/" style="background: #03a9f4">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -297,7 +212,7 @@
         
         
         <span>
-            <a href="/tags/Blur/" style="background: #ff7d73">
+            <a href="/tags/Blur/" style="background: #00bcd4">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -308,7 +223,106 @@
         
         
         <span>
-            <a href="/tags/%E5%8D%9A%E5%BC%88/" style="background: #00a596">
+            <a href="/tags/LunarClient/" style="background: #03a9f4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                LunarClient
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/Rewind/" style="background: #ffa2c4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                Rewind
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/C/" style="background: #03a9f4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                C++
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="background: #00bcd4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                快读快写
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="background: #00a596">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                模板
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/Atcoder/" style="background: #ffa2c4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                Atcoder
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/OI/" style="background: #ff7d73">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                OI
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/sumo/" style="background: #00a596">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                sumo
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/Java/" style="background: #00bcd4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                Java
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E5%8D%9A%E5%BC%88/" style="background: #ffa2c4">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -353,7 +367,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/%E6%95%B0%E5%AD%A6/" style="color: #00bcd4">
+                        <a href="/tags/%E6%95%B0%E5%AD%A6/" style="color: #00a596">
                             数学
                         </a>
                     </span>
@@ -391,21 +405,21 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/Minecraft/" style="color: #00a596">
+                        <a href="/tags/Minecraft/" style="color: #ff7d73">
                             Minecraft
                         </a>
                     </span>
                     
                     <span class="tag">
                         
-                        <a href="/tags/sumo/" style="color: #00bcd4">
+                        <a href="/tags/sumo/" style="color: #ffa2c4">
                             sumo
                         </a>
                     </span>
                     
                     <span class="tag">
                         
-                        <a href="/tags/Java/" style="color: #03a9f4">
+                        <a href="/tags/Java/" style="color: #ff7d73">
                             Java
                         </a>
                     </span>
@@ -443,21 +457,21 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/Minecraft/" style="color: #00bcd4">
+                        <a href="/tags/Minecraft/" style="color: #ff7d73">
                             Minecraft
                         </a>
                     </span>
                     
                     <span class="tag">
                         
-                        <a href="/tags/LunarClient/" style="color: #ff7d73">
+                        <a href="/tags/LunarClient/" style="color: #00a596">
                             LunarClient
                         </a>
                     </span>
                     
                     <span class="tag">
                         
-                        <a href="/tags/Rewind/" style="color: #00a596">
+                        <a href="/tags/Rewind/" style="color: #ff7d73">
                             Rewind
                         </a>
                     </span>
@@ -495,7 +509,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/Minecraft/" style="color: #ff7d73">
+                        <a href="/tags/Minecraft/" style="color: #00bcd4">
                             Minecraft
                         </a>
                     </span>
@@ -509,7 +523,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #ffa2c4">
+                        <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #ff7d73">
                             博弈
                         </a>
                     </span>
