@@ -252,12 +252,12 @@
         
         <span class="tag">
             
-            <a href="/tags/Atcoder/" style="color: #03a9f4">Atcoder</a>
+            <a href="/tags/Atcoder/" style="color: #00bcd4">Atcoder</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/OI/" style="color: #00a596">OI</a>
+            <a href="/tags/OI/" style="color: #ffa2c4">OI</a>
         </span>
         
     </div>
@@ -341,10 +341,20 @@
                 <span class="stat-label">Words</span>
             </div>
             <div class="stat-item">
-                <span class="stat-num">425</span>
+                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">426</span>
                 <span class="stat-label">Days</span>
             </div>
         </div>
+        <script>
+            (function() {
+                var el = document.getElementById('stat-days');
+                if (!el) return;
+                var startDate = el.getAttribute('data-start-date');
+                if (!startDate) return;
+                var days = Math.floor((Date.now() - new Date(startDate + 'T00:00:00').getTime()) / 86400000);
+                el.textContent = days;
+            })();
+        </script>
     </div>
 </div>
 

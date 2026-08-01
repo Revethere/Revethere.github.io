@@ -431,12 +431,12 @@
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #ff7d73">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #ffa2c4">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E6%95%B0%E5%AD%A6/" style="color: #03a9f4">数学</a>
+            <a href="/tags/%E6%95%B0%E5%AD%A6/" style="color: #ff7d73">数学</a>
         </span>
         
     </div>
@@ -999,12 +999,12 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/sumo/" style="color: #00a596">sumo</a>
+            <a href="/tags/sumo/" style="color: #00bcd4">sumo</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Java/" style="color: #ffa2c4">Java</a>
+            <a href="/tags/Java/" style="color: #00a596">Java</a>
         </span>
         
     </div>
@@ -1112,17 +1112,17 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #ff7d73">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #00bcd4">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/LunarClient/" style="color: #00bcd4">LunarClient</a>
+            <a href="/tags/LunarClient/" style="color: #03a9f4">LunarClient</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Rewind/" style="color: #ffa2c4">Rewind</a>
+            <a href="/tags/Rewind/" style="color: #ff7d73">Rewind</a>
         </span>
         
     </div>
@@ -1407,12 +1407,12 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #ffa2c4">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #00a596">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/sumo/" style="color: #03a9f4">sumo</a>
+            <a href="/tags/sumo/" style="color: #ff7d73">sumo</a>
         </span>
         
         <span class="tag">
@@ -1510,10 +1510,20 @@ friction = 0.0d
                 <span class="stat-label">Words</span>
             </div>
             <div class="stat-item">
-                <span class="stat-num">425</span>
+                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">426</span>
                 <span class="stat-label">Days</span>
             </div>
         </div>
+        <script>
+            (function() {
+                var el = document.getElementById('stat-days');
+                if (!el) return;
+                var startDate = el.getAttribute('data-start-date');
+                if (!startDate) return;
+                var days = Math.floor((Date.now() - new Date(startDate + 'T00:00:00').getTime()) / 86400000);
+                el.textContent = days;
+            })();
+        </script>
     </div>
 </div>
 
