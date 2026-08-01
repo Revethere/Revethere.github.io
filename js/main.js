@@ -18,10 +18,32 @@ const app = Vue.createApp({
     mounted() {
         window.addEventListener("scroll", this.handleScroll, true);
         this.render();
+        this.initMenuIndicator();
     },
     methods: {
         render() {
             for (let i of this.renderers) i();
+        },
+        initMenuIndicator() {
+            const desktopMenu = document.getElementById("desktop-menu");
+            if (!desktopMenu) return;
+            const indicator = document.getElementById("menu-indicator");
+            if (!indicator) return;
+            const links = desktopMenu.querySelectorAll("a");
+
+            links.forEach(link => {
+                link.addEventListener("mouseenter", () => {
+                    const linkRect = link.getBoundingClientRect();
+                    const menuRect = desktopMenu.getBoundingClientRect();
+                    indicator.style.left = (linkRect.left - menuRect.left) + "px";
+                    indicator.style.width = linkRect.width + "px";
+                    indicator.classList.add("visible");
+                });
+            });
+
+            desktopMenu.addEventListener("mouseleave", () => {
+                indicator.classList.remove("visible");
+            });
         },
         handleScroll() {
             let wrap = this.$refs.homePostsWrap;

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Revethere&#39;s Blog</title>
-    <meta name="author" content="Revethere₂₀₂₄" />
+    <meta name="author" content="Revethere" />
     <meta name="description" content="Could it be MAGIC~" />
     <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP, Code" />
     <meta
@@ -66,6 +66,7 @@
         </transition>
         <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
     <nav id="desktop-menu">
+        <div id="menu-indicator"></div>
         <a class="title" href="/">
             <span>REVETHERE&#39;S BLOG</span>
         </a>
@@ -190,7 +191,7 @@
     <div
         id="home-background"
         ref="homeBackground"
-        data-images="/images/background_01.png,/images/background_02.png,/images/background_03.png,/images/background_04.png,/images/background_05.png,/images/background_06.png,/images/background_08.png,/images/background_09.png,/images/background_10.png,/images/background_11.png"
+        data-images="/images/background_01.png,/images/background_02.png,/images/background_03.png,/images/background_04.png,/images/background_05.png,/images/background_06.png,/images/background_08.png,/images/background_09.png,/images/background_10.png"
     ></div>
     <div id="home-info" @click="homeClick">
         <span class="loop"></span>
@@ -259,10 +260,10 @@
 <h3 id="垂直运动递推公式"><a href="#垂直运动递推公式" class="headerlink" title="垂直运动递推公式"></a>垂直运动递推公式</h3><ul>
 <li><strong>垂直速度公式：</strong>$$v_{Y, t} &#x3D; \left( v_{Y, t-1} - \mathop{0.08} \limits_\text{重力} \right) \times \mathop{0.98}\limits_\text{阻力} \tag{1.3.1}$$</li>
 </ul>
-<p><strong>为了方便表示，后文中设公式 (1.2.1)、公式 (.2.2)、公式 (1.2.3) 中所有动量保留项的系数为 $\alpha$，加速度项为 $\beta$。公式 (1.3.1) 展开后同理。</strong></p>
+<p><strong>为了方便表示，后文中设公式 (1.2.1)、公式 (1.2.2)、公式 (1.2.3) 中所有动量保留项的系数为 $\alpha$，加速度项为 $\beta$。公式 (1.3.1) 展开后同理。</strong></p>
 <h2 id="稳态（渐进）速度推导"><a href="#稳态（渐进）速度推导" class="headerlink" title="稳态（渐进）速度推导"></a>稳态（渐进）速度推导</h2><h3 id="经典力学下的运动"><a href="#经典力学下的运动" class="headerlink" title="经典力学下的运动"></a>经典力学下的运动</h3><p>$$\frac{dv}{dt} &#x3D; a - fv \tag{2.1.1}$$</p>
 <p>$$v &#x3D; v_0 e^{-ft} + \frac{a}{f} (1 - e^{-ft})\tag{2.1.2}$$</p>
-<p>$$\frac{v}{v_0} &#x3D; \lim\limits_{t_0 \to 0} (1 - f t_0)^{\frac{t}{t_0}}, a &#x3D; \tag{2.1.3}$$</p>
+<p>$$\frac{v}{v_0} &#x3D; \lim\limits_{t_0 \to 0} (1 - f t_0)^{\frac{t}{t_0}}, a &#x3D; 0\tag{2.1.3}$$</p>
 <p>其余见 <a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound/"><a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound/">『低版本 pvp 中玩家最优 kb 的点击频率下限分析』</a></a> 中 『经典力学下的运动』小结，这里不过多阐述。</p>
 <h3 id="水平稳态（渐进）速度"><a href="#水平稳态（渐进）速度" class="headerlink" title="水平稳态（渐进）速度"></a>水平稳态（渐进）速度</h3><p>假设实体在运动过程中所有状态不变（$f_S$ 为常数），原递推式为一阶线性差分方程：$$v_t &#x3D; \alpha , v_{t-1} + \beta \tag{2.2.1}$$</p>
 <p>齐次方程 $v_t^{(h)} &#x3D; \alpha v_{t-1}^{(h)}$ 的解为 $v_t^{(h)} &#x3D; C \alpha^t$。由于非齐次项 $\beta$ 为常数，设其特解为 $K$，代入原方程 (2.2.1) 得：$$K &#x3D; \alpha K + \beta$$</p>
@@ -393,12 +394,12 @@
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #00a596">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #00bcd4">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E6%95%B0%E5%AD%A6/" style="color: #ffa2c4">数学</a>
+            <a href="/tags/%E6%95%B0%E5%AD%A6/" style="color: #03a9f4">数学</a>
         </span>
         
     </div>
@@ -956,17 +957,17 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #ffa2c4">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #00bcd4">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/sumo/" style="color: #00bcd4">sumo</a>
+            <a href="/tags/sumo/" style="color: #00a596">sumo</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Java/" style="color: #03a9f4">Java</a>
+            <a href="/tags/Java/" style="color: #ff7d73">Java</a>
         </span>
         
     </div>
@@ -1076,17 +1077,17 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #00a596">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #03a9f4">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/LunarClient/" style="color: #ffa2c4">LunarClient</a>
+            <a href="/tags/LunarClient/" style="color: #00bcd4">LunarClient</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Rewind/" style="color: #00a596">Rewind</a>
+            <a href="/tags/Rewind/" style="color: #ffa2c4">Rewind</a>
         </span>
         
     </div>
@@ -1371,12 +1372,12 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #03a9f4">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #ff7d73">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/sumo/" style="color: #ffa2c4">sumo</a>
+            <a href="/tags/sumo/" style="color: #03a9f4">sumo</a>
         </span>
         
         <span class="tag">
@@ -1451,7 +1452,7 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/OBS/" style="color: #ff7d73">OBS</a>
+            <a href="/tags/OBS/" style="color: #00bcd4">OBS</a>
         </span>
         
         <span class="tag">
@@ -1496,7 +1497,7 @@ friction = 0.0d
         <div class="avatar">
             <img src="/images/avatar.jpg" alt="avatar" />
         </div>
-        <div class="name">Revethere₂₀₂₄</div>
+        <div class="name">Revethere</div>
         <div class="description">
             <p>INTP-A<br>好想谈恋爱OwO</p>
 
@@ -1578,7 +1579,7 @@ friction = 0.0d
             <span id="footer-icon">
                 <i class="fa-solid fa-font-awesome fa-fw"></i>
             </span>
-            &commat;Revethere₂₀₂₄
+            &commat;Revethere
         </div>
         <div>
             Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;

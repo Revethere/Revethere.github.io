@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Tags: C++ | Revethere&#39;s Blog</title>
-    <meta name="author" content="Revethere₂₀₂₄" />
+    <meta name="author" content="Revethere" />
     <meta name="description" content="Could it be MAGIC~" />
     <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP, Code" />
     <meta
@@ -64,6 +64,7 @@
         </transition>
         <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
     <nav id="desktop-menu">
+        <div id="menu-indicator"></div>
         <a class="title" href="/">
             <span>REVETHERE&#39;S BLOG</span>
         </a>
@@ -191,11 +192,57 @@
         
         
         <span>
-            <a href="/tags/Minecraft/" style="background: #00a596">
+            <a href="/tags/Minecraft/" style="background: #ffa2c4">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
                 Minecraft
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E6%95%B0%E5%AD%A6/" style="background: #00a596">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                数学
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/C/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                C++
+            </a>
+        </span>
+        
+        
+        
+        
+        
+        <span>
+            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="background: #00bcd4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                快读快写
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="background: #00a596">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                模板
             </a>
         </span>
         
@@ -213,7 +260,7 @@
         
         
         <span>
-            <a href="/tags/Java/" style="background: #00a596">
+            <a href="/tags/Java/" style="background: #ffa2c4">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -224,18 +271,7 @@
         
         
         <span>
-            <a href="/tags/%E6%95%B0%E5%AD%A6/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                数学
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/LunarClient/" style="background: #00bcd4">
+            <a href="/tags/LunarClient/" style="background: #00a596">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -257,41 +293,6 @@
         
         
         <span>
-            <a href="/tags/C/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                C++
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                快读快写
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                模板
-            </a>
-        </span>
-        
-        
-        
-        <span>
             <a href="/tags/OBS/" style="background: #ff7d73">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
@@ -303,7 +304,7 @@
         
         
         <span>
-            <a href="/tags/Blur/" style="background: #03a9f4">
+            <a href="/tags/Blur/" style="background: #ffa2c4">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -314,7 +315,7 @@
         
         
         <span>
-            <a href="/tags/Atcoder/" style="background: #00a596">
+            <a href="/tags/Atcoder/" style="background: #ff7d73">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -325,7 +326,7 @@
         
         
         <span>
-            <a href="/tags/OI/" style="background: #ff7d73">
+            <a href="/tags/OI/" style="background: #00bcd4">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
@@ -374,21 +375,21 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/C/" style="color: #ff7d73">
+                        <a href="/tags/C/" style="color: #00a596">
                             C++
                         </a>
                     </span>
                     
                     <span class="tag">
                         
-                        <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="color: #ffa2c4">
+                        <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" style="color: #03a9f4">
                             快读快写
                         </a>
                     </span>
                     
                     <span class="tag">
                         
-                        <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="color: #03a9f4">
+                        <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="color: #00bcd4">
                             模板
                         </a>
                     </span>
@@ -409,7 +410,7 @@
             <span id="footer-icon">
                 <i class="fa-solid fa-font-awesome fa-fw"></i>
             </span>
-            &commat;Revethere₂₀₂₄
+            &commat;Revethere
         </div>
         <div>
             Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
