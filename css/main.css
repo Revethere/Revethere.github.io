@@ -42,6 +42,66 @@
 #archives h3 {
     margin: 10px 0;
 }
+#logs {
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+}
+#logs h1 {
+    margin-bottom: 40px;
+    text-align: center;
+}
+#logs .logs-list {
+    margin: auto;
+    max-width: 750px;
+}
+#logs .log-entry {
+    align-items: flex-start;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    gap: 30px;
+    padding: 24px 0;
+}
+#logs .log-entry:first-child {
+    border-top: 1px solid #e0e0e0;
+}
+#logs .log-date {
+    color: #5c6b72;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 4px;
+    padding-top: 2px;
+    text-align: right;
+    width: 110px;
+}
+#logs .log-date-text {
+    color: #1e3e3f;
+    font-size: 15px;
+    font-weight: 700;
+}
+#logs .log-tagline {
+    color: #999;
+    font-size: 12px;
+    font-style: italic;
+}
+#logs .log-content {
+    flex: 1;
+    min-width: 0;
+}
+#logs .log-content p {
+    margin: 4px 0;
+    line-height: 1.7;
+}
+#logs .log-content ul,
+#logs .log-content ol {
+    margin: 4px 0;
+    padding-left: 18px;
+}
+#logs .log-content li {
+    margin: 3px 0;
+    line-height: 1.7;
+}
 #friends {
     margin: auto;
     margin-top: 100px;
@@ -652,6 +712,27 @@ body::-webkit-scrollbar-track {
     margin: 15px auto;
     max-width: 75%;
 }
+.video-embed {
+    margin: 20px auto;
+    max-width: 75%;
+    position: relative;
+    width: 100%;
+}
+.video-embed::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+}
+.video-embed iframe {
+    border-radius: 10px;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
 .copycode {
     color: #5c6b72;
     position: absolute;
@@ -1127,6 +1208,19 @@ ol li {
         border-radius: 15px 0;
         margin-left: 12px;
         padding: 10px 14px;
+    }
+    #logs .log-entry {
+        gap: 16px;
+        padding: 18px 0;
+    }
+    #logs .log-date {
+        width: 75px;
+    }
+    #logs .log-date-text {
+        font-size: 13px;
+    }
+    #logs .log-tagline {
+        font-size: 11px;
     }
     #menu #desktop-menu,
     #home-card {
