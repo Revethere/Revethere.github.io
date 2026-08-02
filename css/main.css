@@ -117,17 +117,27 @@
 }
 #friends .friend-card {
     align-items: center;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
     border-radius: 20px;
-    box-shadow: 0 0 20px #d9d9d980;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.03),
+        0 3px 10px rgba(0, 0, 0, 0.05),
+        0 10px 30px rgba(0, 0, 0, 0.06);
     display: flex;
     margin-bottom: 20px;
     padding: 25px 30px;
-    transition: box-shadow 0.25s, transform 0.25s;
+    transition: box-shadow 0.3s, transform 0.3s;
 }
 #friends .friend-card:hover {
-    box-shadow: 0 0 5px #d9d9d9;
-    transform: translate(-5px, -5px);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.04),
+        0 6px 20px rgba(0, 0, 0, 0.08),
+        0 16px 48px rgba(155, 187, 247, 0.18);
+    transform: translate(-3px, -3px);
+    border-color: rgba(155, 187, 247, 0.25);
 }
 #friends .friend-avatar {
     flex-shrink: 0;
@@ -225,10 +235,16 @@
     width: 300px;
 }
 #home-card #card-style {
-    background: #fff;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 0 20px #d9d9d980;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.03),
+        0 3px 8px rgba(0, 0, 0, 0.05),
+        0 8px 28px rgba(0, 0, 0, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
     display: flex;
     flex-direction: column;
     max-height: 80vh;
@@ -238,6 +254,14 @@
     text-align: center;
     top: 10vh;
     width: 300px;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+#home-card #card-style:hover {
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.04),
+        0 6px 20px rgba(0, 0, 0, 0.08),
+        0 16px 48px rgba(155, 187, 247, 0.18);
+    transform: translate(-3px, -3px);
 }
 #home-card #card-div {
     overflow: auto;
@@ -340,30 +364,42 @@
 }
 #home-head #home-info .loop:nth-child(1) {
     animation: loop1 10s linear infinite;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
-    opacity: 0.3;
+    opacity: 0.35;
     transform: rotate(30deg);
 }
 #home-head #home-info .loop:nth-child(2) {
     animation: loop2 15s linear infinite;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
-    opacity: 0.45;
+    opacity: 0.5;
     transform: rotate(60deg);
 }
 #home-head #home-info .loop:nth-child(3) {
     animation: loop3 10s linear infinite;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
-    opacity: 0.3;
+    opacity: 0.35;
     transform: rotate(90deg);
 }
 #home-head #home-info .loop:nth-child(4) {
     animation: loop4 15s linear infinite;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
-    opacity: 0.45;
+    opacity: 0.5;
     transform: rotate(120deg);
 }
 #home-head #home-info,
@@ -403,10 +439,17 @@
     color: #999;
 }
 #home-posts .post {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
     border-radius: 20px;
-    box-shadow: 0 0 20px #d9d9d980;
-    transition: box-shadow 0.25s, transform 0.25s;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.03),
+        0 3px 10px rgba(0, 0, 0, 0.05),
+        0 10px 30px rgba(0, 0, 0, 0.06);
+    position: relative; /* anchors the collapse arrow to the card corner */
+    transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
 }
 #home-posts .post .category-and-date {
     color: #5c6b72;
@@ -435,23 +478,127 @@
     display: inline-block;
     margin-left: 25px;
 }
-#home-posts .post .go-post {
-    background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%);
-    border: 0;
-    border-radius: 20px 0;
-    bottom: -5px;
-    box-shadow: 2px 2px 10px 0 #ffbbf47a;
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 10px 24px;
-    position: absolute;
-    right: -5px;
-    transition: box-shadow 0.25s ease-out, right 0.25s ease-out;
+#home-posts .post .more-center {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 50px;
+    box-shadow:
+        0 2px 18px rgba(99, 130, 200, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    color: #85bac0; /* matches .post-title */
+    cursor: pointer;
+    display: flex;
+    font-size: 12px;
+    font-weight: 700;
+    gap: 6px;
+    justify-content: center;
+    letter-spacing: 2px;
+    margin: 14px auto 0;
+    padding: 6px 22px;
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    width: fit-content;
 }
-#home-posts .post .go-post:hover {
-    box-shadow: -2px -2px 10px 0 #9abbf77a;
-    right: -7px;
+#home-posts .post .more-center:hover {
+    background: rgba(255, 255, 255, 0.72);
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow:
+        0 4px 20px rgba(99, 130, 200, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+}
+#home-posts .post .more-center .more-icon {
+    /* back-out spring: overshoots 180° slightly, then settles — transform-only,
+       so it rides the compositor and never forces layout. */
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#home-posts .post .more-center.expanded .more-icon {
+    transform: rotate(180deg);
+}
+/* Collapse arrow pinned to the card's top-right corner — only appears while
+   the post is expanded, so long articles can be collapsed without scrolling. */
+#home-posts .post .collapse-arrow {
+    /* liquid-glass — same recipe as the desktop menu indicator (#menu-indicator) */
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(160%);
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 50%;
+    box-shadow:
+        0 2px 18px rgba(99, 130, 200, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    color: #85bac0; /* matches .post-title */
+    cursor: pointer;
+    display: flex;
+    font-size: 12px;
+    height: 30px;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    transform: scale(0.85);
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, color 0.3s,
+        opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 30px;
+    z-index: 2;
+}
+#home-posts .post .description.expanded ~ .collapse-arrow {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+#home-posts .post .collapse-arrow:hover {
+    background: rgba(255, 255, 255, 0.72);
+    border-color: rgba(255, 255, 255, 0.95);
+    box-shadow:
+        0 4px 20px rgba(99, 130, 200, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    color: #6799a0; /* slightly deeper teal on hover */
+}
+#home-posts .post .description {
+    overflow: hidden;
+    position: relative;
+}
+#home-posts .post .description:not(.expanded) {
+    /* Pre-JS fallback, kept in sync with the clamp height set in home.js. */
+    max-height: 268px;
+}
+#home-posts .post .description.expanded {
+    max-height: none;
+}
+#home-posts .post .description::after {
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.88));
+    bottom: 0;
+    content: "";
+    height: 72px;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    transition: opacity 0.35s ease 0.15s;
+    z-index: 1;
+}
+#home-posts .post .description.expanded::after {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+/* Long articles stay cheap: only the part near the viewport is laid out,
+   and the remembered size prevents scrollbar jumping after expansion. */
+#home-posts .post .full-content {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+}
+/* backdrop-filter re-blurs the pill every frame while the card behind it is
+   animating — skip it for the ~500ms of the height animation. */
+#home-posts .post.animating .more-center {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.72);
 }
 #home-posts .post .post-tags .tag {
     display: inline-block;
@@ -466,13 +613,30 @@
 .article .info {
     line-height: 1.7;
 }
+/* Tags sit right below the fading excerpt, so they're hidden while the post is
+   collapsed and only fade in once it expands. */
+#home-posts .post .post-tags {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+#home-posts .post .description.expanded ~ .post-tags {
+    max-height: 64px;
+    opacity: 1;
+}
 #home-posts .post-title {
     color: #85bac0;
     text-align: center;
 }
 #home-posts .post:hover {
-    box-shadow: 0 0 5px #d9d9d9;
-    transform: translate(-5px, -5px);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.04),
+        0 6px 20px rgba(0, 0, 0, 0.08),
+        0 16px 48px rgba(155, 187, 247, 0.18);
+    transform: translate(-3px, -3px);
+    border-color: rgba(155, 187, 247, 0.25);
 }
 #home-posts-wrap {
     background: transparent;
@@ -727,15 +891,133 @@
     margin: 0;
     padding: 0;
     position: relative;
-    scrollbar-color: #8ab5ff #e6efff;
+    scrollbar-color: #cca4e3 #f7f0fb;
     scrollbar-width: thin;
     word-wrap: break-word;
 }
 .article {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.03),
+        0 3px 10px rgba(0, 0, 0, 0.05),
+        0 12px 40px rgba(0, 0, 0, 0.07);
     font-size: 15px;
     margin: auto;
     margin-top: 100px;
-    padding: 20px;
+    padding: 40px;
+}
+/* Article TOC sidebar: sticky glass column pinned to the right of the article.
+   Built by js/lib/toc.js; hidden until the article has any headings. */
+.article-wrap {
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+}
+/* wide screens: the article centers by itself — give it a very slight left lean */
+@media (min-width: 1200px) {
+    .article-wrap {
+        padding-right: 3vw; /* shifts the centered article left by ~1.5vw */
+    }
+}
+.article-side {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 14px;
+    box-shadow:
+        0 2px 18px rgba(99, 130, 200, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+    display: none; /* shown as flex by toc.js when headings exist */
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    position: fixed; /* pinned beside the independently-centered article */
+    right: calc((100vw - 900px) / 2 - 232px); /* 200px bar + 32px gap */
+    top: 100px;
+    width: 200px;
+}
+.article-side-title {
+    color: #85bac0;
+    font-size: 13px;
+    font-weight: 700;
+}
+.article-side-toc {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+    /* scrollbar-color: auto + scrollbar-width: auto → Chromium uses the webkit
+       pseudo-element path, where the 4px width AND the teal thumb below both
+       apply. (A non-auto scrollbar-color would switch Chrome to the standard
+       path and ignore the webkit width, falling back to the ~12px default.) */
+    scrollbar-color: auto !important;
+    scrollbar-width: auto !important;
+}
+.article-side-toc::-webkit-scrollbar {
+    width: 4px !important;
+}
+.article-side-toc::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+.article-side-toc::-webkit-scrollbar-thumb {
+    background: rgba(133, 186, 192, 0.5) !important; /* softer teal */
+    /* kill the theme's global thumb `border: 3px solid #f7f0fb` — at a 4px bar
+       that pink border covers the whole thumb and hides the teal background */
+    border: 0 !important;
+    border-radius: 2px !important;
+}
+.article-side-toc::-webkit-scrollbar-thumb:hover {
+    background: rgba(133, 186, 192, 0.7) !important; /* slightly deeper on hover */
+}
+/* Firefox (ignores ::-webkit-scrollbar): thin + teal */
+@supports (-moz-appearance: none) {
+    .article-side-toc {
+        scrollbar-color: rgba(133, 186, 192, 0.5) transparent !important;
+        scrollbar-width: thin !important;
+    }
+}
+.article-side-toc .article-toc-item {
+    border-radius: 8px;
+    color: #5c6b72;
+    cursor: pointer;
+    display: block;
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 1; /* undo the global a:hover dim */
+    padding: 5px 10px;
+    padding-left: calc(10px + var(--level, 0) * 14px);
+    transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+}
+.article-side-toc .article-toc-item:hover {
+    background: rgba(255, 255, 255, 0.65);
+    color: #85bac0;
+    opacity: 1;
+}
+.article-side-toc .article-toc-item.active {
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: inset 0 0 0 1px rgba(133, 186, 192, 0.45);
+    color: #85bac0;
+}
+/* keep jumped-to headings clear of the fixed nav bar */
+.article .content h2,
+.article .content h3,
+.article .content h4,
+.article .content h5,
+.article .content h6 {
+    scroll-margin-top: 70px;
+}
+/* no room for the fixed sidebar beside a centered 900px article below ~1400px */
+@media (max-width: 1399px) {
+    .article-side {
+        display: none !important;
+    }
 }
 .article .content {
     margin: 50px 0;
@@ -888,7 +1170,7 @@ body::-webkit-scrollbar-track {
 .icon-link a:hover,
 .friend-link a:hover,
 .categories-tags a:hover,
-.go-post:hover {
+.more-center:hover {
     opacity: 1;
 }
 .slide-enter-active,
@@ -928,7 +1210,7 @@ body::-webkit-scrollbar-track {
     width: 12px;
 }
 ::-webkit-scrollbar-thumb {
-    background: #8ab5ff
+    background: #cca4e3
         linear-gradient(
             45deg,
             #fff6 25%,
@@ -939,11 +1221,11 @@ body::-webkit-scrollbar-track {
             transparent 75%,
             transparent
         );
-    border: 3px solid #e6efff;
+    border: 3px solid #f7f0fb;
     border-radius: 100px;
 }
 ::-webkit-scrollbar-track {
-    background: #e6efff;
+    background: #f7f0fb;
     border-radius: 100px;
 }
 ::selection {
@@ -976,7 +1258,7 @@ video,
 .categories-tags a,
 .copycode,
 .friend-link a,
-.go-post,
+.more-center,
 .hljs-ln-numbers,
 .icon-link a,
 .katex,
@@ -1249,6 +1531,13 @@ ol li {
     }
     #home-posts .post .description {
         padding: 20px 0;
+    }
+    /* keep the corner arrow clear of long titles on narrow screens */
+    #home-posts .post .collapse-arrow {
+        height: 28px;
+        right: 14px;
+        top: 14px;
+        width: 28px;
     }
     #home-posts .post .post-tags {
         padding-right: 69px;

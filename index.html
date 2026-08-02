@@ -50,6 +50,7 @@
 <script src="/js/lib/home.js"></script>
 
 
+
 <link rel="stylesheet" href="/css/main.css" />
 
 <meta name="generator" content="Hexo 7.3.0"></head>
@@ -215,7 +216,8 @@
     <div id="home-posts">
         
 
-<div class="post">
+
+<div class="post" data-has-more="true" data-single="true">
     <a href="/posts/academic@ed-of-minecraft-entity-mm-eqs/">
         <h2 class="post-title">『Minecraft 实体运动公式拓展推导』</h2>
     </a>
@@ -240,7 +242,7 @@
         
     </div>
     <div class="description">
-        <div class="content" v-pre>
+        <div class="excerpt-content" v-pre>
             
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文内容包含大量数学与物理公式，需要具备一定的数理基础阅读。</p>
 <p>因为一些客观因素博客中的<strong>部分公式并不完全</strong>，建议下载 PDF 版本（见附件）食用更佳。</p>
@@ -383,6 +385,7 @@
 
             
         </div>
+        
     </div>
     <div class="post-tags">
         
@@ -403,10 +406,19 @@
         </span>
         
     </div>
-    <a href="/posts/academic@ed-of-minecraft-entity-mm-eqs/" class="go-post">MORE</a>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
 </div>
 
-<div class="post">
+
+<div class="post" data-has-more="true" data-single="true">
     <a href="/posts/academic@min-kb-click-freq-lower-bound/">
         <h2 class="post-title">『低版本 pvp 中玩家最优 kb 的点击频率下限分析』</h2>
     </a>
@@ -431,7 +443,7 @@
         
     </div>
     <div class="description">
-        <div class="content" v-pre>
+        <div class="excerpt-content" v-pre>
             
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>⚠️<strong>硬核警告</strong>⚠️</p>
 <p>英译版见<a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound-en/">『Minimum KB Click Frequency Lower Bound Analysis』</a>.</p>
@@ -946,6 +958,7 @@ friction = 0.0d
 
             
         </div>
+        
     </div>
     <div class="post-tags">
         
@@ -957,7 +970,7 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #00bcd4">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #03a9f4">Minecraft</a>
         </span>
         
         <span class="tag">
@@ -967,14 +980,23 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Java/" style="color: #ff7d73">Java</a>
+            <a href="/tags/Java/" style="color: #ffa2c4">Java</a>
         </span>
         
     </div>
-    <a href="/posts/academic@min-kb-click-freq-lower-bound/" class="go-post">MORE</a>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
 </div>
 
-<div class="post">
+
+<div class="post" data-has-more="true" data-single="true">
     <a href="/posts/introduction@rewind-mod-redefine-video-recording/">
         <h2 class="post-title">『这个 mod 将重新定义视频录制...』</h2>
     </a>
@@ -999,7 +1021,7 @@ friction = 0.0d
         
     </div>
     <div class="description">
-        <div class="content" v-pre>
+        <div class="excerpt-content" v-pre>
             
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前写过一篇<a href="https://revethere.github.io/2025/07/30/config@obs-blur-configure-sharing/">『录制 &amp; 渲染配置分享（OBS &amp; Blur）』</a></p>
 <p>后来调录制参数一直没调好过（</p>
@@ -1066,6 +1088,7 @@ friction = 0.0d
 
             
         </div>
+        
     </div>
     <div class="post-tags">
         
@@ -1077,24 +1100,33 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/Minecraft/" style="color: #03a9f4">Minecraft</a>
+            <a href="/tags/Minecraft/" style="color: #00a596">Minecraft</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/LunarClient/" style="color: #00bcd4">LunarClient</a>
+            <a href="/tags/LunarClient/" style="color: #ffa2c4">LunarClient</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Rewind/" style="color: #ffa2c4">Rewind</a>
+            <a href="/tags/Rewind/" style="color: #03a9f4">Rewind</a>
         </span>
         
     </div>
-    <a href="/posts/introduction@rewind-mod-redefine-video-recording/" class="go-post">MORE</a>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
 </div>
 
-<div class="post">
+
+<div class="post" data-has-more="true" data-single="true">
     <a href="/posts/tutorials@how-2-play-sumo/">
         <h2 class="post-title">『sumo 打法教学 &amp; 浅层理论分析 &amp; 心理博弈』</h2>
     </a>
@@ -1119,7 +1151,7 @@ friction = 0.0d
         
     </div>
     <div class="description">
-        <div class="content" v-pre>
+        <div class="excerpt-content" v-pre>
             
             <h2 id="阅读文章前，你需要知道的…"><a href="#阅读文章前，你需要知道的…" class="headerlink" title="阅读文章前，你需要知道的…"></a>阅读文章前，你需要知道的…</h2><ul>
 <li>文章中所有的定义（以及一些生僻概念）仅为了规范与统一文章的内容，<strong>不代表圈内叫法</strong>👌🏼</li>
@@ -1361,6 +1393,7 @@ friction = 0.0d
 
             
         </div>
+        
     </div>
     <div class="post-tags">
         
@@ -1377,19 +1410,28 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/sumo/" style="color: #03a9f4">sumo</a>
+            <a href="/tags/sumo/" style="color: #00bcd4">sumo</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #00a596">博弈</a>
+            <a href="/tags/%E5%8D%9A%E5%BC%88/" style="color: #ffa2c4">博弈</a>
         </span>
         
     </div>
-    <a href="/posts/tutorials@how-2-play-sumo/" class="go-post">MORE</a>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
 </div>
 
-<div class="post">
+
+<div class="post" data-has-more="true" data-single="true">
     <a href="/posts/config@obs-blur-configure-sharing/">
         <h2 class="post-title">『录制 &amp; 渲染配置分享（OBS &amp; Blur）』</h2>
     </a>
@@ -1414,7 +1456,7 @@ friction = 0.0d
         
     </div>
     <div class="description">
-        <div class="content" v-pre>
+        <div class="excerpt-content" v-pre>
             
             <p>超级省流版：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/config%40obs-blur-configure-sharing/recordEncoder.json">编码器配置文件</a></p>
@@ -1441,6 +1483,7 @@ friction = 0.0d
 
             
         </div>
+        
     </div>
     <div class="post-tags">
         
@@ -1452,16 +1495,24 @@ friction = 0.0d
         
         <span class="tag">
             
-            <a href="/tags/OBS/" style="color: #00bcd4">OBS</a>
+            <a href="/tags/OBS/" style="color: #ffa2c4">OBS</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Blur/" style="color: #03a9f4">Blur</a>
+            <a href="/tags/Blur/" style="color: #00bcd4">Blur</a>
         </span>
         
     </div>
-    <a href="/posts/config@obs-blur-configure-sharing/" class="go-post">MORE</a>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
 </div>
 
 
@@ -1550,7 +1601,7 @@ friction = 0.0d
                 <span class="stat-label">Words</span>
             </div>
             <div class="stat-item">
-                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">426</span>
+                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">427</span>
                 <span class="stat-label">Days</span>
             </div>
         </div>

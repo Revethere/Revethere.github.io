@@ -50,6 +50,7 @@
 <script src="/js/lib/home.js"></script>
 
 
+
 <link rel="stylesheet" href="/css/main.css" />
 
 <meta name="generator" content="Hexo 7.3.0"></head>
@@ -215,7 +216,8 @@
     <div id="home-posts">
         
 
-<div class="post">
+
+<div class="post" data-has-more="true" data-single="true">
     <a href="/posts/probsol-oi@test-23-8-16/">
         <h2 class="post-title">『做题记录』Test 8.16</h2>
     </a>
@@ -240,7 +242,7 @@
         
     </div>
     <div class="description">
-        <div class="content" v-pre>
+        <div class="excerpt-content" v-pre>
             
             <h2 id="数学-Math"><a href="#数学-Math" class="headerlink" title="数学 Math"></a>数学 Math</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/probsol-oi%40test-23-8-16/question_image.png?raw=true"></p>
 <p>在射线 $ON$ 上有两个定点 $A$ , $B$ . 在射线 $OM$ 上取一点 $P$ , 使得 $\angle APB$ 最大 ( 有且只有一个解 ) . 求点 $P$ 的坐标 .</p>
@@ -251,6 +253,7 @@
 
             
         </div>
+        
     </div>
     <div class="post-tags">
         
@@ -262,14 +265,23 @@
         
         <span class="tag">
             
-            <a href="/tags/OI/" style="color: #ffa2c4">OI</a>
+            <a href="/tags/OI/" style="color: #00a596">OI</a>
         </span>
         
     </div>
-    <a href="/posts/probsol-oi@test-23-8-16/" class="go-post">MORE</a>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
 </div>
 
-<div class="post">
+
+<div class="post" data-has-more="true" data-single="true">
     <a href="/posts/probsol-oi@test-23-8-14/">
         <h2 class="post-title">『做题记录』Test 8.14</h2>
     </a>
@@ -294,7 +306,7 @@
         
     </div>
     <div class="description">
-        <div class="content" v-pre>
+        <div class="excerpt-content" v-pre>
             
             <h2 id="你所热爱的就是你的生活-ll"><a href="#你所热爱的就是你的生活-ll" class="headerlink" title="你所热爱的就是你的生活 ll"></a>你所热爱的就是你的生活 ll</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>给定一个序列 $price$ , 从序列内任取若干个数 , 使得价值和不超过 $m$ . 求方案总数 .</p>
 <h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>折半搜索 , $l$ 和 $r$ 分别统计左右价值 , 去掉不满足条件的即可 .</p>
@@ -305,6 +317,7 @@
 
             
         </div>
+        
     </div>
     <div class="post-tags">
         
@@ -316,14 +329,23 @@
         
         <span class="tag">
             
-            <a href="/tags/OI/" style="color: #ff7d73">OI</a>
+            <a href="/tags/OI/" style="color: #00bcd4">OI</a>
         </span>
         
     </div>
-    <a href="/posts/probsol-oi@test-23-8-14/" class="go-post">MORE</a>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
 </div>
 
-<div class="post">
+
+<div class="post" data-has-more="true" data-single="true">
     <a href="/posts/probsol-oi@test-23-8-12/">
         <h2 class="post-title">『做题记录』Test 8.12</h2>
     </a>
@@ -348,7 +370,7 @@
         
     </div>
     <div class="description">
-        <div class="content" v-pre>
+        <div class="excerpt-content" v-pre>
             
             <h2 id="网格行走-Path"><a href="#网格行走-Path" class="headerlink" title="网格行走 Path"></a>网格行走 Path</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>有一个 $n \times m$ 的网格 , 第 $i$ 行第 $j$ 列写有一个数 $a_{i,j}$ ( 从 0 开始 ) , 每个数仅出现一次 .</p>
 <p>一条行走路径的价值为所有经过的点的集合的 $\operatorname{mex}$ 的值 .</p>
@@ -362,6 +384,7 @@
 
             
         </div>
+        
     </div>
     <div class="post-tags">
         
@@ -373,14 +396,23 @@
         
         <span class="tag">
             
-            <a href="/tags/OI/" style="color: #ff7d73">OI</a>
+            <a href="/tags/OI/" style="color: #ffa2c4">OI</a>
         </span>
         
     </div>
-    <a href="/posts/probsol-oi@test-23-8-12/" class="go-post">MORE</a>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
 </div>
 
-<div class="post">
+
+<div class="post" data-has-more="true" data-single="true">
     <a href="/posts/probsol-oi@test-23-8-11/">
         <h2 class="post-title">『做题记录』Test 8.11</h2>
     </a>
@@ -405,7 +437,7 @@
         
     </div>
     <div class="description">
-        <div class="content" v-pre>
+        <div class="excerpt-content" v-pre>
             
             <h2 id="计数练习-Perm"><a href="#计数练习-Perm" class="headerlink" title="计数练习 Perm"></a>计数练习 Perm</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>统计有多少 $m$ 阶排列比自己的逆排列的字典序小 .</p>
 <p>即 $q(p)_{p_i} &#x3D; i$ 并且存在一个 $i$ 使得 $\forall 1 \le j &lt; i$ , $p_j &#x3D; q(p)_j$ 且 $p_i &lt; q(p)_i$ .</p>
@@ -416,6 +448,7 @@
 
             
         </div>
+        
     </div>
     <div class="post-tags">
         
@@ -427,14 +460,23 @@
         
         <span class="tag">
             
-            <a href="/tags/OI/" style="color: #ff7d73">OI</a>
+            <a href="/tags/OI/" style="color: #03a9f4">OI</a>
         </span>
         
     </div>
-    <a href="/posts/probsol-oi@test-23-8-11/" class="go-post">MORE</a>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
 </div>
 
-<div class="post">
+
+<div class="post" data-has-more="true" data-single="true">
     <a href="/posts/probsol-oi@text-23-8-9/">
         <h2 class="post-title">『做题记录』Test 8.9</h2>
     </a>
@@ -459,7 +501,7 @@
         
     </div>
     <div class="description">
-        <div class="content" v-pre>
+        <div class="excerpt-content" v-pre>
             
             <h2 id="Lunch-Concert"><a href="#Lunch-Concert" class="headerlink" title="Lunch Concert"></a>Lunch Concert</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9025">P9025 CCC2021 S3 Lunch Concert ( 圆身 Genshin )</a></p>
 <p>有 $n$ 个人在一条线上 , 初始位置为 $p_i$ , 移动一个单位长度的代价为 $w_i$ . 选定一个点 $c$ , 产生的代价为 $\sum_i^n w_i \times \max{(\lvert c - p_i \rvert - d_i , 0)}$ . 最小化这个代价 .</p>
@@ -485,6 +527,7 @@
 
             
         </div>
+        
     </div>
     <div class="post-tags">
         
@@ -496,11 +539,19 @@
         
         <span class="tag">
             
-            <a href="/tags/OI/" style="color: #00bcd4">OI</a>
+            <a href="/tags/OI/" style="color: #ffa2c4">OI</a>
         </span>
         
     </div>
-    <a href="/posts/probsol-oi@text-23-8-9/" class="go-post">MORE</a>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
 </div>
 
 
@@ -592,7 +643,7 @@
                 <span class="stat-label">Words</span>
             </div>
             <div class="stat-item">
-                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">426</span>
+                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">427</span>
                 <span class="stat-label">Days</span>
             </div>
         </div>
