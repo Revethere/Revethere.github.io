@@ -564,6 +564,12 @@
     overflow: hidden;
     position: relative;
 }
+#home-posts .post .description img {
+    display: block;
+    height: auto;
+    margin: 15px auto;
+    max-width: 75%;
+}
 #home-posts .post .description:not(.expanded) {
     /* Pre-JS fallback, kept in sync with the clamp height set in home.js. */
     max-height: 268px;
