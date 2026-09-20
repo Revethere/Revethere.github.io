@@ -135,7 +135,7 @@ mixins.search = {
 
             if (results.length === 0) {
                 this.searchResults.innerHTML =
-                    '<div class="search-empty">没有找到相关文章</div>';
+                    '<div class="search-empty">No matching posts found</div>';
                 return;
             }
 

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>『多项式构造：高斯消元与拉格朗日插值』 | Revethere&#39;s Blog</title>
     <meta name="author" content="Revethere" />
-    <meta name="description" content="Could it be MAGIC~" />
+    <meta name="description" content="咖啡杯还是甜甜圈？" />
     <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP, Code" />
     <meta
         name="viewport"
@@ -225,14 +225,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E6%95%B0%E5%AD%A6/" style="color: #ffa2c4">
+                <a href="/tags/%E6%95%B0%E5%AD%A6/" style="color: #00bcd4">
                     数学
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F/" style="color: #03a9f4">
+                <a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F/" style="color: #ffa2c4">
                     多项式
                 </a>
             </span>
@@ -326,6 +326,16 @@
 <p>所以：</p>
 <p>$$F(x) &#x3D; G(x)$$</p>
 <p>证毕。</p>
+<blockquote>
+<p>高中阶段所能用到的所有拓展知识到此结束，以下内容则与信息学竞赛强相关，学有余力的读者可以接着往下看</p>
+</blockquote>
+<h3 id="重心拉格朗日插值"><a href="#重心拉格朗日插值" class="headerlink" title="重心拉格朗日插值"></a>重心拉格朗日插值</h3><blockquote>
+<p>这部分的推导相当常规，所以决定增加一点本人对于此概念的碎碎念😗</p>
+</blockquote>
+<p>刚开始看到这个概念时以为是解决高次项插值的的，就是把下图的插值函数 $L_{10}(x)$ 重新拟合到更接近原函数 $f(x) &#x3D; \frac{1}{1 + (\frac{x}{2})^2}$ 的算法。</p>
+<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/studynotes@lagrange-interp-and-ge/runge.png?raw=true"></p>
+<p>注意到 $L_{10}(x)$ 在 $x &#x3D; 9$ 与 $x &#x3D; -9$ 附近上下剧烈震荡，与原函数 $f(x)$ 相差甚大。这就是典型的「龙格现象」。<del>噢你问这个图怎么跟上面不一样因为上面那个是拿 Desmos 画的这个是 Matplotlib，Python 画图还是太优雅了 awa</del></p>
+<p>回到正题</p>
 
     </div>
     
