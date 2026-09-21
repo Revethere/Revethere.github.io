@@ -218,8 +218,8 @@
 
 
 <div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/probsol-oi@atcoder-beginner-contest-155/">
-        <h2 class="post-title">『做题记录』Atcoder Beginner Contest 155</h2>
+    <a href="/posts/probsol-oi@atcoder-beginner-contest-158/">
+        <h2 class="post-title">『做题记录』Atcoder Beginner Contest 158</h2>
     </a>
     <div class="category-and-date">
         
@@ -244,33 +244,22 @@
     <div class="description">
         <div class="excerpt-content" v-pre>
             
-            <h2 id="D-Pairs"><a href="#D-Pairs" class="headerlink" title="D Pairs"></a>D Pairs</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>$n$ 个数两两相乘的结果共有 $\dfrac{n(n - 1)}{2}$ 种 , 求第 $k$ 小的乘积 .</p>
-<p>输入 $a_i$ 到 $a_n$ .</p>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>求第 $k$ 小 , 相当于求第 $\dfrac{n(n - 1)}{2} - k + 1$ 大 .</p>
-<p>考虑二分 , 记该值为 $mid$</p>
+            <h2 id="D-String-Formation"><a href="#D-String-Formation" class="headerlink" title="D String Formation"></a>D String Formation</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>开始有一个只包含小写字母的字符串 $S$ .</p>
+<p>接下来执行 $Q$ 次操作 , 对于每次操作输入一个数 $T$</p>
 <ul>
-<li><p>当 $mid &lt; 0$ , 则任意 $a_i$ 为整数或 $0$ ,都满足要求 . 然后对于每个 $a_i &gt; 0$ , $a_j &lt; 0$ 的组合是否大于 $mid$ .</p>
+<li><p>如果 $T &#x3D; 1$ , 将 $S$ 反转 .<br>如果 $T &#x3D; 2$ , 给定一个数 $F$ 和一个小写字符 $c$</p>
 </li>
-<li><p>当 $mid &#x3D; 0$ , 除了 $a_i &gt; 0$ , $a_j &lt; 0$ 的组合都满足要求 .</p>
+<li><p>如果 $F &#x3D; 1$ , 将 $c$ 放在 $S$ 的开头</p>
 </li>
-<li><p>当 $mid &lt; 0$ , 当 $a_i$ 和 $a_j$ 同号时满足要求 .</p>
+<li><p>否则放在末尾</p>
 </li>
 </ul>
-<p>复杂度 : $(n \log n)$ .</p>
+<p>输出所有操作结束后的字符串 $S$ .</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>水题一道 . 反转过后 , 两个操作就相当于换一下 . 只需要用一个变量来记录这个字符串是否被反转 , 被反转偶数次相当于没反转 . 注意是反转操作而不是字符串 .</p>
 <hr>
-<h2 id="E-Payment"><a href="#E-Payment" class="headerlink" title="E Payment"></a>E Payment</h2><h3 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h3><p>有 $10^{100} + 1$ 种纸币 , 面值分别为 $10^0$ , $10^1$ , $10^2$ … , $10^{100}$ .</p>
-<p>给定正整数 $n$ , $f(x)$ 表示 $x$ ( 付的钱 ) 在十进制下各个数位的和 , 求一个正整数 $x$ , 满足 $x \geq n$ 且最小化 $f(x) + f(x - n)$ .</p>
-<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>$dp$ 一道 , 转移方程如下 :</p>
-<p>$$dp_{i,0} &#x3D; \min (dp_{i - 1,0} + a_i,dp_{i - 1,1} + a_i + 1)$$</p>
-<p>$$dp_{i,1} &#x3D; \min (dp_{i - 1,0} + 10 - a_i ,dp_{i - 1,1} + 10 - a_i - 1)$$</p>
-<hr>
-<h2 id="F-Perils-in-Parallel"><a href="#F-Perils-in-Parallel" class="headerlink" title="F Perils in Parallel"></a>F Perils in Parallel</h2><h3 id="题面-2"><a href="#题面-2" class="headerlink" title="题面"></a>题面</h3><p>有 $n$ 个电灯 , 编号为 $1$ 到 $n$ , 第 i 个电灯在 $a_i$ 处 , 状态为 $b_i$ ( 1 或 0 ) .</p>
-<p>有 $m$ 个开关 , 编号为 $1$ 到 $m$ , 第 $i$ 个开关控制 $[l_i,r_i]$ , 如果按下该开关 , 则该区间内电灯状态取反 .</p>
-<p>求是否有可行解 , 使得所有电灯状态为 0 . 有则输出方案 , 否则输出 -1 .</p>
-<h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><p>在异或的意义下进行差分 , 那么区间的操作就会变成点的操作 . 即给一个 01 串和一些点对 , 将统一对数 $\operatorname{xor}1$ , 得到全为 0 的串 .</p>
-<p>既然有点对了 , 那就直接上无向图了 . 即在无向图中选择一些边 , 将这些边 $\operatorname{xor}1$ , 问能否得到一张全 0 图 .</p>
-<p>将其简化为一棵树 , 进行搜索 , 用所有与该点对有关系的点对进行修改 . 由于每次操作奇偶性不变 , 所以如果 $\operatorname{xor}$ 的值不为 0 则无解 .</p>
-<p>另外 , 差分后 $n + 1$ 对答案是没有影响的 , 所以要先跑一个 $n + 1$ 的情况 .</p>
+<h2 id="E-Divisible-Substring"><a href="#E-Divisible-Substring" class="headerlink" title="E Divisible Substring"></a>E Divisible Substring</h2><h3 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h3><p>给定一个质数 $P$ 和一个字符串 $S$ .</p>
+<p>求有多少个 $S$ 的字串 $T$ 满足将 $T$ 视为十进制数后是 $P$ 的倍数 .</p>
+<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>该题关键在于线性求字串数量的方法 . 在大多数情况下 , 如果两个字串所对应的数字 $\bmod\ P$ 所得的余数相等 , 且一个串是另一个的末尾某一段 , 则他们相减后得到的串符合要求 . ( 2 和 5 除外 , 需特判 ) .</p>
 
             
         </div>
@@ -283,15 +272,12 @@
         </span>
         
         
-        
         <span class="tag">
-            
-            <a href="/tags/Atcoder/" style="color: #03a9f4">Atcoder</a>
+            <a href="/tags/Atcoder/" data-color-key="Atcoder" data-color-prop="color">Atcoder</a>
         </span>
         
         <span class="tag">
-            
-            <a href="/tags/OI/" style="color: #00bcd4">OI</a>
+            <a href="/tags/OI/" data-color-key="OI" data-color-prop="color">OI</a>
         </span>
         
     </div>
@@ -431,6 +417,10 @@
         </transition>
         
     </div>
+    <script>
+        window.__TAG_COLORS__ = {"palette":["#ffa2c4","#00bcd4","#03a9f4","#00a596","#ff7d73"],"scheme":"hash","salt":"","avoidAdjacentDuplicates":true};
+    </script>
+    <script src="/js/lib/colors.js"></script>
     <script src="/js/main.js"></script>
 
     <canvas

@@ -156,7 +156,7 @@ mixins.search = {
                         html +=
                             '<span class="tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span>';
                         for (const tag of result.tags) {
-                            html += `<span class="tag"><a href="${tag.path}">${this.escapeHtml(tag.name)}</a></span>`;
+                            html += `<span class="tag"><a href="${tag.path}" data-color-key="${this.escapeHtml(tag.name)}" data-color-prop="color">${this.escapeHtml(tag.name)}</a></span>`;
                         }
                         html += "</span>";
                     }
@@ -191,6 +191,8 @@ mixins.search = {
             }
 
             this.searchResults.innerHTML = html;
+            // Results are built in the browser, so colors.js never saw these.
+            if (window.applyTagColors) window.applyTagColors(this.searchResults);
         },
 
         escapeHtml(text) {
