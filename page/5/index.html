@@ -266,7 +266,81 @@
         
         <span class="tag">
             
-            <a href="/tags/OI/" style="color: #00a596">OI</a>
+            <a href="/tags/OI/" style="color: #ff7d73">OI</a>
+        </span>
+        
+    </div>
+    
+    <div class="more-center" @click="toggleExpand">
+        <span class="more-text">MORE</span>
+        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    
+</div>
+
+
+<div class="post" data-has-more="true" data-single="true">
+    <a href="/posts/probsol-oi@atcoder-beginner-contest-151/">
+        <h2 class="post-title">『做题记录』Atcoder Beginner Contest 151</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                做题记录
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/6/1
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="excerpt-content" v-pre>
+            
+            <h2 id="E-Max-Min-Sums"><a href="#E-Max-Min-Sums" class="headerlink" title="E Max-Min Sums"></a>E Max-Min Sums</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>给一个整数集合 $A$ , $\lvert A \rvert &#x3D; n$ 和一个整数 $k$ .</p>
+<p>求 :</p>
+<p>$$\sum_{S \in A} [ \lvert S \rvert &#x3D; k]\ f(s)$$</p>
+<p>并对 $10^9 + 7$ 取模 .</p>
+<p>其中 , $f(x) &#x3D; \max_{x \in S} - \min_{x \in S}$</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>最暴力的方法就是枚举 $C_n^k$ 元素个数为 $k$ 的子集 , 然后找 $\max$ 和 $\min$ , <del>复杂度爆炸</del> .</p>
+<p>考虑集合的无序性 . 将集合中的元素从小到大排序 , 然后计算每个数可能子多少个子集中成为最大值 &#x2F; 最小值 .</p>
+<p>考虑如何统计作为子集中最大值的次数 :</p>
+<p>对于前 $k - 1$ 个数 , 不可能成为任何子集的最大值 . 对于其它的数 , 第 $i$ 个数成为最大值的可能有 $C_{i - 1}^{k - 1}$ 种 , 即在前 $i - 1$ 个数中选 $k - 1$ 个数 , 与第 $i$ 个数构成子集 , 使其成为最大值 .</p>
+<p>对于最小值 , 同理 .</p>
+<p>记得用逆元 .</p>
+
+            
+        </div>
+        
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/Atcoder/" style="color: #ff7d73">Atcoder</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/OI/" style="color: #00bcd4">OI</a>
         </span>
         
     </div>
@@ -344,7 +418,7 @@
         
         <span class="tag">
             
-            <a href="/tags/OI/" style="color: #ffa2c4">OI</a>
+            <a href="/tags/OI/" style="color: #00bcd4">OI</a>
         </span>
         
     </div>
@@ -418,81 +492,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Atcoder/" style="color: #00bcd4">Atcoder</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/OI/" style="color: #00a596">OI</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/probsol-oi@atcoder-beginner-contest-151/">
-        <h2 class="post-title">『做题记录』Atcoder Beginner Contest 151</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                做题记录
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/6/1
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <h2 id="E-Max-Min-Sums"><a href="#E-Max-Min-Sums" class="headerlink" title="E Max-Min Sums"></a>E Max-Min Sums</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>给一个整数集合 $A$ , $\lvert A \rvert &#x3D; n$ 和一个整数 $k$ .</p>
-<p>求 :</p>
-<p>$$\sum_{S \in A} [ \lvert S \rvert &#x3D; k]\ f(s)$$</p>
-<p>并对 $10^9 + 7$ 取模 .</p>
-<p>其中 , $f(x) &#x3D; \max_{x \in S} - \min_{x \in S}$</p>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>最暴力的方法就是枚举 $C_n^k$ 元素个数为 $k$ 的子集 , 然后找 $\max$ 和 $\min$ , <del>复杂度爆炸</del> .</p>
-<p>考虑集合的无序性 . 将集合中的元素从小到大排序 , 然后计算每个数可能子多少个子集中成为最大值 &#x2F; 最小值 .</p>
-<p>考虑如何统计作为子集中最大值的次数 :</p>
-<p>对于前 $k - 1$ 个数 , 不可能成为任何子集的最大值 . 对于其它的数 , 第 $i$ 个数成为最大值的可能有 $C_{i - 1}^{k - 1}$ 种 , 即在前 $i - 1$ 个数中选 $k - 1$ 个数 , 与第 $i$ 个数构成子集 , 使其成为最大值 .</p>
-<p>对于最小值 , 同理 .</p>
-<p>记得用逆元 .</p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Atcoder/" style="color: #ff7d73">Atcoder</a>
+            <a href="/tags/Atcoder/" style="color: #00a596">Atcoder</a>
         </span>
         
         <span class="tag">
@@ -566,12 +566,12 @@
         
         <span class="tag">
             
-            <a href="/tags/Atcoder/" style="color: #00a596">Atcoder</a>
+            <a href="/tags/Atcoder/" style="color: #ff7d73">Atcoder</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/OI/" style="color: #ffa2c4">OI</a>
+            <a href="/tags/OI/" style="color: #00bcd4">OI</a>
         </span>
         
     </div>
@@ -667,11 +667,11 @@
                 <span class="stat-label">Posts</span>
             </div>
             <div class="stat-item">
-                <span class="stat-num">49.5k</span>
+                <span class="stat-num">50.6k</span>
                 <span class="stat-label">Words</span>
             </div>
             <div class="stat-item">
-                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">476</span>
+                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">477</span>
                 <span class="stat-label">Days</span>
             </div>
         </div>

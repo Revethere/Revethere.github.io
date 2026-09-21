@@ -225,14 +225,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E6%95%B0%E5%AD%A6/" style="color: #00bcd4">
+                <a href="/tags/%E6%95%B0%E5%AD%A6/" style="color: #ffa2c4">
                     数学
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F/" style="color: #ffa2c4">
+                <a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F/" style="color: #ff7d73">
                     多项式
                 </a>
             </span>
@@ -283,7 +283,7 @@
 <p>$$ \begin{aligned} L(x) &amp;&#x3D; y_0 + \frac{y_1 - y_0}{x_1 - x_0}(x - x_0) \cr &amp;&#x3D; y_0 \left( 1 - \frac{x - x_0}{x_1 - x_0} \right) + y_1 \frac{x - x_0}{x_1 - x_0} \cr &amp;&#x3D; y_0 \frac{x - x_1}{x_0 - x_1} + y_1 \frac{x - x_0}{x_1 - x_0} \end{aligned}$$</p>
 <p>令：</p>
 <p>$$\ell_0(x) &#x3D; \frac{x - x_1}{x_0 - x_1}, \ell_1(x) &#x3D; \frac{x - x_0}{x_1 - x_0}$$</p>
-<p>设点 $(x_0, y_0) &#x3D; (1, 1), (x_1, y_1) &#x3D; (2, 2)$，并将 $y_0\ell_0(x)$ 与 $y_1\ell_1(x)$ 表示在图像上：</p>
+<p>设点 $(x_0, y_0) &#x3D; (1, 1), (x_1, y_1) &#x3D; (2, 2)$，并将 $y &#x3D; y_0\ell_0(x)$ 与 $y &#x3D; y_1\ell_1(x)$ 表示在图像上：</p>
 <p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/studynotes%40lagrange-interp-and-ge/l-linear-func.png?raw=true"></p>
 <p>它们显然满足：</p>
 <p>$$\ell_0(x_0) &#x3D; 1, \ell_0(x_1) &#x3D; 0$$</p>
@@ -303,7 +303,7 @@
 <li>当 $x &#x3D; x_j$ 且 $i \neq j$ 时，$\ell_i(x) &#x3D; 0$</li>
 </ul>
 <p>显然可以这样构造：</p>
-<p>$$\begin{aligned} \ell_i(x) &amp;&#x3D; \frac{(x - x_0)(x - x_1) \cdots (x - x_{i - 1})(x - x_{i + 1}) \cdots (x - x_n)}{(x_i - x_0)(x_i - x_1) \cdots (x_i - x_{i - 1})(x_i - x_{i + 1}) \cdots (x_i - x_n)} \cr &amp;&#x3D; \prod_{i\neq j} \frac{x - x_j}{x_i - x_j} \end{aligned}$$</p>
+<p>$$\begin{aligned} \ell_i(x) &amp;&#x3D; \frac{(x - x_0)(x - x_1) \cdots (x - x_{i - 1})(x - x_{i + 1}) \cdots (x - x_n)}{(x_i - x_0)(x_i - x_1) \cdots (x_i - x_{i - 1})(x_i - x_{i + 1}) \cdots (x_i - x_n)} \cr &amp;&#x3D; \prod_{j\neq i} \frac{x - x_j}{x_i - x_j} \end{aligned}$$</p>
 <p>当 $x &#x3D; x_i$ 时，分子与分母相同，整个式子的值为 1，即开关「开」。</p>
 <p>再把所有的「开关」加起来：</p>
 <p>$$\begin{aligned} L(x) &amp;&#x3D; y_0\ell_0(x) + y_1\ell_1(x) \cdots + y_n\ell_n(x) \cr &amp;&#x3D; \sum_{i &#x3D; 1}^n y_i \ell_i(x) \end{aligned}$$</p>
@@ -334,8 +334,29 @@
 </blockquote>
 <p>刚开始看到这个概念时以为是解决高次项插值的的，就是把下图的插值函数 $L_{10}(x)$ 重新拟合到更接近原函数 $f(x) &#x3D; \frac{1}{1 + (\frac{x}{2})^2}$ 的算法。</p>
 <p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/studynotes@lagrange-interp-and-ge/runge.png?raw=true"></p>
-<p>注意到 $L_{10}(x)$ 在 $x &#x3D; 9$ 与 $x &#x3D; -9$ 附近上下剧烈震荡，与原函数 $f(x)$ 相差甚大。这就是典型的「龙格现象」。<del>噢你问这个图怎么跟上面不一样因为上面那个是拿 Desmos 画的这个是 Matplotlib，Python 画图还是太优雅了 awa</del></p>
-<p>回到正题</p>
+<p>注意到 $L_{10}(x)$ 在 $x &#x3D; 9$ 与 $x &#x3D; -9$ 附近上下剧烈震荡，与原函数 $f(x)$ 相差甚大，这就是典型的「龙格现象」。。<del>噢你问这个图怎么跟上面不一样因为上面那个是拿 Desmos 画的这个是 Matplotlib，Python 画图还是太优雅了 awa</del></p>
+<p>回到正题。不难看出，在上述插值的做法下对于每一次查询都是 $O(n^2)$ 的，多次查询的时间显然是爆炸。每插入一个值，整个多项式都需要重新构造，因此传统的拉格朗日插值在特定情境下并不优雅。重心拉格朗日插值则提供了一种在 $O(n)$ 内求值与更新多项式的方法。</p>
+<p>将 $\ell_i(x)$ 拆开：</p>
+<p>$$\ell_i(x) &#x3D; \frac{\prod\limits_{j \neq i} (x - x_j)}{\prod\limits_{j \neq i} (x_i - x_j)}$$</p>
+<p>显然分母部分只与已知点相关，不妨令：</p>
+<p>$$w_i &#x3D; \frac{1}{\prod\limits_{j \neq i} (x_i - x_j)}$$</p>
+<p>则：</p>
+<p>$$\ell_i(x) &#x3D; w_i \prod_{j \neq i} (x - x_j)$$</p>
+<p>其中， $w_i$ 被称之为「重心权重」。补全连乘，令：</p>
+<p>$$\ell(x) &#x3D; \prod_{j &#x3D; 1}^n (x - x_j)$$</p>
+<p>所以：</p>
+<p>$$\begin{aligned} \ell_i(x) &amp;&#x3D; w_i \frac{\prod\limits_{j &#x3D; 1}^n (x - x_j)}{x - x_i} \cr &amp;&#x3D; w_i \frac{\ell(x)}{x - x_i}\end{aligned}$$</p>
+<p>$$\begin{aligned}L(x) &amp;&#x3D; \sum_{i &#x3D; 1}^n y_i w_i \frac{\ell(x)}{x - x_i} \cr &amp;&#x3D; \ell(x) \sum_{i &#x3D; 1}^n \frac{y_i w_i}{x - x_i} \end{aligned}$$</p>
+<p>如何消掉这个突兀的 $\ell(x)$ 呢？注意到对于多项式 $1$：</p>
+<p>$$\begin{aligned} 1 &amp;&#x3D; \sum_{i &#x3D; 1}^n 1 \cdot \ell_i(x) \cr &amp;&#x3D; \sum_{i &#x3D; 1}^n \ell_i(x) \cr &amp;&#x3D; \sum_{i &#x3D; 1}^n w_i \frac{\ell(x)}{x - x_i} \cr &amp;&#x3D; \ell(x) \sum_{i &#x3D; 1}^n \frac{w_i}{x - x_i} \end{aligned}$$</p>
+<p>则：</p>
+<p>$$\ell(x) &#x3D; \frac{1}{\sum\limits_{i &#x3D; 1}^n \frac{w_i}{x - x_i}}$$</p>
+<p>所以：</p>
+<p>$$L(x) &#x3D; \frac{\sum\limits_{i &#x3D; 1}^n \frac{y_i w_i}{x - x_i}}{\sum\limits_{i &#x3D; 1}^n \frac{w_i}{x - x_i}}$$</p>
+<p>至于它为什呢叫「重心」呢是因为最后推导出的公式形似加权平均：</p>
+<p>$$L(x) &#x3D; \frac{\sum{权重}_i \cdot y_i}{\sum{权重_i}}$$</p>
+<p>跟「龙格现象」有冇关系。</p>
+<p>不嘻嘻。</p>
 
     </div>
     
