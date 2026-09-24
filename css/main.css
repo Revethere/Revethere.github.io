@@ -238,16 +238,14 @@
     width: 300px;
 }
 #home-card #card-style {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    /* Opaque for the same reason the post cards are; see #home-posts .post. */
+    background: #fff;
+    border: 1px solid var(--page-bg);
     border-radius: 20px;
     box-shadow:
         0 1px 2px rgba(0, 0, 0, 0.03),
         0 3px 8px rgba(0, 0, 0, 0.05),
-        0 8px 28px rgba(0, 0, 0, 0.07),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        0 8px 28px rgba(0, 0, 0, 0.07);
     display: flex;
     flex-direction: column;
     max-height: 80vh;
@@ -343,6 +341,31 @@
     margin: 20px auto;
 }
 #home-head {
+    /* The wallpaper runs past the bottom of the hero and finishes dissolving
+       *below* the fold, so the hero/posts seam never cuts the fade off — the
+       seam is not a line anywhere in the dissolve. The tail ends up behind the
+       posts column, where the page content covers most of it.
+       --hero-bleed       how far the wallpaper overhangs the fold
+       --hero-fade-band   length of the dissolve, measured along the wallpaper.
+                          It lands on --tint-deep, which is deeper than the page
+                          is, so it stops short of the page colour.
+       --hero-settle-band the tail below that, over which the deeper colour
+                          gives way to the page colour. It runs entirely below
+                          the fold and is what keeps the two colours from meeting
+                          at a line: by the time the wallpaper's own bottom edge
+                          arrives, the page colour is already covering it.
+       --hero-blur-band   how far up the progressive blur starts.
+       Both bands hang off the bottom of the wallpaper, so --hero-bleed is what
+       moves the whole dissolve up and down; it does not change how long it is. */
+    --hero-bleed: 24vh;
+    --hero-blur-band: 10vh;
+    --hero-fade-band: 12vh;
+    --hero-settle-band: 6vh;
+    /* Ramps in over --hero-blur-band, then *holds* at full strength down to the
+       bottom of the wallpaper. The hold is what keeps the overhang consistent:
+       the wallpaper keeps going past the fold, and a blur that stopped at the
+       fold would leave the overhang visibly sharper than the part above it. */
+    --hero-blur-mask: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000 calc(100% - var(--hero-bleed) / 2));
     display: flex;
     height: 100vh;
     width: 100vw;
@@ -351,12 +374,64 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    /* Grown past the hero and pulled up by half the overhang, so the framing
+       stays centred and only the bottom edge moves. */
+    height: calc(100vh + var(--hero-bleed));
     left: 0;
     position: absolute;
-    top: 0;
+    top: calc(var(--hero-bleed) / -2);
     width: 100vw;
     z-index: -1;
+}
+/* The dissolve is a layer poured over the wallpaper — not a white wash, and not
+   a mask cutting the wallpaper out. It paints inside the wallpaper's box, so it
+   runs past the fold exactly as far as the wallpaper does.
+   Three stops, because the colour it lands on is no longer the colour the page
+   is: it dissolves into --tint-deep, holds that through the part you can see,
+   then trades it for --page-bg over the settle band. Both are set from one
+   sampled hue by home.js, so the difference between them is depth, not hue. */
+#home-head #home-background::after {
+    /* Linear, deliberately. An eased ramp bunches the whole change into its
+       middle — and the middle is the only part you can see. Spreading it evenly
+       and letting the tail run past the fold keeps the visible slope shallow. */
+    background: linear-gradient(
+        to bottom,
+        transparent calc(100% - var(--hero-fade-band) - var(--hero-settle-band)),
+        var(--tint-deep) calc(100% - var(--hero-settle-band)),
+        var(--page-bg) 100%
+    );
+    content: "";
+    inset: 0;
+    position: absolute;
+}
+/* Bottom edge of the hero, blurred in two passes. Both overhang the fold by the
+   same amount as the wallpaper and are taller by exactly that much, so the mask
+   still finishes ramping at the fold and then holds — the overhang keeps the
+   same amount of blur as the part above it. */
+#home-head::before,
+#home-head::after {
+    bottom: calc(var(--hero-bleed) / -2);
+    content: "";
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+}
+/* Wide, gentle pass: softens the whole band. */
+#home-head::before {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    height: calc(var(--hero-blur-band) + var(--hero-bleed) / 2);
+    mask-image: var(--hero-blur-mask);
+    -webkit-mask-image: var(--hero-blur-mask);
+}
+/* Tighter, stronger pass: melts what the wallpaper still shows down here. */
+#home-head::after {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    height: calc(var(--hero-blur-band) * 0.55 + var(--hero-bleed) / 2);
+    mask-image: var(--hero-blur-mask);
+    -webkit-mask-image: var(--hero-blur-mask);
 }
 #home-head #home-info .info {
     align-items: center;
@@ -365,44 +440,50 @@
     justify-content: center;
     text-align: center;
 }
+/* The four blobs turning behind the title: a plain white veil over the
+   wallpaper, and no filter behind them at all. Nothing is blurred and nothing is
+   desaturated, so what shows through is the wallpaper itself with a white wash
+   over it, and how white the shape reads is the fill alpha and nothing else.
+   That alpha is also the one knob here with a real cost: it is what hides the
+   wallpaper, so raising it buys whiteness with the background.
+   A white veil does lift the region's light a little — white is light, there is
+   no pigment that does not. If that lift reads as glare, the move that cancels
+   it without blurring anything is `brightness(< 1)` on the backdrop: dimming what
+   is behind the wash pulls the average back down while the wash keeps the colour
+   white, and brightness alone costs no sharpness. It is not set here because the
+   veil is still thin enough that the lift is small.
+   The filter is gone on purpose rather than by omission. It was tried at blur
+   1, 3, 9 and 40px, with saturate and brightness rides on top, and everything it
+   offered was either a haze laid over the wallpaper (any blur) or a change to
+   its colour (saturate, brightness) — none of which is what this wants to be.
+   The rim carries the shape at this fill, so it stays a step stronger than it
+   once was, and it has to hold against light wallpapers as well as dark ones.
+   Leaving the filter off also makes these much cheaper: the four rotate forever,
+   and each one used to re-sample the wallpaper behind it every frame. */
+#home-head #home-info .loop {
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
 #home-head #home-info .loop:nth-child(1) {
     animation: loop1 10s linear infinite;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(8px) saturate(150%);
-    -webkit-backdrop-filter: blur(8px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
-    opacity: 0.35;
+    opacity: 0.9;
     transform: rotate(30deg);
 }
 #home-head #home-info .loop:nth-child(2) {
     animation: loop2 15s linear infinite;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(8px) saturate(150%);
-    -webkit-backdrop-filter: blur(8px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
-    opacity: 0.5;
+    opacity: 1;
     transform: rotate(60deg);
 }
 #home-head #home-info .loop:nth-child(3) {
     animation: loop3 10s linear infinite;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(8px) saturate(150%);
-    -webkit-backdrop-filter: blur(8px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
-    opacity: 0.35;
+    opacity: 0.9;
     transform: rotate(90deg);
 }
 #home-head #home-info .loop:nth-child(4) {
     animation: loop4 15s linear infinite;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(8px) saturate(150%);
-    -webkit-backdrop-filter: blur(8px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
-    opacity: 0.5;
+    opacity: 1;
     transform: rotate(120deg);
 }
 #home-head #home-info,
@@ -442,11 +523,16 @@
     color: #999;
 }
 #home-posts .post {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    /* Opaque on purpose. The excerpts carry images on white backgrounds, and on
+       a translucent card every one of those read as a white box pasted onto it:
+       the tint left in the card was nowhere near enough to hide the seam.
+       A real frost is off the table on an opaque fill — backdrop-filter has
+       nothing left to show through — so the card keeps the page's own colour in
+       its rim instead of a rim of its own invention, and the shadows stay
+       neutral. */
+    background: #fff;
+    border: 1px solid var(--page-bg);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow:
         0 1px 2px rgba(0, 0, 0, 0.03),
         0 3px 10px rgba(0, 0, 0, 0.05),
@@ -483,14 +569,12 @@
 }
 #home-posts .post .more-center {
     align-items: center;
+    /* The original white, which on an opaque white card is white on white — the
+       fill is here for the hit area its padding buys. What shows the button its
+       own shape is the shadow it sits in, so this one has to stay. */
     background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(14px) saturate(160%);
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.65);
     border-radius: 50px;
-    box-shadow:
-        0 2px 18px rgba(99, 130, 200, 0.14),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 18px rgba(99, 130, 200, 0.14);
     color: #85bac0; /* matches .post-title */
     cursor: pointer;
     display: flex;
@@ -501,15 +585,13 @@
     letter-spacing: 2px;
     margin: 14px auto 0;
     padding: 6px 22px;
-    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    transition: background 0.3s, box-shadow 0.3s, color 0.3s, transform 0.3s;
     width: fit-content;
 }
 #home-posts .post .more-center:hover {
     background: rgba(255, 255, 255, 0.72);
-    border-color: rgba(255, 255, 255, 0.9);
-    box-shadow:
-        0 4px 20px rgba(99, 130, 200, 0.22),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 20px rgba(99, 130, 200, 0.22);
+    color: #6799a0; /* slightly deeper teal, in step with the shadow */
     transform: translateY(-1px);
 }
 #home-posts .post .more-center .more-icon {
@@ -523,16 +605,11 @@
 /* Collapse arrow pinned to the card's top-right corner — only appears while
    the post is expanded, so long articles can be collapsed without scrolling. */
 #home-posts .post .collapse-arrow {
-    /* liquid-glass — same recipe as the desktop menu indicator (#menu-indicator) */
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    backdrop-filter: blur(14px) saturate(160%);
+    /* the pill's recipe — see #home-posts .post .more-center */
     align-items: center;
     background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.65);
     border-radius: 50%;
-    box-shadow:
-        0 2px 18px rgba(99, 130, 200, 0.14),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 18px rgba(99, 130, 200, 0.14);
     color: #85bac0; /* matches .post-title */
     cursor: pointer;
     display: flex;
@@ -545,8 +622,8 @@
     right: 12px;
     top: 12px;
     transform: scale(0.85);
-    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, color 0.3s,
-        opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: background 0.3s, box-shadow 0.3s, color 0.3s, opacity 0.3s ease,
+        transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     width: 30px;
     z-index: 2;
 }
@@ -557,13 +634,19 @@
 }
 #home-posts .post .collapse-arrow:hover {
     background: rgba(255, 255, 255, 0.72);
-    border-color: rgba(255, 255, 255, 0.95);
-    box-shadow:
-        0 4px 20px rgba(99, 130, 200, 0.22),
-        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(99, 130, 200, 0.22);
     color: #6799a0; /* slightly deeper teal on hover */
 }
 #home-posts .post .description {
+    /* The excerpt fades out through a mask on the text, not a white overlay.
+       An overlay stacks a second white on top of the 0.72 the card already
+       paints, so the bottom of every card read as opaque white while its top
+       still let the wallpaper through. Taking the text away instead leaves the
+       card's own glass, which stays translucent all the way down.
+       Both ends are two-stop ramps over the same colours, so the mask can
+       interpolate as the post opens and closes. */
+    --excerpt-fade: linear-gradient(to bottom, #000 calc(100% - 72px), rgba(0, 0, 0, 0) 100%);
+    --excerpt-fade-open: linear-gradient(to bottom, #000 100%, rgba(0, 0, 0, 0) 100%);
     overflow: hidden;
     position: relative;
 }
@@ -575,26 +658,16 @@
 }
 #home-posts .post .description:not(.expanded) {
     /* Pre-JS fallback, kept in sync with the clamp height set in home.js. */
+    mask-image: var(--excerpt-fade);
+    -webkit-mask-image: var(--excerpt-fade);
     max-height: 268px;
+    transition: mask-image 0.25s ease, -webkit-mask-image 0.25s ease;
 }
 #home-posts .post .description.expanded {
+    mask-image: var(--excerpt-fade-open);
+    -webkit-mask-image: var(--excerpt-fade-open);
     max-height: none;
-}
-#home-posts .post .description::after {
-    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.88));
-    bottom: 0;
-    content: "";
-    height: 72px;
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    transition: opacity 0.35s ease 0.15s;
-    z-index: 1;
-}
-#home-posts .post .description.expanded::after {
-    opacity: 0;
-    transition: opacity 0.25s ease;
+    transition: mask-image 0.35s ease 0.15s, -webkit-mask-image 0.35s ease 0.15s;
 }
 /* Long articles stay cheap: only the part near the viewport is laid out,
    and the remembered size prevents scrollbar jumping after expansion. */
@@ -602,13 +675,10 @@
     content-visibility: auto;
     contain-intrinsic-size: auto 800px;
 }
-/* backdrop-filter re-blurs the pill every frame while the card behind it is
-   animating — skip it for the ~500ms of the height animation. */
-#home-posts .post.animating .more-center {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: rgba(255, 255, 255, 0.72);
-}
+/* The .post.animating marker used to hang a rule here, skipping the pill's
+   backdrop-filter for the length of the height animation. The card behind the
+   pill is opaque now, so the pill has no backdrop-filter and nothing to
+   re-blur; home.js still sets the class. */
 #home-posts .post .post-tags .tag {
     display: inline-block;
     font-weight: bold;
@@ -645,7 +715,7 @@
         0 6px 20px rgba(0, 0, 0, 0.08),
         0 16px 48px rgba(155, 187, 247, 0.18);
     transform: translate(-3px, -3px);
-    border-color: rgba(155, 187, 247, 0.25);
+    border-color: var(--tint-deep);
 }
 #home-posts-wrap {
     background: transparent;
@@ -843,55 +913,6 @@
     border-color: rgba(160, 185, 220, 0.5);
     box-shadow: 0 4px 28px rgba(99, 130, 200, 0.18),
                 inset 0 1px 0 rgba(255, 255, 255, 0.7);
-}
-#search-results .search-result {
-    background: #fff;
-    border: 1px solid #0002;
-    border-radius: 3px;
-    margin-bottom: 30px;
-    padding: 24px;
-    transition: box-shadow 0.5s;
-}
-#search-results .search-result:hover {
-    box-shadow: 0 2px 8px #00000017;
-}
-#search-results .search-result .search-result-date {
-    color: #5c6b72;
-    margin-bottom: 8px;
-}
-#search-results .search-result h3 {
-    margin: 10px 0;
-}
-#search-results .search-result .info {
-    line-height: 1.7;
-    margin-bottom: 10px;
-}
-#search-results .search-excerpts {
-    margin-top: 15px;
-}
-#search-results .search-excerpt {
-    color: #5c6b72;
-    font-size: 14px;
-    line-height: 1.7;
-    margin: 8px 0;
-    white-space: pre-line;
-    word-break: break-all;
-}
-#search-results .search-excerpt-sep {
-    border-top: 1px dashed #e0e0e0;
-    margin: 12px 0;
-}
-#search-results .search-empty {
-    color: #5c6b72;
-    font-size: 16px;
-    padding: 40px 0;
-    text-align: center;
-}
-#search-results mark {
-    background: #fff13360;
-    border-radius: 3px;
-    color: unset;
-    padding: 2px 4px;
 }
 #timeline-wrap {
     display: flex;
@@ -1149,8 +1170,13 @@ body::-webkit-scrollbar-track {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
+/* No transition here on purpose. This used to animate #main in over 0.5s
+   (opacity 0 -> 1, scale(1.1) -> 1). It transforms the whole subtree, so the
+   hero's bottom edge — and the wallpaper's fade with it — kept sliding for half
+   a second after the wallpaper landed, which reads as the fade settling a second
+   time. The content now appears all at once behind the loading screen. */
 .into-enter-active {
-    transition: opacity 0.5s, transform 0.5s;
+    transition: none;
 }
 .into-enter-from {
     opacity: 0;
@@ -1193,6 +1219,9 @@ body::-webkit-scrollbar-track {
     opacity: 0;
 }
 .timeline {
+    /* The transition is the search animation: js/lib/search.js hides a
+       non-matching row by giving it a margin-top of minus its own height plus
+       this margin-bottom, which is what lets the other rows close up over it. */
     margin-bottom: 30px;
     transition: margin-top 0.5s, opacity 0.3s, visibility 0.3s;
 }
@@ -1206,6 +1235,41 @@ body::-webkit-scrollbar-track {
 }
 .timeline-content:hover {
     box-shadow: 0 2px 8px #00000017;
+}
+/* The passage a content match grew inside its own row, and the height it opens
+   with. js/lib/search.js measures the block and hands the number to max-height,
+   which is the only way to animate it; in exchange everything spaced inside has
+   to be padding, never margin — scrollHeight is what gets measured, and a
+   child's margin is not reliably part of it, so a margin would clip the last
+   line. */
+.timeline-content .search-excerpts {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+}
+.timeline-content .search-excerpts.shown {
+    opacity: 1;
+}
+.timeline-content .search-excerpt {
+    color: #5c6b72;
+    font-size: 14px;
+    line-height: 1.7;
+    padding: 6px 0;
+    white-space: pre-line;
+    word-break: break-all;
+}
+.timeline-content .search-excerpt:first-child {
+    padding-top: 18px; /* the gap below .info above it */
+}
+.timeline-content .search-excerpt-sep {
+    border-top: 1px dashed #e0e0e0;
+    padding-top: 6px;
+}
+.timeline-content .search-excerpts mark {
+    /* the global mark carries line-height 2.5, which would space the marked
+       lines apart from the ones around them */
+    line-height: inherit;
 }
 .timeline-tail {
     background: #fff;
@@ -1290,7 +1354,21 @@ blockquote {
     padding: 0 15px;
 }
 body {
-    background: #f6f8fa;
+    /* Both are overridden per load on the home page by js/lib/home.js, which
+       tints them to match the wallpaper it picked. These values are the
+       fallback — keep them a neutral light so the other pages still read as
+       before.
+       Deliberately NOT transitioned: home.js sets these in the same frame as the
+       wallpaper, so animating them would show up as a second fade settling in
+       underneath the hero's own one.
+       --page-bg is the page, and everything that sits on a white card and needs
+       a tint of its own fills with it — the card rims, the MORE pill, the
+       collapse arrow. --tint-deep is the same hue a few stops deeper: the hero
+       dissolves into that, and the same chrome goes to it on hover. One sampled
+       hue drives both, so nothing has to invent a blue of its own. */
+    --page-bg: #f6f8fa;
+    --tint-deep: #f6f8fa;
+    background: var(--page-bg);
     color: #1e3e3f;
     font: 500 14px Lexend, "Noto Sans SC", sans-serif;
     overflow-x: hidden;

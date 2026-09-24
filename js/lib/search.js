@@ -1,3 +1,20 @@
+// Search filters the archive timeline in place: rows that don't match animate
+// out and the ones that do slide back. The animation is the .timeline
+// transition in main.css — margin-top, opacity, visibility — so all this has to
+// do is set those three properties per row.
+//
+// Matching runs over title *and* body text, so it needs __POSTS_DATA__. The
+// timeline carries only a path per row, and that path is what ties a row back to
+// its post.
+//
+// A row that matched in its body also grows the matched passage inside itself:
+// the timeline is the only view there is, so the row is where the reason has to
+// show.
+const stripSpace = (text) => text.toLowerCase().replace(/\s+/g, "");
+
+// Lines of context kept either side of a matching line.
+const EXCERPT_CONTEXT = 2;
+
 mixins.search = {
     data() {
         return { rawSearch: "", postsData: [] };
@@ -18,35 +35,56 @@ mixins.search = {
             console.warn("[search] window.__POSTS_DATA__ not available!");
             this.postsData = [];
         }
-        this.searchResults = document.getElementById("search-results");
     },
     watch: {
         search(value) {
             try {
                 const timeline = this.$refs.timeline;
+                if (!timeline) return;
 
-                if (!value) {
-                    if (timeline) timeline.style.display = "";
-                    if (this.searchResults)
-                        this.searchResults.style.display = "none";
-                    if (timeline) {
-                        for (let i of timeline.childNodes) {
-                            if (i.nodeType === 1) {
-                                i.style.opacity = 1;
-                                i.style.visibility = "visible";
-                                i.style.marginTop = 0;
-                            }
-                        }
-                    }
-                    return;
-                }
+                const entries = Array.from(timeline.childNodes).filter(
+                    (node) => node.nodeType === 1
+                );
+                if (!entries.length) return;
 
-                if (timeline) timeline.style.display = "none";
-                if (this.searchResults)
-                    this.searchResults.style.display = "";
+                const matched = value ? this.buildMatches(value) : null;
 
-                const results = this.buildResults(value);
-                this.renderResults(results);
+                // Every height is read before any style is written. A collapsed
+                // row is collapsed *by* its margin-top, so writing row by row
+                // would make each offsetHeight read force a fresh layout — and
+                // this watcher runs on every keystroke.
+                //
+                // Only the rows about to be hidden use their height, and those
+                // are exactly the rows whose excerpt block is collapsing at the
+                // same time — and that block may still be part-way through its
+                // own transition. So what gets cancelled is the row's height
+                // with the block taken back out, or the margin would leave a gap
+                // the size of whatever the block happened to be at this instant.
+                const heights = entries.map((entry) => {
+                    const block = entry.querySelector(".search-excerpts");
+                    return entry.offsetHeight - (block ? block.offsetHeight : 0);
+                });
+                // The gap under a row comes from the same rule that carries the
+                // transition, so read it rather than repeat the number here.
+                const gap =
+                    parseFloat(getComputedStyle(entries[0]).marginBottom) || 0;
+
+                entries.forEach((entry, i) => {
+                    const excerpts = matched
+                        ? matched.get(entry.dataset.path)
+                        : null;
+                    const keep = !matched || excerpts !== undefined;
+
+                    this.setExcerpts(entry, keep ? excerpts : null);
+
+                    entry.style.opacity = keep ? "1" : "0";
+                    entry.style.visibility = keep ? "visible" : "hidden";
+                    // The negative margin eats the row's own height plus the gap
+                    // under it, so a filtered-out row leaves no hole behind.
+                    entry.style.marginTop = keep
+                        ? "0"
+                        : `${-(heights[i] + gap)}px`;
+                });
             } catch (e) {
                 console.error("[search] watcher error:", e);
             }
@@ -58,141 +96,93 @@ mixins.search = {
         },
     },
     methods: {
-        buildResults(strippedQuery) {
-            const results = [];
-            if (!this.postsData || !this.postsData.length) return results;
-
+        // Every post whose title or body contains the query, mapped to the body
+        // excerpts that matched. An empty list means the title alone matched:
+        // there is nothing to show, the title is already on screen.
+        buildMatches(query) {
+            const matches = new Map();
             for (const post of this.postsData) {
-                const titleNorm = post.title
-                    .toLowerCase()
-                    .replace(/\s+/g, "");
-                const titleMatch = titleNorm.includes(strippedQuery);
-
                 const lines = post.plainContent.split("\n");
-                const matchIndices = [];
+                const hit = [];
                 for (let i = 0; i < lines.length; i++) {
-                    const lineNorm = lines[i]
-                        .toLowerCase()
-                        .replace(/\s+/g, "");
-                    if (lineNorm.includes(strippedQuery)) {
-                        matchIndices.push(i);
-                    }
+                    if (stripSpace(lines[i]).includes(query)) hit.push(i);
                 }
-
-                // Merge overlapping / adjacent match ranges (±2 context each)
-                const contentMatches = [];
-                if (matchIndices.length > 0) {
-                    let rStart = Math.max(0, matchIndices[0] - 2);
-                    let rEnd = Math.min(lines.length - 1, matchIndices[0] + 2);
-
-                    for (let j = 1; j < matchIndices.length; j++) {
-                        const mStart = Math.max(0, matchIndices[j] - 2);
-                        const mEnd = Math.min(
-                            lines.length - 1,
-                            matchIndices[j] + 2
-                        );
-                        // Merge if ranges overlap or touch (gap ≤ 1 line)
-                        if (mStart <= rEnd + 1) {
-                            rEnd = Math.max(rEnd, mEnd);
-                        } else {
-                            const excerpt = lines
-                                .slice(rStart, rEnd + 1)
-                                .map((l) => l.trim())
-                                .filter((l) => l.length > 0)
-                                .join("\n");
-                            if (excerpt) contentMatches.push(excerpt);
-                            rStart = mStart;
-                            rEnd = mEnd;
-                        }
-                    }
-                    // Flush last range
-                    const excerpt = lines
-                        .slice(rStart, rEnd + 1)
-                        .map((l) => l.trim())
-                        .filter((l) => l.length > 0)
-                        .join("\n");
-                    if (excerpt) contentMatches.push(excerpt);
-                }
-
-                if (titleMatch || contentMatches.length > 0) {
-                    results.push({
-                        title: post.title,
-                        path: post.path,
-                        date: post.date,
-                        categories: post.categories || [],
-                        tags: post.tags || [],
-                        titleMatch,
-                        contentMatches,
-                    });
+                if (hit.length) {
+                    matches.set(post.path, this.excerptsFor(lines, hit));
+                } else if (stripSpace(post.title).includes(query)) {
+                    matches.set(post.path, []);
                 }
             }
-
-            return results;
+            return matches;
         },
 
-        renderResults(results) {
-            if (!this.searchResults) return;
+        // The matching line indices, widened by EXCERPT_CONTEXT either way and
+        // merged where they touch, so an excerpt reads as the passage the query
+        // landed in rather than a bare line. A one-line gap is not worth a
+        // second excerpt with a rule between them.
+        excerptsFor(lines, matchIndices) {
+            const ranges = [];
+            for (const index of matchIndices) {
+                const from = Math.max(0, index - EXCERPT_CONTEXT);
+                const to = Math.min(lines.length - 1, index + EXCERPT_CONTEXT);
+                const last = ranges[ranges.length - 1];
+                if (last && from <= last.to + 1) last.to = Math.max(last.to, to);
+                else ranges.push({ from, to });
+            }
 
-            if (results.length === 0) {
-                this.searchResults.innerHTML =
-                    '<div class="search-empty">No matching posts found</div>';
+            return ranges
+                .map((range) =>
+                    lines
+                        .slice(range.from, range.to + 1)
+                        .map((line) => line.trim())
+                        .filter((line) => line.length > 0)
+                        .join("\n")
+                )
+                .filter((excerpt) => excerpt.length > 0);
+        },
+
+        // Grows the excerpt block inside a row, or collapses it away when the
+        // row has none. The measured height is handed to max-height rather than
+        // left to the content so the block can animate at all — the same trick
+        // the post cards' tag row uses. Every space inside it is padding, which
+        // scrollHeight counts; a child's margin is not reliably part of it, and
+        // the last line would get clipped.
+        setExcerpts(entry, excerpts) {
+            const content = entry.querySelector(".timeline-content");
+            if (!content) return;
+            let block = content.querySelector(".search-excerpts");
+
+            if (!excerpts || !excerpts.length) {
+                if (block) {
+                    block.classList.remove("shown");
+                    block.style.maxHeight = "0px";
+                }
                 return;
             }
 
-            const rawQuery = this.rawSearch.trim();
-            let html = "";
-
-            for (const result of results) {
-                html += '<div class="search-result">';
-                html += `<div class="search-result-date">${this.escapeHtml(result.date)}</div>`;
-                html += `<a href="${result.path}"><h3>${this.escapeHtml(result.title)}</h3></a>`;
-
-                if (result.categories.length > 0 || result.tags.length > 0) {
-                    html += '<div class="info">';
-                    if (result.categories.length > 0) {
-                        html += `<span class="category"><a href="${result.categories[0].path}"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>${this.escapeHtml(result.categories[0].name)}</a></span>`;
-                    }
-                    if (result.tags.length > 0) {
-                        html +=
-                            '<span class="tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span>';
-                        for (const tag of result.tags) {
-                            html += `<span class="tag"><a href="${tag.path}" data-color-key="${this.escapeHtml(tag.name)}" data-color-prop="color">${this.escapeHtml(tag.name)}</a></span>`;
-                        }
-                        html += "</span>";
-                    }
-                    html += "</div>";
-                }
-
-                if (result.contentMatches.length > 0) {
-                    html += '<div class="search-excerpts">';
-                    const excerptsHtml = result.contentMatches.map(
-                        (excerpt) => {
-                            let escaped = this.escapeHtml(excerpt);
-                            if (rawQuery) {
-                                const regex = new RegExp(
-                                    `(${this.escapeRegex(rawQuery)})`,
-                                    "gi"
-                                );
-                                escaped = escaped.replace(
-                                    regex,
-                                    "<mark>$1</mark>"
-                                );
-                            }
-                            return `<p class="search-excerpt">${escaped}</p>`;
-                        }
-                    );
-                    html += excerptsHtml.join(
-                        '<div class="search-excerpt-sep"></div>'
-                    );
-                    html += "</div>";
-                }
-
-                html += "</div>";
+            if (!block) {
+                block = document.createElement("div");
+                block.className = "search-excerpts";
+                content.appendChild(block);
             }
 
-            this.searchResults.innerHTML = html;
-            // Results are built in the browser, so colors.js never saw these.
-            if (window.applyTagColors) window.applyTagColors(this.searchResults);
+            const rawQuery = this.rawSearch.trim();
+            const highlight = rawQuery
+                ? new RegExp(`(${this.escapeRegex(rawQuery)})`, "gi")
+                : null;
+            block.innerHTML = excerpts
+                .map((excerpt) => {
+                    let escaped = this.escapeHtml(excerpt);
+                    if (highlight) {
+                        escaped = escaped.replace(highlight, "<mark>$1</mark>");
+                    }
+                    return `<p class="search-excerpt">${escaped}</p>`;
+                })
+                .join('<div class="search-excerpt-sep"></div>');
+
+            block.offsetHeight; // commit the collapsed start state
+            block.classList.add("shown");
+            block.style.maxHeight = `${block.scrollHeight + 1}px`;
         },
 
         escapeHtml(text) {

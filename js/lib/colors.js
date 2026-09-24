@@ -64,9 +64,6 @@
         }
     }
 
-    // search.js builds its result markup in the browser, so it colors its own.
-    window.applyTagColors = apply;
-
     // Vue takes #layout's innerHTML as its template and re-creates those nodes
     // on mount, so anything written before the app renders is thrown away.
     // Coloring from a mounted hook runs after that render and lands on the

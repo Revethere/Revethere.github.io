@@ -9,12 +9,69 @@ const SETTLE_MS = 420; // content rise/fade duration (swap mode)
 const travelMs = (px) => Math.min(800, Math.round(320 + px * 0.08));
 const collapseMs = (px) => Math.min(600, Math.round(280 + px * 0.05));
 
+// Page background tint, matched to whichever wallpaper this load got. The
+// wallpaper is `Math.random()`d in mounted(), so this can only be resolved in
+// the browser — a colour baked into the HTML would be wrong for eight of the
+// nine wallpapers and would turn every build into a fresh diff.
+const TINT_SAMPLE_FROM = 0.7; // average only the bottom 30% of the wallpaper
+const TINT_SAT_BOOST = 3; // wallpapers average out near-grey; lift the hue
+const TINT_SAT_MAX = 0.4;
+// The page is meant to read as a page, so it stays near-white. The chrome that
+// sits on the white cards fills with it too, which is why it is published at all.
+const TINT_LIGHTNESS = 0.93;
+// Everything that wants the same hue a step deeper reads this: the hero
+// dissolves into it, and the chrome above goes to it on hover. Deeper than the
+// page rather than equal to it — the wallpapers are mid-tone photographs, and
+// landing the fade on near-white made that last stretch the steepest change on
+// the page.
+const TINT_DEEP_LIGHTNESS = 0.85;
+
+// Average the sample down to one colour, then rebuild it as a pale tint: keep
+// the hue, lift the saturation, pin the lightness — twice, once for the page
+// and once for everything that needs a step deeper. Without the lift the hue
+// disappears into the white and every wallpaper lands on the same near-grey.
+function tintFromPixels(data) {
+    let r = 0;
+    let g = 0;
+    let b = 0;
+    const count = data.length / 4;
+    for (let i = 0; i < data.length; i += 4) {
+        r += data[i];
+        g += data[i + 1];
+        b += data[i + 2];
+    }
+    r = r / count / 255;
+    g = g / count / 255;
+    b = b / count / 255;
+
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    const lightness = (max + min) / 2;
+    let hue = 0;
+    let saturation = 0;
+    if (max !== min) {
+        const delta = max - min;
+        saturation =
+            lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
+        if (max === r) hue = ((g - b) / delta + (g < b ? 6 : 0)) / 6;
+        else if (max === g) hue = ((b - r) / delta + 2) / 6;
+        else hue = ((r - g) / delta + 4) / 6;
+    }
+
+    const s = Math.min(saturation * TINT_SAT_BOOST, TINT_SAT_MAX);
+    const hs = `${Math.round(hue * 360)}, ${Math.round(s * 100)}%`;
+    return {
+        deep: `hsl(${hs}, ${Math.round(TINT_DEEP_LIGHTNESS * 100)}%)`,
+        page: `hsl(${hs}, ${Math.round(TINT_LIGHTNESS * 100)}%)`,
+    };
+}
+
 mixins.home = {
     mounted() {
         let background = this.$refs.homeBackground;
         let images = background.dataset.images.split(",");
         let id = Math.floor(Math.random() * images.length);
-        background.style.backgroundImage = `url('${images[id]}')`;
+        this.showWallpaper(background, images[id]);
         this.menuColor = true;
         this.initPostClamp();
         this.scheduleHeightCache();
@@ -26,6 +83,56 @@ mixins.home = {
     methods: {
         homeClick() {
             window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+        },
+        // Sets the wallpaper and tints the page to match it.
+        //
+        // The fetch is started before the stylesheet is handed the same URL, so
+        // the two share one request and the tint lands with the wallpaper rather
+        // than a beat after it — otherwise the bottom of the hero settles twice,
+        // the second time when the colour it dissolves into changes underneath.
+        //
+        // Only the bottom slice of the wallpaper matters: that is the part the
+        // fade dissolves into the page, so it is the part the background has to
+        // agree with.
+        showWallpaper(element, url) {
+            const image = new Image();
+            image.onload = () => {
+                try {
+                    const size = 32;
+                    const canvas = document.createElement("canvas");
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(
+                        image,
+                        0,
+                        image.height * TINT_SAMPLE_FROM,
+                        image.width,
+                        image.height * (1 - TINT_SAMPLE_FROM),
+                        0,
+                        0,
+                        size,
+                        size
+                    );
+                    // Published as variables rather than written straight onto
+                    // backgroundColor, because more than one thing reads them:
+                    // body paints --page-bg, the hero's dissolve layer and the
+                    // chrome on the cards read --tint-deep. One sample, one hue,
+                    // so nothing can end up disagreeing about the colour.
+                    const tint = tintFromPixels(
+                        ctx.getImageData(0, 0, size, size).data
+                    );
+                    document.body.style.setProperty("--page-bg", tint.page);
+                    document.body.style.setProperty("--tint-deep", tint.deep);
+                } catch (e) {
+                    // A wallpaper served from another origin taints the canvas;
+                    // the default page background simply stays.
+                }
+            };
+            image.src = url;
+            // Set synchronously, as before this method existed, so the stylesheet
+            // request is still part of the load event.
+            element.style.backgroundImage = `url('${url}')`;
         },
         initPostClamp() {
             this.$nextTick(() => {
@@ -165,7 +272,8 @@ mixins.home = {
             }
             if (endH === null || endH <= startH) endH = startH;
 
-            // Fade out the ::after overlay immediately
+            // Drop the excerpt's bottom fade immediately: .expanded swaps the
+            // mask out, and the transition on that rule carries it away.
             desc.classList.add("expanded");
             if (moreBtn) moreBtn.classList.add("expanded");
             if (moreText) moreText.textContent = "COLLAPSE";
@@ -199,7 +307,7 @@ mixins.home = {
                 if (excerpt) excerpt.style.display = "";
             }
 
-            // Fade the ::after overlay back in
+            // Put the excerpt's bottom fade back
             desc.classList.remove("expanded");
             if (moreBtn) moreBtn.classList.remove("expanded");
             if (moreText) moreText.textContent = "MORE";
