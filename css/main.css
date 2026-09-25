@@ -356,11 +356,20 @@
                           arrives, the page colour is already covering it.
        --hero-blur-band   how far up the progressive blur starts.
        Both bands hang off the bottom of the wallpaper, so --hero-bleed is what
-       moves the whole dissolve up and down; it does not change how long it is. */
-    --hero-bleed: 24vh;
-    --hero-blur-band: 10vh;
-    --hero-fade-band: 12vh;
-    --hero-settle-band: 6vh;
+       moves the whole dissolve up and down; it does not change how long it is.
+       --hero-bleed is not free: it has to sit the fold exactly half way through
+       the fade, which is what keeps the dissolve's slope the same either side of
+       the fold. That is --hero-bleed = 2 * --hero-settle-band + --hero-fade-band.
+       Change a band and this has to follow, or the fold lands on a steeper part
+       of the ramp and the seam reads as a bruise.
+       The lengths also set how steep the dissolve is, since the distance it
+       covers does not change: halving them doubles the slope. home.js matches
+       --tint-deep to whatever ratio --hero-fade-band / --hero-settle-band says,
+       so trimming them together keeps that match — trimming one alone breaks it. */
+    --hero-bleed: 16vh;
+    --hero-blur-band: 7vh;
+    --hero-fade-band: 8vh;
+    --hero-settle-band: 4vh;
     /* Ramps in over --hero-blur-band, then *holds* at full strength down to the
        bottom of the wallpaper. The hold is what keeps the overhang consistent:
        the wallpaper keeps going past the fold, and a blur that stopped at the

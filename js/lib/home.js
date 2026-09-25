@@ -21,15 +21,46 @@ const TINT_SAT_MAX = 0.4;
 const TINT_LIGHTNESS = 0.93;
 // Everything that wants the same hue a step deeper reads this: the hero
 // dissolves into it, and the chrome above goes to it on hover. Deeper than the
-// page rather than equal to it — the wallpapers are mid-tone photographs, and
-// landing the fade on near-white made that last stretch the steepest change on
-// the page.
+// page rather than equal to it — landing the fade on near-white made that last
+// stretch the steepest change on the page.
+//
+// How much deeper is not a constant, because the dissolve is three bands in a
+// row and only two of them share a slope. The fade carries the wallpaper up to
+// this colour, its continuation past the fold holds that same slope, and the
+// settle then takes it the rest of the way to the page over half the length.
+// So the settle is the band that sets the pace: land too shallow and it has all
+// of the remaining distance to cover in the shortest run, which does not read
+// as a dissolve but as a sudden turn to white at the foot of the hero. Land it
+// deep enough to match the other two and the three become one slope.
+//
+// Matching them puts the landing at a weighted mean of the wallpaper and the
+// page, weighted by the two band lengths. That is where 0.85 came from — for
+// the bottom of a mid-tone photograph it is the match to within 0.002, and
+// every mid-tone wallpaper still lands there. A dark one cannot: its band would
+// have had to climb from 0.11. So the match is computed rather than pinned.
+//
+//   (wallpaper -> deep) over the fade == (deep -> page) over the settle
+//
+// --hero-fade-band is twice --hero-settle-band; change one and this constant
+// has to follow it.
+const TINT_DEEP_SLOPE_WEIGHT = 2;
 const TINT_DEEP_LIGHTNESS = 0.85;
+// What has to stay put as the landing goes dark is the chroma, not the
+// saturation: HSL measures saturation against lightness, so holding the
+// percentage while the lightness falls multiplies how coloured the result
+// reads. The same 40% that is a whisper at 0.85 reads more than twice as
+// coloured at 0.67 — and a band is a single colour painted across a bottom edge
+// that is rarely one colour, so a wallpaper whose bottom is brown on the left
+// and red on the right gets a stripe that matches neither. This is the budget
+// the ceiling has always spent, and everything deeper spends the same.
+const TINT_DEEP_CHROMA =
+    TINT_SAT_MAX * Math.min(TINT_DEEP_LIGHTNESS, 1 - TINT_DEEP_LIGHTNESS);
 
-// Average the sample down to one colour, then rebuild it as a pale tint: keep
-// the hue, lift the saturation, pin the lightness — twice, once for the page
-// and once for everything that needs a step deeper. Without the lift the hue
-// disappears into the white and every wallpaper lands on the same near-grey.
+// Average the sample down to one colour, then rebuild it as a tint: keep the
+// hue, lift the saturation, and set the lightness — pinned near-white for the
+// page, and a rise above the sample for the deeper one, which is the whole
+// point of that one existing. Without the lift the hue disappears into the
+// white and every wallpaper lands on the same near-grey.
 function tintFromPixels(data) {
     let r = 0;
     let g = 0;
@@ -59,10 +90,20 @@ function tintFromPixels(data) {
     }
 
     const s = Math.min(saturation * TINT_SAT_BOOST, TINT_SAT_MAX);
-    const hs = `${Math.round(hue * 360)}, ${Math.round(s * 100)}%`;
+    const h = Math.round(hue * 360);
+    // The match, running into the ceiling — which only bites on the lightest
+    // wallpapers, where what is left of the run is too short to read either way.
+    const deep = Math.min(
+        (TINT_DEEP_SLOPE_WEIGHT * TINT_LIGHTNESS + lightness) /
+            (TINT_DEEP_SLOPE_WEIGHT + 1),
+        TINT_DEEP_LIGHTNESS
+    );
+    // The budget, spent against that landing rather than declared as a
+    // percentage — which is what keeps the band from announcing a colour.
+    const deepSat = Math.min(s, TINT_DEEP_CHROMA / Math.min(deep, 1 - deep));
     return {
-        deep: `hsl(${hs}, ${Math.round(TINT_DEEP_LIGHTNESS * 100)}%)`,
-        page: `hsl(${hs}, ${Math.round(TINT_LIGHTNESS * 100)}%)`,
+        deep: `hsl(${h}, ${Math.round(deepSat * 100)}%, ${Math.round(deep * 100)}%)`,
+        page: `hsl(${h}, ${Math.round(s * 100)}%, ${Math.round(TINT_LIGHTNESS * 100)}%)`,
     };
 }
 
