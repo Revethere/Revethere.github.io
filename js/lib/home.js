@@ -55,6 +55,68 @@ const TINT_DEEP_LIGHTNESS = 0.85;
 // the ceiling has always spent, and everything deeper spends the same.
 const TINT_DEEP_CHROMA =
     TINT_SAT_MAX * Math.min(TINT_DEEP_LIGHTNESS, 1 - TINT_DEEP_LIGHTNESS);
+// The four rings behind the title, in degrees either side of the sampled hue —
+// one offset per ring, in the order they are stacked. They are the page's own
+// hue family stepped away from itself, which is what lets four rings read as
+// four colours without any of them leaving that family. Spread further and they
+// stop being neighbours; spread less and they read as the single flat tone they
+// were before.
+const LOOP_HUE_OFFSETS = [-45, -15, 15, 45];
+// Yellow is the one band where a pale tint reads as dirt: yellow at this
+// lightness and a middling chroma is beige, and beige over a photograph looks
+// like a smudge rather than a veil. So hues in the band are walked a fraction of
+// the way towards blue — 240, which the walk can never reach — and the chroma
+// follows at half that, which is what clears the beige. Green is what the walk
+// passes through on the way, and green at this lightness reads as clean; what
+// the correction is not allowed to do is arrive.
+//
+// The band is yellow proper (60) and the shoulders either side of it, which
+// fade the correction out at 25 and at 95 so the four rings stay one family —
+// a ring outside the band is left exactly as it was.
+const LOOP_YELLOW_BAND = [25, 95];
+const LOOP_YELLOW_TO_BLUE = 0.2;
+
+// The hue in the band, walked towards blue, with how deep into the band it was —
+// which is how much of the walk it got, and how much chroma to take with it.
+function coolYellow(hue) {
+    const [from, to] = LOOP_YELLOW_BAND;
+    if (hue < from || hue > to) return { hue, yellowness: 0 };
+    const yellowness =
+        hue <= 60 ? (hue - from) / (60 - from) : (to - hue) / (to - 60);
+    return {
+        hue: (hue + (240 - hue) * LOOP_YELLOW_TO_BLUE * yellowness + 360) % 360,
+        yellowness,
+    };
+}
+// How concentrated the picture's hues have to be before its direction is worth
+// following. Under this the picture has no tone to follow — a photograph of many
+// colours averages to none — and the rings stay with the hue the page is already
+// using, which at least agrees with everything else on the screen.
+const LOOP_HUE_CONFIDENCE = 0.5;
+// A floor under the rings' chroma. This is the one place the sample is allowed
+// to be pushed past what the picture holds: a wallpaper of one grey has a real
+// lean and almost no saturation, and four grey rings are the flat tone this
+// exists to avoid. The floor lifts the lean it has; it does not invent one.
+const LOOP_SAT_MIN = 0.22;
+
+// One colour as HSL, with the hue as a fraction of a turn. Both samplers below
+// need this and neither wants its own copy of it.
+function hslOf(r, g, b) {
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    const lightness = (max + min) / 2;
+    let hue = 0;
+    let saturation = 0;
+    if (max !== min) {
+        const delta = max - min;
+        saturation =
+            lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
+        if (max === r) hue = ((g - b) / delta + (g < b ? 6 : 0)) / 6;
+        else if (max === g) hue = ((b - r) / delta + 2) / 6;
+        else hue = ((r - g) / delta + 4) / 6;
+    }
+    return { hue, saturation, lightness };
+}
 
 // Average the sample down to one colour, then rebuild it as a tint: keep the
 // hue, lift the saturation, and set the lightness — pinned near-white for the
@@ -71,23 +133,11 @@ function tintFromPixels(data) {
         g += data[i + 1];
         b += data[i + 2];
     }
-    r = r / count / 255;
-    g = g / count / 255;
-    b = b / count / 255;
-
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    const lightness = (max + min) / 2;
-    let hue = 0;
-    let saturation = 0;
-    if (max !== min) {
-        const delta = max - min;
-        saturation =
-            lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
-        if (max === r) hue = ((g - b) / delta + (g < b ? 6 : 0)) / 6;
-        else if (max === g) hue = ((b - r) / delta + 2) / 6;
-        else hue = ((r - g) / delta + 4) / 6;
-    }
+    const { hue, saturation, lightness } = hslOf(
+        r / count / 255,
+        g / count / 255,
+        b / count / 255
+    );
 
     const s = Math.min(saturation * TINT_SAT_BOOST, TINT_SAT_MAX);
     const h = Math.round(hue * 360);
@@ -104,6 +154,54 @@ function tintFromPixels(data) {
     return {
         deep: `hsl(${h}, ${Math.round(deepSat * 100)}%, ${Math.round(deep * 100)}%)`,
         page: `hsl(${h}, ${Math.round(s * 100)}%, ${Math.round(TINT_LIGHTNESS * 100)}%)`,
+        // Also handed on for the rings: they walk a hue around, and when the
+        // whole picture has no direction of its own to follow, this is the one
+        // they fall back to.
+        hue: h,
+    };
+}
+
+// The rings read the whole picture, not the bottom slice the page is matched to:
+// they sit over its middle, and what they should echo is the picture itself.
+//
+// The whole picture cannot be read the way the slice is. Averaging it in RGB
+// first lets its colours cancel, and what is left is not a weaker version of the
+// picture's hue but a different one — a pale warm portrait averages to a
+// near-neutral that lands on blue. So the hues go round as unit vectors, each
+// pixel weighted by the colour it actually carries, which points at the
+// direction the picture leans in instead of the sum of everything in it.
+//
+// `confidence` is how much those hues agreed: 1 when they all point the same
+// way, 0 when the picture has no direction at all. It is what separates a grey
+// wallpaper — one colour, thinly held, which is exactly the case worth reading
+// and worth colouring — from a photograph of many colours that average to none.
+function hueOfPixels(data) {
+    let x = 0;
+    let y = 0;
+    let weight = 0;
+    let saturation = 0;
+    const count = data.length / 4;
+    for (let i = 0; i < data.length; i += 4) {
+        const { hue, saturation: s } = hslOf(
+            data[i] / 255,
+            data[i + 1] / 255,
+            data[i + 2] / 255
+        );
+        saturation += s;
+        // Squared, so a pixel that hardly carries a colour hardly gets a vote —
+        // near-grey pixels have a hue, and no business having one.
+        const w = s * s;
+        const angle = hue * Math.PI * 2;
+        x += w * Math.cos(angle);
+        y += w * Math.sin(angle);
+        weight += w;
+    }
+    let hue = Math.atan2(y, x) / (Math.PI * 2);
+    if (hue < 0) hue += 1;
+    return {
+        hue: Math.round(hue * 360),
+        saturation: saturation / count,
+        confidence: weight ? Math.hypot(x, y) / weight : 0,
     };
 }
 
@@ -165,6 +263,32 @@ mixins.home = {
                     );
                     document.body.style.setProperty("--page-bg", tint.page);
                     document.body.style.setProperty("--tint-deep", tint.deep);
+                    // The rings again, off the whole picture this time.
+                    ctx.clearRect(0, 0, size, size);
+                    ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, size, size);
+                    const whole = hueOfPixels(
+                        ctx.getImageData(0, 0, size, size).data
+                    );
+                    const hue =
+                        whole.confidence < LOOP_HUE_CONFIDENCE
+                            ? tint.hue
+                            : whole.hue;
+                    const saturation = Math.max(whole.saturation, LOOP_SAT_MIN);
+                    LOOP_HUE_OFFSETS.forEach((offset, i) => {
+                        const ring = coolYellow((hue + offset + 360) % 360);
+                        // The walk, and the chroma it takes with it.
+                        const ringSat =
+                            saturation *
+                            (1 - LOOP_YELLOW_TO_BLUE * ring.yellowness * 0.5);
+                        document.body.style.setProperty(
+                            `--loop-${i + 1}-h`,
+                            Math.round(ring.hue)
+                        );
+                        document.body.style.setProperty(
+                            `--loop-${i + 1}-s`,
+                            `${Math.round(ringSat * 100)}%`
+                        );
+                    });
                 } catch (e) {
                     // A wallpaper served from another origin taints the canvas;
                     // the default page background simply stays.

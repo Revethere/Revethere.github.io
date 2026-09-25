@@ -449,48 +449,74 @@
     justify-content: center;
     text-align: center;
 }
-/* The four blobs turning behind the title: a plain white veil over the
-   wallpaper, and no filter behind them at all. Nothing is blurred and nothing is
-   desaturated, so what shows through is the wallpaper itself with a white wash
-   over it, and how white the shape reads is the fill alpha and nothing else.
-   That alpha is also the one knob here with a real cost: it is what hides the
-   wallpaper, so raising it buys whiteness with the background.
-   A white veil does lift the region's light a little — white is light, there is
-   no pigment that does not. If that lift reads as glare, the move that cancels
-   it without blurring anything is `brightness(< 1)` on the backdrop: dimming what
-   is behind the wash pulls the average back down while the wash keeps the colour
-   white, and brightness alone costs no sharpness. It is not set here because the
-   veil is still thin enough that the lift is small.
+/* The four blobs turning behind the title: veils over the wallpaper, and no
+   filter behind them at all. Nothing is blurred and nothing is desaturated, so
+   what shows through is the wallpaper itself with a wash over it, and how much
+   of the shape reads is the fill alpha and nothing else. That alpha is also the
+   one knob here with a real cost: it is what hides the wallpaper, so raising it
+   buys presence with the background.
+   The wash is tinted, not white. Its hue is the wallpaper's own, read off the
+   whole picture rather than the bottom slice --page-bg is matched to — the rings
+   sit over its middle, and what they should echo is the picture itself — and
+   each ring takes a small step either side of that hue, so the four read as
+   several colours instead of one flat tone without any of them leaving the
+   family the page is already in. home.js publishes that hue and its chroma per
+   ring; the lightness and alpha here decide how much wallpaper they hide, and
+   that pair is the one to move if the rings want to be more or less present.
+   The fill is set light on purpose: it is a wash that the wallpaper shows
+   through, and at 92% it is close enough to the page colour that the disc reads
+   as the wallpaper's own tone rather than as a colour laid over it. Raising its
+   saturation or dropping its lightness is what makes it announce itself, so
+   those are the numbers to leave alone. This is only the fill — softening the
+   rim as well is what costs the shape, since the rim is what draws the rings.
+   Left at zero — the fallback when the sample never arrives, on a wallpaper
+   served from another origin — the rings come out the neutral veil they have
+   always been.
+   A wash does lift the region's light a little — light is light, there is no
+   pigment that does not. If that lift reads as glare, the move that cancels it
+   without blurring anything is `brightness(< 1)` on the backdrop: dimming what
+   is behind the wash pulls the average back down while the wash keeps its hue,
+   and brightness alone costs no sharpness. It is not set here because the veil
+   is still thin enough that the lift is small.
    The filter is gone on purpose rather than by omission. It was tried at blur
    1, 3, 9 and 40px, with saturate and brightness rides on top, and everything it
    offered was either a haze laid over the wallpaper (any blur) or a change to
    its colour (saturate, brightness) — none of which is what this wants to be.
-   The rim carries the shape at this fill, so it stays a step stronger than it
-   once was, and it has to hold against light wallpapers as well as dark ones.
+   The rim carries the shape at this fill, so it sits a step darker than the
+   wash and much more opaque, and it has to hold against light wallpapers as well
+   as dark ones.
    Leaving the filter off also makes these much cheaper: the four rotate forever,
    and each one used to re-sample the wallpaper behind it every frame. */
 #home-head #home-info .loop {
-    background: rgba(255, 255, 255, 0.16);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: hsla(var(--loop-h, 0), var(--loop-s, 0%), 92%, 0.17);
+    border: 1px solid hsla(var(--loop-h, 0), var(--loop-s, 0%), 88%, 0.9);
     border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 1px 0 hsla(var(--loop-h, 0), var(--loop-s, 0%), 96%, 0.7);
 }
 #home-head #home-info .loop:nth-child(1) {
+    --loop-h: var(--loop-1-h, 0);
+    --loop-s: var(--loop-1-s, 0%);
     animation: loop1 10s linear infinite;
     opacity: 0.9;
     transform: rotate(30deg);
 }
 #home-head #home-info .loop:nth-child(2) {
+    --loop-h: var(--loop-2-h, 0);
+    --loop-s: var(--loop-2-s, 0%);
     animation: loop2 15s linear infinite;
     opacity: 1;
     transform: rotate(60deg);
 }
 #home-head #home-info .loop:nth-child(3) {
+    --loop-h: var(--loop-3-h, 0);
+    --loop-s: var(--loop-3-s, 0%);
     animation: loop3 10s linear infinite;
     opacity: 0.9;
     transform: rotate(90deg);
 }
 #home-head #home-info .loop:nth-child(4) {
+    --loop-h: var(--loop-4-h, 0);
+    --loop-s: var(--loop-4-s, 0%);
     animation: loop4 15s linear infinite;
     opacity: 1;
     transform: rotate(120deg);
@@ -664,6 +690,16 @@
     height: auto;
     margin: 15px auto;
     max-width: 75%;
+}
+/* These cards are opaque white (see #home-posts .post), and so is the code
+   block's own fill — which leaves the 1px rim as the entire boundary. At the
+   stock #ebeef5 that is a 239-vs-255 hairline between two white areas, which is
+   exactly as faint as it sounds. The article card is translucent over a tinted
+   page, where the white block stands out on its own and the stock rim is fine,
+   so the heavier rim is kept to the cards that need it rather than applied to
+   every code block on the site. */
+#home-posts .post .description pre {
+    border-color: #d0d7de;
 }
 #home-posts .post .description:not(.expanded) {
     /* Pre-JS fallback, kept in sync with the clamp height set in home.js. */
@@ -1068,11 +1104,99 @@
     margin-right: 10px;
 }
 .code-content {
+    /* Named so the fold below can do its arithmetic in the block's own terms
+       instead of repeating the numbers. */
+    --code-pad-top: 50px;
+    --code-pad-bottom: 20px;
+    /* border-box, so the max-height the toggle animates is the height of the
+       whole block — the same number offsetHeight reports. Under the default
+       content-box that pin would have to be written short of the box it
+       actually makes, and the glide would start from the wrong place. */
+    box-sizing: border-box;
     font-size: 13px;
     line-height: 2;
     overflow: auto;
-    padding: 50px 30px 20px;
+    padding: var(--code-pad-top) 30px var(--code-pad-bottom);
     white-space: pre;
+}
+/* Vertical scrolling is held off in both states, not just the folded one.
+   Unfolding puts every row back while the box is still pinned at the folded
+   height, so for the length of the glide the content is taller than its box —
+   under `auto` that raises a vertical scrollbar, which then vanishes as the box
+   catches up. Nothing here ever needs to scroll vertically: fully open, the box
+   is its content. */
+pre.code-collapsible .code-content {
+    overflow-y: hidden;
+}
+/* A code block past its fold is clipped to --code-visible-lines lines by
+   js/lib/highlight.js, which also hangs a toggle on the block's corner and
+   publishes that count and --code-fade-h (how much of the tail fades out). One
+   line box is 2em of the 13px font this rule sets, which is what line-height: 2
+   makes it. */
+pre.code-collapsible.code-collapsed .code-content {
+    max-height: calc(
+        var(--code-visible-lines, 25) * 2em + var(--code-pad-top) +
+            var(--code-pad-bottom)
+    );
+    /* The cut is a fade, not an edge: the tail fades out over its last
+       --code-fade-h, measured up from the last line's bottom, so the fade
+       finishes on the last line the block shows rather than running on past it.
+       Below that the mask goes solid again — the only thing left down there is
+       the scrollbar a long line raises, and fading it away would leave the block
+       looking unscrollable. */
+    --code-fade: linear-gradient(
+        to bottom,
+        #000 calc(100% - var(--code-fade-h, 104px) - var(--code-pad-bottom)),
+        rgba(0, 0, 0, 0) calc(100% - var(--code-pad-bottom)),
+        #000 calc(100% - var(--code-pad-bottom))
+    );
+    mask-image: var(--code-fade);
+    -webkit-mask-image: var(--code-fade);
+}
+/* Out of the layout rather than left to overflow: a row past the last shown line
+   is not part of the block at all, so not even its line number shows through the
+   fade or the padding below it. */
+pre.code-collapsible.code-collapsed .code-hidden-line {
+    display: none;
+}
+/* The copy control owns the corner, as it does on a block with no caret, and the
+   caret sits just to its left wearing the same bare-icon get-up — so the two read
+   as one pair of controls rather than a button next to an ornament. 35px is
+   measured from the caret's own box: with its glyph 8px in from that edge, this
+   leaves the two glyphs a tight 9px apart and keeps the copy control's glyph well
+   clear of the caret's hit area. A solid caret rather than a line-drawn arrow,
+   which read as too light beside the copy glyph; it points at the rest of the code
+   and turns over when there is none left. */
+.code-toggle {
+    color: #5c6b72; /* matches .copycode */
+    cursor: pointer;
+    position: absolute;
+    right: 35px;
+    top: 0;
+}
+.code-toggle i {
+    /* A caret is a small glyph: at .copycode's own 15px it read as a lighter
+       thing sitting beside the copy icon rather than its peer. Sized up until the
+       two glyphs carry the same weight, and padded evenly left and right — an
+       uneven box puts the caret off-centre in it, and the 180° turn below happens
+       about the box, which would swing the caret sideways between the two
+       states. */
+    font-size: 21px;
+    padding: 12px 8px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* Turn about the caret's own ink rather than the box around it. The glyph
+       does not sit centred in its line box — at this size its ink runs from
+       0.5px to 22.5px of the 21px box, so its centre is 1px (0.048em) below the
+       box's. Turning about the box would leave the caret 2px lower pointing up
+       than it is pointing down. */
+    transform-box: content-box;
+    transform-origin: 50% calc(50% + 0.048em);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+pre.code-collapsible:not(.code-collapsed) .code-toggle i {
+    transform: rotate(180deg);
 }
 .comment iframe,
 body::-webkit-scrollbar-track {
@@ -1328,6 +1452,7 @@ a {
     text-decoration: none;
 }
 a:hover,
+.code-toggle:hover,
 .content .copycode:hover {
     opacity: 0.8;
 }
@@ -1339,6 +1464,7 @@ video,
 #home-head,
 #menu,
 .categories-tags a,
+.code-toggle,
 .copycode,
 .friend-link a,
 .more-center,
@@ -1442,6 +1568,15 @@ ol {
     margin: 15px 0;
 }
 pre {
+    /* Opaque, so the block's outline is where its own fill stops rather than
+       wherever a hairline happens to land. The rim below is a cool #ebeef5 and
+       the card it sits on is tinted to the wallpaper (home.js repaints
+       --page-bg on every load), which leaves the rim LIGHTER than the surface
+       behind it on a warm-toned wallpaper — the fill is what actually draws the
+       block's edge. An area edge also holds its weight when the card around it
+       is re-composited, as it is on hover (the card is translated and its shadow
+       deepened), where a 1px line can thin out or shift instead. */
+    background: #fff;
     border: 1px solid #ebeef5;
     border-radius: 15px;
     box-shadow: 0 2px 12px 0 #0000001a;
@@ -1512,6 +1647,20 @@ ol li {
 @media (min-width: 900px) {
     #home-head #home-info .info .wrap {
         padding: 25px;
+        /* The title sits on the wallpaper, and a wallpaper is not a backdrop: it
+           goes light and dark behind a single line of type, so the ink reads
+           crisp in one place and smudged in another and the type ends up looking
+           as uneven as the picture behind it. A shadow is what evens that out
+           without hiding the picture — it gives the glyph edge something to sit
+           on — and the hairline of light under it keeps the edge from going soft
+           where the wallpaper behind it is light.
+           Both are tight on purpose: a wide, soft shadow under type reads as a
+           blur, which is the thing being fixed.
+           This is desktop only. Below here the loops are hidden and .info is a
+           white disc, and type on a flat disc has nothing to separate from. */
+        text-shadow:
+            0 1px 2px rgba(12, 40, 42, 0.35),
+            0 0 1px rgba(255, 255, 255, 0.5);
     }
     #home-head #home-info .info .wrap h1 {
         font-size: 52px;
@@ -1525,6 +1674,23 @@ ol li {
     #home-head #home-info .info .wrap h5 {
         font-size: 16px;
         margin: 20px 0;
+    }
+    /* The title is pinned to one line, and it is close to the edge of the space
+       it has: at its 52px its own width is 439px of the 450px the disc leaves,
+       and the font is a webfont, so that number is not ours to assume. Anything
+       that makes the line wider — a longer title, a tracking, a fallback font
+       with wider glyphs — used to push it onto two lines, and the second line
+       lands outside the rings the title is meant to sit in. So it does not wrap:
+       see the width before changing this.
+       The tracking below is for the smaller lines only. The title cannot take
+       one, and does not need it. */
+    #home-head #home-info .info .wrap h1 {
+        white-space: nowrap;
+    }
+    #home-head #home-info .info .wrap h3,
+    #home-head #home-info .info .wrap h5 {
+        font-weight: 500;
+        letter-spacing: 0.75px;
     }
     #home-head #home-info .loop {
         display: inline-block;
