@@ -1591,8 +1591,14 @@ code,
 .language {
     font-family: "Fira Code", "Noto Sans SC", monospace;
 }
+/* auto, not 0. A table shrinks to fit its columns, and its side margins are the
+   only thing that then decides where it sits in the text column — at 0 it hangs
+   off the left edge, which is what an article table looks like when it is not
+   centred. A table too wide for the column is unaffected: auto margins resolve
+   to 0 when there is no room to give, so it still starts at the left edge rather
+   than being pushed out of view on one side. */
 table:not(.hljs-ln) {
-    margin: 15px 0;
+    margin: 15px auto;
 }
 table:not(.hljs-ln) td:nth-child(even) {
     background: #db9ec521;
