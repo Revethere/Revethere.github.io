@@ -49,6 +49,8 @@
 
 
 
+<script src="/js/lib/reveal.js"></script>
+
 <link rel="stylesheet" href="/css/main.css" />
 
 <meta name="generator" content="Hexo 7.3.0"></head>
@@ -63,7 +65,15 @@
                 </div>
             </div>
         </transition>
-        <div id="menu" :class="{ 'menu-color': menuColor, 'menu-cloud': menuCloud }">
+        
+<div
+    id="menu"
+    :class="{
+        'menu-color': menuColor,
+        'menu-cloud': menuCloud,
+        'menu-enter': !loading,
+    }"
+>
     <div id="menu-cloud-glow"></div>
     <nav id="desktop-menu">
         <div id="menu-indicator"></div>

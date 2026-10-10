@@ -1727,17 +1727,41 @@ body::-webkit-scrollbar-track {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
-/* No transition here on purpose. This used to animate #main in over 0.5s
-   (opacity 0 -> 1, scale(1.1) -> 1). It transforms the whole subtree, so the
-   hero's bottom edge — and the wallpaper's fade with it — kept sliding for half
-   a second after the wallpaper landed, which reads as the fade settling a second
-   time. The content now appears all at once behind the loading screen. */
+/* The first-load fade, in two halves that are one movement: the page and the bar
+   arrive together when the loading screen goes.
+   Opacity only. This used to run a scale(1.1) alongside, which transforms the
+   whole subtree — the hero's bottom edge, and the wallpaper's fade with it, kept
+   sliding for half a second after the wallpaper had landed, which read as the
+   fade settling a second time. A pure fade has nothing that can move.
+   0.52s is what the loading screen's own 0.3s departure is crossed over with (see
+   .fade-leave-active), and the elements inside the page fade up on top of this
+   one, on their own cues — see js/lib/reveal.js, whose load-time waits are
+   measured against this duration. Tuned as a pair. */
 .into-enter-active {
-    transition: none;
+    transition: opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .into-enter-from {
     opacity: 0;
-    transform: scale(1.1);
+}
+/* The bar's half. The class is on the bar rather than on a shared ancestor
+   because the loading screen sits between the two, at the top of #layout, and
+   fading that would fade the screen with it.
+   The class comes from the template (:class on #menu in layout/menu.ejs), so this
+   half depends on nothing but Vue having mounted — the same dependency the
+   loading screen already has, since it is a v-show that nothing else can lift. */
+#menu:not(.menu-enter) {
+    opacity: 0;
+}
+#menu.menu-enter {
+    transition: opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Reduced motion gets the page as it was before any of this existed: no fade
+   here, and js/lib/reveal.js does not hide or animate anything at all. */
+@media (prefers-reduced-motion: reduce) {
+    .into-enter-active,
+    #menu.menu-enter {
+        transition: none;
+    }
 }
 .katex {
     white-space: normal !important;
