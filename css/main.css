@@ -28,7 +28,7 @@
 }
 #archives .categories-tags span a:hover {
     background: #fff !important;
-    border: #a5c2f5 1px solid;
+    border: #cca4e3 1px solid;
     color: #5c6b72;
 }
 #archives .category,
@@ -609,7 +609,16 @@
        own shape is the shadow it sits in, so this one has to stay. */
     background: rgba(255, 255, 255, 0.5);
     border-radius: 50px;
-    box-shadow: 0 2px 18px rgba(99, 130, 200, 0.14);
+    /* The site's accent shadows are this one purple, at three alphas: 0.14 on the
+       MORE pill and the menu indicator, 0.22 on their hover states, 0.12 on the
+       collapse arrow, the mobile menu's hover and the Contents panel. They were
+       rgba(99, 130, 200, …) — a blue the palette has no other source for.
+       The channels are deeper than the accent purple (#cca4e3) on purpose:
+       luminance is what a shadow is made of, and at this lightness the accent
+       colour would have come out at half the weight and left the cards looking
+       flat. 146,116,176 measures 0.217 against the blue's 0.228, so every
+       existing shadow keeps the depth it had and only the hue moves. */
+    box-shadow: 0 2px 18px rgba(146, 116, 176, 0.14);
     color: #85bac0; /* matches .post-title */
     cursor: pointer;
     display: flex;
@@ -625,7 +634,7 @@
 }
 #home-posts .post .more-center:hover {
     background: rgba(255, 255, 255, 0.72);
-    box-shadow: 0 4px 20px rgba(99, 130, 200, 0.22);
+    box-shadow: 0 4px 20px rgba(146, 116, 176, 0.22);
     color: #6799a0; /* slightly deeper teal, in step with the shadow */
     transform: translateY(-1px);
 }
@@ -644,7 +653,7 @@
     align-items: center;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
-    box-shadow: 0 2px 18px rgba(99, 130, 200, 0.14);
+    box-shadow: 0 2px 18px rgba(146, 116, 176, 0.14);
     color: #85bac0; /* matches .post-title */
     cursor: pointer;
     display: flex;
@@ -669,7 +678,7 @@
 }
 #home-posts .post .collapse-arrow:hover {
     background: rgba(255, 255, 255, 0.72);
-    box-shadow: 0 4px 20px rgba(99, 130, 200, 0.22);
+    box-shadow: 0 4px 20px rgba(146, 116, 176, 0.22);
     color: #6799a0; /* slightly deeper teal on hover */
 }
 #home-posts .post .description {
@@ -813,52 +822,397 @@
 #main {
     margin-right: calc(100% - 100vw);
 }
+/* Registered so the browser computes it once, as a number, instead of handing the
+   token stream to every rule that reads it: this changes on every frame of a
+   scroll and the whole bar inherits it. */
+@property --mp {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+/* The scroll morph.
+   --mp is one number written by js/main.js: how far the wallpaper has been
+   scrolled past — 0 while its bottom half still fills the screen, 1 once it is
+   gone. It drives the geometry and nothing else, so the shape can never disagree
+   with what is behind it, and the whole thing reverses on the way back up for the
+   same reason.
+   The material is not on this number. It is switched, once, by .menu-cloud, at
+   the one moment it can be switched safely — see updateMenuMorph, and the cloud
+   state further down. Two attempts at driving it from --mp instead are worth
+   recording, because both look reasonable on paper. A glass that ramps in from
+   the first pixel of scroll spends the middle of the scroll white under white
+   labels. And interpolating the ink to match, which is what fixes that, is not
+   something this stylesheet can be trusted with: color-mix() reading a stop
+   percentage out of a custom property came back as the wrong colour on roughly
+   one load in fifteen in Chromium 154, and a mid-ramp stop came back as plain
+   white. A plain colour on a transition has neither problem. */
 #menu {
-    background: linear-gradient(120deg, #e4c6d0 0%, #cca4e3 100%);
-    box-shadow: 0 -1px 10px 0 #9e9e9e4d;
+    --mp: 0;
+    /* The nav sits in a fixed-width column from rest all the way to the capsule,
+       so the title and the links keep their distance instead of sliding apart as
+       the bar widens or together as it shrinks. Left and right justified inside
+       it is what leaves the blank on both sides: at 1920 the column is 1120 and
+       the rest is gutter, where the two ends of the nav used to be most of a
+       screen apart. --menu-shell-max is the bar's own width once it floats —
+       the column plus its cloud padding, derived rather than written twice, so
+       the two cannot drift apart. */
+    --menu-content-max: 1120px;
+    --menu-pad-rest: 32px;
+    --menu-pad-cloud: 20px;
+    --menu-pad: calc(var(--menu-pad-rest) + (var(--menu-pad-cloud) - var(--menu-pad-rest)) * var(--mp));
+    --menu-shell-max: calc(var(--menu-content-max) + 2 * var(--menu-pad-cloud));
+    --menu-h-rest: 50px;
+    --menu-h-cloud: 46px;
+    --menu-h: calc(var(--menu-h-rest) + (var(--menu-h-cloud) - var(--menu-h-rest)) * var(--mp));
+    /* The hover pill keeps 7px of bar above and below it at either height, so
+       everything inside the bar only has to track --menu-h. */
+    --menu-pill-h: calc(var(--menu-h) - 14px);
+    --menu-ink: #555;
+    --menu-ink-cloud: #1e3e3f;
+    /* How far a group's panel has to drop before it is clear of the bar. An item's
+       pill is --menu-pill-h tall inside a --menu-h bar, so there is half the
+       difference of bar below it — always 7px, since the pill is defined as the
+       bar minus 14 — and the panel then starts 6px below that. Derived rather than
+       written as 13px so it cannot go stale if the pill's height changes. */
+    --menu-sub-drop: calc((var(--menu-h) - var(--menu-pill-h)) / 2 + 6px);
+    box-sizing: border-box;
     font-weight: bold;
-    line-height: 50px;
+    left: 0;
+    line-height: var(--menu-h);
+    /* Centred by the auto margins and shrunk by the cap, so one pair of rules
+       covers both ends: at rest the cap is the whole screen and the margins fall
+       to zero, and --mp pulls it in to --menu-shell-max. The 32px floor is what
+       keeps the ends off the screen edge on a narrow desktop, where the cap would
+       otherwise be nothing at all. */
+    margin-left: auto;
+    margin-right: auto;
+    max-width: calc(100% - var(--mp) * max(32px, 100% - var(--menu-shell-max)));
+    padding: 0 var(--menu-pad);
     position: fixed;
-    top: 0;
-    transition: background 0.25s ease-out, top 0.25s ease-out;
-    width: 100vw;
+    right: 0;
+    /* Large enough to clamp to a pill at either height, so the ends round off
+       first and the bar then shrinks inside them. */
+    border-radius: calc(var(--mp) * 100px);
+    /* Two layers, not one, and the reason is the post cards.
+       A translucent white panel over an opaque white card is white on white —
+       measured 1.000:1, the two regions are the same pixel value — and no amount
+       of fill or blur pulls them apart without tinting the panel, which is the
+       one thing this panel is not allowed to be. So the separation has to be the
+       edge in every direction, which is what these two do together: a tight
+       contact shadow that draws the boundary, and a wide ambient one that lifts
+       the panel off the page. The single wide layer this used to be had a 10px
+       offset under a 30px blur and so reached nothing along the top or the sides
+       at all. The tone is deeper than the lavender it replaces for the same
+       reason: at 22% of a light colour the shadow only managed 1.10:1. */
+    box-shadow:
+        0 calc(var(--mp) * 1px) calc(var(--mp) * 3px) rgba(124, 106, 154, calc(var(--mp) * 0.18)),
+        0 calc(var(--mp) * 10px) calc(var(--mp) * 30px) rgba(124, 106, 154, calc(var(--mp) * 0.26));
+    top: calc(var(--mp) * 12px);
     z-index: 1004;
 }
+/* Resting material: the tinted bar the menu has always been. */
+#menu::before {
+    background: linear-gradient(120deg, #e4c6d0 0%, #cca4e3 100%);
+    border-radius: inherit;
+    content: "";
+    inset: 0;
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+    transition: background 0.25s ease-out, opacity 0.4s ease;
+    z-index: -1;
+}
+#menu.menu-color::before {
+    background: #0003;
+}
+/* The cloud: one soft wash over a backdrop blur. The blur is what makes it read
+   as glass and not as a white lid — at 18px the wallpaper behind it is still
+   legible as colour, just not as detail.
+   The blur radius rides --mp rather than the switch, so by the time the panel
+   arrives it is already at nearly full strength and only its opacity has to
+   travel. The filter itself is held back to the cloud state, because a
+   backdrop-filter under a transparent layer is still a blur of everything behind
+   it: left on the resting rule it would smear the wallpaper the whole way down.
+   The panel is colourless on purpose — white where the light comes from, white
+   underneath. A tinted corner was tried in both blue and the gradient's purple
+   and taken out again: at the size this panel is, any colour in it stops reading
+   as glass and starts reading as a second accent laid over the wallpaper. The
+   only colour the bar keeps is the ink and the hover candidate.
+   The rim is the one place a colour is unavoidable, and it is what keeps the
+   panel legible once the posts have scrolled under it: the card behind is opaque
+   white and so is the panel over it, so the boundary has to come from an edge.
+   This one is a cool grey-purple at 38%, which lands near 1.5:1 against white —
+   a defined edge rather than a drawn border, and over the wallpaper it reads as
+   the glass's own. What makes it work is that it is a one-pixel step: the sides
+   used to carry a 1.3:1 ramp spread over 30px of blur and still read as no edge
+   at all, where the same contrast as a hard line does not. It fades in with --mp
+   like everything else: at rest the bar is the full-width strip and has no edge
+   to draw. */
+#menu::after {
+    background:
+        radial-gradient(120% 240% at 8% -60%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 58%),
+        rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(146, 132, 178, calc(var(--mp) * 0.38));
+    border-radius: inherit;
+    content: "";
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+/* One slow white wash drifting across the capsule, which is the part that reads
+   as fluid rather than as tinted glass. It lives in its own clipped layer so a
+   transform can carry it — cheap, and off the main thread — instead of
+   background-position, which would repaint the whole bar every frame. Painted
+   under the nav, so the labels never sit on a moving light.
+   There used to be a second one, tinted. It is gone with the tint: two washes on
+   a panel this size read as a gradient, and the one that was coloured is exactly
+   what was asked out. */
+#menu-cloud-glow {
+    border-radius: inherit;
+    inset: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+#menu-cloud-glow::before {
+    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 76%);
+    border-radius: 50%;
+    content: "";
+    filter: blur(16px);
+    height: 320%;
+    left: -10%;
+    position: absolute;
+    top: -110%;
+    width: 46%;
+}
+/* Only animated once the cloud is up: at rest there is nothing to see it through,
+   and a permanently running filter would be paid for on every page. */
+#menu.menu-cloud #menu-cloud-glow::before {
+    animation: menu-cloud-a 26s ease-in-out infinite alternate;
+}
+@keyframes menu-cloud-a {
+    from {
+        transform: translate3d(-10%, 0, 0);
+    }
+    to {
+        transform: translate3d(150%, 0, 0);
+    }
+}
 #menu #desktop-menu {
-    height: 50px;
-    position: relative;
-    display: flex;
     align-items: center;
+    display: flex;
+    /* Left and right justified — the title at one end, the links at the other —
+       but inside a column rather than across the whole screen. Left to the screen
+       at 1920 the two ends are most of a metre apart and stop reading as one bar;
+       capping the column is what keeps them a glance apart. --menu-content-max is
+       also the width the bar itself shrinks to, so the content stays in the same
+       column from rest through to the capsule instead of sliding as it shrinks. */
+    gap: calc(14px - var(--mp) * 4px);
+    height: var(--menu-h);
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--menu-content-max);
+    position: relative;
 }
 #menu #desktop-menu .title {
-    color: #555;
-    display: inline-flex;
     align-items: center;
-    margin-left: 50px;
-    margin-right: 5px;
-    height: 50px;
+    display: inline-flex;
+    height: var(--menu-h);
 }
-#menu #desktop-menu a {
-    color: #555;
-    display: inline-flex;
+/* Everything after the title is pushed to the far end of the column. This is the
+   only auto margin in the bar: the gap above spaces the links from each other,
+   and the title is separated by whatever is left over. */
+#menu #desktop-menu .title + a {
+    margin-left: auto;
+}
+#menu #desktop-menu > a,
+#menu #desktop-menu .menu-parent,
+#menu #mobile-menu a,
+#menu #mobile-menu .title {
+    /* A plain colour on a transition, not an interpolated one. The ink has to
+       follow the panel it is read on, and the two are swapped together by
+       .menu-cloud — see the cloud state below. Scoped to the top level on
+       purpose: the group panels carry their own ink, because they are not the
+       bar (see the .menu-sub rules below). */
+    color: var(--menu-ink);
+    transition: color 0.4s ease;
+}
+/* A bar item, whether it is a plain link or a group's own link. The group is a
+   flex item of its own, so its link has to be reached through it — > a does not
+   see it. */
+#menu #desktop-menu > a,
+#menu #desktop-menu .menu-parent {
     align-items: center;
-    margin-left: 14px;
-    padding: 0 16px;
-    height: 36px;
-    border-radius: 10px;
+    /* A pill, at either height — the same shape the indicator draws, and the shape
+       the bar itself ends up. */
+    border-radius: calc(var(--menu-pill-h) / 2);
+    display: inline-flex;
+    height: var(--menu-pill-h);
+    /* Barely tightens as the bar shrinks. It used to lose 7px a side, which was
+       room the run did not have with icons in it; without them the labels are the
+       only thing in the pill, and at 9px a side they read as cramped. Two px is
+       enough to keep the pill moving with the bar and nothing more. */
+    padding: 0 calc(16px - var(--mp) * 2px);
     position: relative;
     z-index: 1;
-    transition: color 0.25s;
+}
+/* A group on the bar: the wrapper is the flex item, so the run's gap applies to
+   it rather than to the link inside, and the panel is positioned against it. */
+#menu #desktop-menu .menu-group {
+    align-items: center;
+    display: inline-flex;
+    height: var(--menu-pill-h);
+    position: relative;
+}
+/* The caret, drawn rather than set in a font: it has to take the item's ink — and
+   that ink changes with .menu-cloud — and it has to be able to turn over when the
+   panel opens. A triangle of borders does both; a glyph would need a second
+   colour rule and a second transition. */
+#menu #desktop-menu .menu-parent::after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid currentColor;
+    content: "";
+    display: block;
+    margin-left: 7px;
+    transition: transform 0.25s ease;
+}
+#menu #desktop-menu .menu-group:hover .menu-parent::after,
+#menu #desktop-menu .menu-group:focus-within .menu-parent::after {
+    transform: rotate(180deg);
+}
+/* The bridge that keeps the group hovered while the pointer crosses the gap
+   between the bar and the panel. It lives on the group, not on the panel: the gap
+   is outside the panel's box, and a child of the panel would be clipped away by
+   the overflow the panel needs to hold its sheen (below). */
+#menu #desktop-menu .menu-group::after {
+    content: "";
+    height: var(--menu-sub-drop);
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+}
+/* The panel a group opens on hover. It is a surface of its own rather than a
+   continuation of the bar, and it has to be: at rest the bar is a transparent
+   tinted strip with white labels over the wallpaper, so a panel inheriting that
+   ink would be white text on a white panel. So it carries its own dark ink and
+   looks the same in both bar states — the ink is what fixes the readability
+   problem, which leaves the fill free to be glass.
+   Liquid glass, then, in the same terms as the bar's own cloud: translucent
+   white with a lit corner, a strong backdrop blur, a hairline rim and the same
+   two-layer shadow. Thin enough to show the wallpaper through it, which is safe
+   here because the ink is dark: at 0.62 white over a black wallpaper the rows
+   still measure about 6:1. */
+#menu #desktop-menu .menu-sub {
+    background:
+        radial-gradient(120% 200% at 10% -50%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 62%),
+        rgba(255, 255, 255, 0.62);
+    backdrop-filter: blur(22px) saturate(170%);
+    -webkit-backdrop-filter: blur(22px) saturate(170%);
+    border: 1px solid rgba(146, 132, 178, 0.2);
+    border-radius: 16px;
+    box-shadow:
+        0 1px 3px rgba(124, 106, 154, 0.12),
+        0 12px 32px rgba(124, 106, 154, 0.2);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    left: 50%;
+    min-width: 156px;
+    opacity: 0;
+    /* Holds the drifting sheen inside the rounded corner. Nothing else needs to
+       escape the panel — the hover bridge was moved to the group for this. */
+    overflow: hidden;
+    padding: 8px;
+    position: absolute;
+    /* Below the bar, not below the pill — see --menu-sub-drop. */
+    top: calc(100% + var(--menu-sub-drop));
+    /* Centred under the group and nudged up, so it animates down into place. */
+    transform: translate(-50%, -6px);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+    visibility: hidden;
+    z-index: 2;
+}
+/* The sheen that makes it liquid rather than merely frosted: one soft white wash
+   drifting across the panel. z-index -1 puts it over the panel's own fill and
+   under the rows, which is the whole of the layering it needs.
+   Transform-only, so it rides the compositor, and only while the panel is open —
+   a hidden panel still ticks its animations, and this one would be painting a
+   card nobody can see on every page. */
+#menu #desktop-menu .menu-sub::after {
+    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 74%);
+    border-radius: 50%;
+    content: "";
+    filter: blur(12px);
+    height: 210%;
+    left: -45%;
+    position: absolute;
+    top: -55%;
+    width: 80%;
+    z-index: -1;
+}
+#menu #desktop-menu .menu-group:hover .menu-sub,
+#menu #desktop-menu .menu-group:focus-within .menu-sub {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    visibility: visible;
+}
+#menu #desktop-menu .menu-group:hover .menu-sub::after,
+#menu #desktop-menu .menu-group:focus-within .menu-sub::after {
+    animation: menu-sub-sheen 13s ease-in-out infinite alternate;
+}
+@keyframes menu-sub-sheen {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(170%, 22%, 0);
+    }
+}
+/* The panel's rows: text, not bar items, so they get their own spacing and a
+   hover wash instead of the bar's pill and its shared ink. They sit above the
+   sheen, which is at z-index -1.
+   The ink is a deeper step than the site's own #1e3e3f, and the reason is the
+   glass: at 0.62 white the panel comes out around 158 over a black wallpaper,
+   where the body ink measures 4.1:1 — under AA, on the darkest wallpapers. A
+   deeper ink fixes that at the source; thickening the fill would have fixed it
+   too, at the cost of the translucency this panel is for. Measured over the
+   same wallpaper: 6.4:1, and 11:1 over the page. */
+#menu #desktop-menu .menu-sub a {
+    border-radius: 10px;
+    color: #0e2627;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
+/* opacity: 1 undoes the global a:hover dim, which would otherwise wash the row
+   out at the same time as the background comes in. */
+#menu #desktop-menu .menu-sub a:hover {
+    background: rgba(204, 164, 227, 0.28);
+    opacity: 1;
 }
 #menu-indicator {
     position: absolute;
     top: 7px;
-    height: 36px;
-    border-radius: 10px;
+    height: var(--menu-pill-h);
+    /* A pill at either height, tracking --menu-pill-h so it stays one as the bar
+       shrinks. It was a 10px rectangle at rest, which read as a tab rather than as
+       the rounded candidate the capsule state already had. */
+    border-radius: calc(var(--menu-pill-h) / 2);
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(14px) saturate(160%);
     -webkit-backdrop-filter: blur(14px) saturate(160%);
-    box-shadow: 0 2px 18px rgba(99, 130, 200, 0.14),
+    box-shadow: 0 2px 18px rgba(146, 116, 176, 0.14),
                 inset 0 1px 0 rgba(255, 255, 255, 0.8);
     transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1),
                 width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
@@ -885,19 +1239,26 @@
     min-width: 200px;
     width: 80%;
 }
-#menu #mobile-menu .items a {
-    color: #555;
-}
 #menu #mobile-menu .items a:hover {
     background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(12px) saturate(150%);
     -webkit-backdrop-filter: blur(12px) saturate(150%);
     border-radius: 10px;
-    box-shadow: 0 2px 16px rgba(99, 130, 200, 0.12),
+    box-shadow: 0 2px 16px rgba(146, 116, 176, 0.12),
                 inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
+/* A merged group's children in the mobile list. Their own icon column is left
+   empty, so the label lines up with the parent's label rather than with its icon
+   — the indent is the whole of the hierarchy here, which is why they also step
+   down a size and a little in weight. */
+#menu #mobile-menu .items .item-child .item {
+    margin-top: -4px;
+}
+#menu #mobile-menu .items .item-child .item > div:last-child {
+    font-size: 13px;
+    opacity: 0.85;
+}
 #menu #mobile-menu .title {
-    color: #555;
     cursor: pointer;
     z-index: 1003;
 }
@@ -910,16 +1271,29 @@
     width: 100%;
     z-index: 1001;
 }
-#menu.hidden {
-    top: -50px;
-}
 #menu.menu-color {
-    background: #0003;
+    --menu-ink: #fff;
 }
-#menu.menu-color #desktop-menu a,
-#menu.menu-color #mobile-menu a,
-#menu.menu-color #mobile-menu .title {
-    color: #fff;
+/* The cloud state. .menu-cloud is set by js/main.js at the one point the material
+   can change without the labels ending up on their own colour: when the wallpaper
+   has left the bar. Everything here is a crossfade — each layer carries its own
+   opacity transition — so the panel, its washes and its ink arrive together.
+   Declared after .menu-color on purpose: both set --menu-ink at the same
+   specificity, and the cloud has to be the one that wins.
+   Only the glass needs the blur, and only here; see #menu::after. */
+#menu.menu-cloud {
+    --menu-ink: var(--menu-ink-cloud);
+}
+#menu.menu-cloud::before {
+    opacity: 0;
+}
+#menu.menu-cloud::after {
+    backdrop-filter: blur(calc(var(--mp) * 18px)) saturate(calc(100% + var(--mp) * 70%));
+    -webkit-backdrop-filter: blur(calc(var(--mp) * 18px)) saturate(calc(100% + var(--mp) * 70%));
+    opacity: 1;
+}
+#menu.menu-cloud #menu-cloud-glow {
+    opacity: 1;
 }
 #menu.menu-color #menu-indicator {
     background: rgba(255, 255, 255, 0.2);
@@ -927,6 +1301,18 @@
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     box-shadow: 0 2px 20px rgba(255, 255, 255, 0.12),
                 inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+/* Once the cloud is up the indicator sits on white, where the translucent white
+   it uses everywhere else has nothing left to separate from. Tinted with
+   #cca4e3 — the purple the bar's own gradient ends on, so the candidate belongs
+   to the same family as the bar it replaced — but carried very light: the panel
+   behind it is white, and anything more than a wash reads as a filled button
+   rather than as a hover. It is deliberately not the blue the rest of the chrome
+   shadows with, for the same reason the panel itself carries no colour. */
+#menu.menu-cloud #menu-indicator {
+    background: rgba(230, 206, 242, 0.3);
+    box-shadow: 0 2px 16px rgba(204, 164, 227, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 #preview {
     align-items: center;
@@ -951,12 +1337,19 @@
     margin-bottom: 50px;
     z-index: 1000;
 }
+/* The focus glow is the bar's own gradient purple, not a blue of its own — the
+   same #cca4e3 the menu's hover candidate uses, so the site's two accents agree.
+   The alphas are higher than the ones they replace because purple at this
+   lightness is about twice the luminance of the blue that was here: at the old
+   0.18 the halo would come out at half the strength and read as no glow at all.
+   .input:focus below is a matched pair with this one — the bar carries both
+   selectors, so the two have to be changed together. */
 #search-bar:focus {
     background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(14px) saturate(160%);
     -webkit-backdrop-filter: blur(14px) saturate(160%);
-    border-color: rgba(160, 185, 220, 0.5);
-    box-shadow: 0 4px 28px rgba(99, 130, 200, 0.18),
+    border-color: rgba(204, 164, 227, 0.6);
+    box-shadow: 0 4px 28px rgba(204, 164, 227, 0.32),
                 inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 #timeline-wrap {
@@ -986,6 +1379,30 @@
     margin-top: 100px;
     padding: 40px;
 }
+/* The article's own title, centered. It has to be addressed through this wrapper
+   rather than as `.article h1`: the body can carry h1s of its own, and a heading
+   written in the middle of an article wants to stay with the text. Only the
+   title block moves. */
+.article-title {
+    text-align: center;
+}
+/* The date / category / tag line under it goes with the title, so it is centered
+   too — a centered title over a left-aligned meta line reads as a mistake. This
+   is also what the home page's cards do with the same line (see
+   #home-posts .post .category-and-date). Scoped to .article: #archives .info is a
+   different line on a different page and is not part of this. */
+.article .info {
+    text-align: center;
+}
+/* Each meta item carries a right margin to space itself off the next one. On the
+   last item that margin is empty space inside the line box, and centering the
+   line box counts it — measured, it sat the whole line 5px left of the title it
+   sits under. Dropping it on whatever happens to be last (a post can end on the
+   date, the category or the tags) is what makes the two share an axis. */
+.article .info > :last-child,
+.article .info .tags > :last-child {
+    margin-right: 0;
+}
 /* Article TOC sidebar: sticky glass column pinned to the right of the article.
    Built by js/lib/toc.js; hidden until the article has any headings. */
 .article-wrap {
@@ -998,6 +1415,11 @@
     .article-wrap {
         padding-right: 3vw; /* shifts the centered article left by ~1.5vw */
     }
+    /* Nothing on the right to lean away from, so the article takes the middle.
+       Set by post.ejs from a page's `toc: false`. */
+    .article-wrap-no-toc {
+        padding-right: 0;
+    }
 }
 .article-side {
     background: rgba(255, 255, 255, 0.6);
@@ -1006,7 +1428,7 @@
     border: 1px solid rgba(255, 255, 255, 0.65);
     border-radius: 14px;
     box-shadow:
-        0 2px 18px rgba(99, 130, 200, 0.12),
+        0 2px 18px rgba(146, 116, 176, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.8);
     box-sizing: border-box;
     display: none; /* shown as flex by toc.js when headings exist */
@@ -1289,12 +1711,14 @@ body::-webkit-scrollbar-track {
     transition: background 0.25s, border 0.25s, box-shadow 0.25s;
     width: 100%;
 }
+/* Matched pair with #search-bar:focus above — see the note there. This one is
+   also what the encrypted-post password field uses. */
 .input:focus {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(12px) saturate(150%);
     -webkit-backdrop-filter: blur(12px) saturate(150%);
-    border-color: rgba(150, 180, 220, 0.5);
-    box-shadow: 0 4px 24px rgba(99, 130, 200, 0.15),
+    border-color: rgba(204, 164, 227, 0.55);
+    box-shadow: 0 4px 24px rgba(204, 164, 227, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.6);
     outline: none;
 }
@@ -1406,7 +1830,11 @@ body::-webkit-scrollbar-track {
 }
 .timeline-tail {
     background: #fff;
-    border: 2px solid #a5c2f5;
+    /* The post-title green — the same #85bac0 the home page's titles and the
+       Contents panel heading use — so the dot on the archive timeline reads as
+       belonging to the titles it sits beside rather than as an accent of its own.
+       It was #a5c2f5, a periwinkle with no other source in the palette. */
+    border: 2px solid #85bac0;
     border-radius: 50%;
     height: 7px;
     position: absolute;
@@ -1722,9 +2150,6 @@ ol li {
     }
     #home-posts-wrap {
         max-width: 1200px;
-    }
-    #menu #desktop-menu {
-        display: block;
     }
     #menu #mobile-menu {
         display: none;

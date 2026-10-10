@@ -69,47 +69,51 @@
                 </div>
             </div>
         </transition>
-        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+        <div id="menu" :class="{ 'menu-color': menuColor, 'menu-cloud': menuCloud }">
+    <div id="menu-cloud-glow"></div>
     <nav id="desktop-menu">
         <div id="menu-indicator"></div>
         <a class="title" href="/">
             <span>REVETHERE&#39;S BLOG</span>
         </a>
         
+        
+        
         <a href="/">
-            <i class="fa-solid fa-house fa-fw"></i>
-            <span>&ensp;Home</span>
+            <span>Home</span>
         </a>
+        
+        
         
         <a href="/about">
-            <i class="fa-solid fa-id-card fa-fw"></i>
-            <span>&ensp;About</span>
+            <span>About</span>
         </a>
         
-        <a href="/archives">
-            <i class="fa-solid fa-box-archive fa-fw"></i>
-            <span>&ensp;Archives</span>
-        </a>
         
-        <a href="/categories">
-            <i class="fa-solid fa-bookmark fa-fw"></i>
-            <span>&ensp;Categories</span>
-        </a>
-        
-        <a href="/tags">
-            <i class="fa-solid fa-tags fa-fw"></i>
-            <span>&ensp;Tags</span>
-        </a>
-        
-        <a href="/logs">
-            <i class="fa-solid fa-calendar-days fa-fw"></i>
-            <span>&ensp;Logs</span>
-        </a>
         
         <a href="/friends">
-            <i class="fa-solid fa-user fa-fw"></i>
-            <span>&ensp;Friends</span>
+            <span>Friends</span>
         </a>
+        
+        
+        
+        <div class="menu-group">
+            <a class="menu-parent" href="/archives">
+                <span>Archives</span>
+            </a>
+            <div class="menu-sub">
+                
+                <a href="/archives">Posts</a>
+                
+                <a href="/logs">Logs</a>
+                
+                <a href="/categories">Categories</a>
+                
+                <a href="/tags">Tags</a>
+                
+            </div>
+        </div>
+        
         
     </nav>
     <nav id="mobile-menu">
@@ -129,6 +133,8 @@
                     </div>
                 </a>
                 
+                
+                
                 <a href="/about">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
@@ -138,41 +144,7 @@
                     </div>
                 </a>
                 
-                <a href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-box-archive fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
-                    </div>
-                </a>
                 
-                <a href="/categories">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
-                    </div>
-                </a>
-                
-                <a href="/tags">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
-                    </div>
-                </a>
-                
-                <a href="/logs">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-calendar-days fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Logs</div>
-                    </div>
-                </a>
                 
                 <a href="/friends">
                     <div class="item">
@@ -183,6 +155,47 @@
                     </div>
                 </a>
                 
+                
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                
+                <a class="item-child" href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Posts</div>
+                    </div>
+                </a>
+                
+                <a class="item-child" href="/logs">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Logs</div>
+                    </div>
+                </a>
+                
+                <a class="item-child" href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a class="item-child" href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+                
             </div>
         </transition>
     </nav>
@@ -192,11 +205,16 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div class="article-wrap">
+            
+
+<div class="article-wrap">
 <div class="article">
-    <div>
+    
+    
+    <div class="article-title">
         <h1>『做题记录』Atcoder Beginner Contest 156</h1>
     </div>
+    
     <div class="info">
         
         <span class="date">
@@ -264,6 +282,7 @@
     
     
 </div>
+
     <div class="article-side" style="display:none">
         <div class="article-side-title">
             <i class="fa-solid fa-list-ul fa-fw"></i>
@@ -271,6 +290,7 @@
         </div>
         <div class="article-side-toc"></div>
     </div>
+
 </div>
 
             <footer id="footer">

@@ -65,47 +65,51 @@
                 </div>
             </div>
         </transition>
-        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+        <div id="menu" :class="{ 'menu-color': menuColor, 'menu-cloud': menuCloud }">
+    <div id="menu-cloud-glow"></div>
     <nav id="desktop-menu">
         <div id="menu-indicator"></div>
         <a class="title" href="/">
             <span>REVETHERE&#39;S BLOG</span>
         </a>
         
+        
+        
         <a href="/">
-            <i class="fa-solid fa-house fa-fw"></i>
-            <span>&ensp;Home</span>
+            <span>Home</span>
         </a>
+        
+        
         
         <a href="/about">
-            <i class="fa-solid fa-id-card fa-fw"></i>
-            <span>&ensp;About</span>
+            <span>About</span>
         </a>
         
-        <a href="/archives">
-            <i class="fa-solid fa-box-archive fa-fw"></i>
-            <span>&ensp;Archives</span>
-        </a>
         
-        <a href="/categories">
-            <i class="fa-solid fa-bookmark fa-fw"></i>
-            <span>&ensp;Categories</span>
-        </a>
-        
-        <a href="/tags">
-            <i class="fa-solid fa-tags fa-fw"></i>
-            <span>&ensp;Tags</span>
-        </a>
-        
-        <a href="/logs">
-            <i class="fa-solid fa-calendar-days fa-fw"></i>
-            <span>&ensp;Logs</span>
-        </a>
         
         <a href="/friends">
-            <i class="fa-solid fa-user fa-fw"></i>
-            <span>&ensp;Friends</span>
+            <span>Friends</span>
         </a>
+        
+        
+        
+        <div class="menu-group">
+            <a class="menu-parent" href="/archives">
+                <span>Archives</span>
+            </a>
+            <div class="menu-sub">
+                
+                <a href="/archives">Posts</a>
+                
+                <a href="/logs">Logs</a>
+                
+                <a href="/categories">Categories</a>
+                
+                <a href="/tags">Tags</a>
+                
+            </div>
+        </div>
+        
         
     </nav>
     <nav id="mobile-menu">
@@ -125,6 +129,8 @@
                     </div>
                 </a>
                 
+                
+                
                 <a href="/about">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
@@ -133,6 +139,19 @@
                         <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
                     </div>
                 </a>
+                
+                
+                
+                <a href="/friends">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-user fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Friends</div>
+                    </div>
+                </a>
+                
+                
                 
                 <a href="/archives">
                     <div class="item">
@@ -143,41 +162,35 @@
                     </div>
                 </a>
                 
-                <a href="/categories">
+                
+                <a class="item-child" href="/archives">
                     <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Posts</div>
                     </div>
                 </a>
                 
-                <a href="/tags">
+                <a class="item-child" href="/logs">
                     <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
-                    </div>
-                </a>
-                
-                <a href="/logs">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-calendar-days fa-fw"></i>
-                        </div>
+                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
                         <div style="min-width: 100px; max-width: 150%; width: 20%">Logs</div>
                     </div>
                 </a>
                 
-                <a href="/friends">
+                <a class="item-child" href="/categories">
                     <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-user fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Friends</div>
+                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
                     </div>
                 </a>
+                
+                <a class="item-child" href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
                 
             </div>
         </transition>
@@ -192,7 +205,7 @@
     <div
         id="home-background"
         ref="homeBackground"
-        data-images="/images/background_02.webp,/images/background_05.webp,/images/background_06.webp,/images/background_07.webp,/images/background_08.webp,/images/background_winter_00.webp,/images/background_winter_01.webp,/images/background_winter_02.webp,/images/background_ahyeon_00.webp,/images/background_ahyeon_01.webp,/images/background_ahyeon_02.webp,/images/background_jiwoo_00.webp,/images/background_stella_00.webp,/images/background_stella_01.webp"
+        data-images="/images/background_02.webp,/images/background_05.webp,/images/background_07.webp,/images/background_winter_00.webp,/images/background_winter_02.webp,/images/background_ahyeon_00.webp,/images/background_ahyeon_01.webp,/images/background_jiwoo_00.webp,/images/background_stella_00.webp,/images/background_stella_01.webp"
     ></div>
     <div id="home-info" @click="homeClick">
         <span class="loop"></span>
@@ -369,7 +382,7 @@
                 <span class="stat-label">Words</span>
             </div>
             <div class="stat-item">
-                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">482</span>
+                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">496</span>
                 <span class="stat-label">Days</span>
             </div>
         </div>
