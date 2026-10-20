@@ -15,21 +15,56 @@
     margin: 10px;
 }
 #archives .categories-tags span .icon {
-    color: #fff;
+    color: inherit;
     margin-left: 0;
-    margin-right: 10px;
+    margin-right: 8px;
+    opacity: 0.75;
 }
+/* A wash of the tag's own hue, not a fill: the palette's five hues are saturated
+   enough that a solid chip turns the page into a colour chart, and at this size
+   the fill was doing more shouting than the names in it.
+   The pill is the hue kept pale, with white poured into its middle — a radial
+   overlay that is opaque at the centre and gone by the rim — so the colour reads
+   as belonging to the chip's edge rather than as a background behind the word.
+   The overlay is its own layer so hover can animate the base colour: a gradient
+   in `background` cannot be interpolated, and the fill would have snapped.
+   The type keeps the hue but pulled toward the ink, because the palette's
+   lighter hues measure under 2:1 on white.
+   colors.js publishes the colour as --tag-c (`data-color-prop="var"` in the
+   markup) and everything here is derived from it, so one hue drives fill, rim
+   and ink and no rule has to know which of the five it got. */
 #archives .categories-tags span a {
-    border: #ffffff80 1px solid;
-    border-radius: 10px;
-    color: #fff;
-    padding: 10px 15px;
-    transition: background 0.25s, border 0.25s, color 0.25s;
+    background: color-mix(in srgb, var(--tag-c) 24%, #fff);
+    border: 1px solid color-mix(in srgb, var(--tag-c) 38%, transparent);
+    border-radius: 999px;
+    color: color-mix(in srgb, var(--tag-c) 62%, #1e3e3f);
+    font-weight: 600;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 9px 16px 9px 13px;
+    position: relative;
+    transition: background 0.25s, border-color 0.25s, color 0.25s, box-shadow 0.25s;
+}
+#archives .categories-tags span a::before {
+    background: radial-gradient(140% 170% at 50% 50%, #fff 0%, rgba(255, 255, 255, 0.78) 45%, rgba(255, 255, 255, 0) 100%);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
 }
 #archives .categories-tags span a:hover {
-    background: #fff !important;
-    border: #cca4e3 1px solid;
-    color: #5c6b72;
+    background: color-mix(in srgb, var(--tag-c) 36%, #fff);
+    border-color: color-mix(in srgb, var(--tag-c) 58%, transparent);
+    box-shadow: 0 4px 14px -8px color-mix(in srgb, var(--tag-c) 70%, transparent);
+    color: color-mix(in srgb, var(--tag-c) 48%, #1e3e3f);
+}
+/* The tag being looked at: the same wash, held deeper, with the hue let one step
+   further into the type. No ring — the whole chip is already one. */
+#archives .categories-tags span a.is-active {
+    background: color-mix(in srgb, var(--tag-c) 44%, #fff);
+    border-color: color-mix(in srgb, var(--tag-c) 62%, transparent);
+    color: color-mix(in srgb, var(--tag-c) 44%, #1e3e3f);
 }
 #archives .category,
 #archives .tags .tag,
@@ -40,7 +75,14 @@
     margin-right: 10px;
 }
 #archives h3 {
-    margin: 10px 0;
+    font-size: 19px;
+    margin: 6px 0 10px;
+}
+#archives .item-time {
+    color: #8aa0a4;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
 }
 #logs {
     margin: auto;
@@ -175,23 +217,32 @@
     line-height: 1.6;
 }
 #friends .friend-go {
-    background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%);
-    border-radius: 20px 0;
-    box-shadow: 2px 2px 10px 0 #ffbbf47a;
-    color: #fff;
+    /* Was a blue-to-pink wedge with one square corner and a pink glow — the only
+       two-hue gradient left on the site, and a third accent family in a card that
+       already has the name and the description to carry. A pill in the menu's
+       lavender says "this opens something" with one colour instead of three. */
+    background: rgba(204, 164, 227, 0.16);
+    border: 1px solid rgba(204, 164, 227, 0.36);
+    border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(146, 116, 176, 0.12);
+    color: #7b5c9b;
     flex-shrink: 0;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     margin-left: 20px;
-    padding: 10px 24px;
-    transition: box-shadow 0.25s ease-out;
+    padding: 9px 20px;
+    transition: background 0.25s ease-out, border-color 0.25s ease-out,
+        box-shadow 0.25s ease-out, color 0.25s ease-out;
     white-space: nowrap;
 }
 #friends .friend-go span {
     margin-left: 6px;
 }
 #friends .friend-go:hover {
-    box-shadow: -2px -2px 10px 0 #9abbf77a;
+    background: rgba(204, 164, 227, 0.3);
+    border-color: rgba(204, 164, 227, 0.55);
+    box-shadow: 0 6px 18px rgba(146, 116, 176, 0.2);
+    color: #6b4d8a;
 }
 #friends .friend-empty {
     color: #5c6b72;
@@ -488,10 +539,10 @@
    Leaving the filter off also makes these much cheaper: the four rotate forever,
    and each one used to re-sample the wallpaper behind it every frame. */
 #home-head #home-info .loop {
-    background: hsla(var(--loop-h, 0), var(--loop-s, 0%), 92%, 0.17);
-    border: 1px solid hsla(var(--loop-h, 0), var(--loop-s, 0%), 88%, 0.9);
+    background: hsla(var(--loop-h, 0), var(--loop-s, 0%), 92%, 0.15);
+    border: 1px solid hsla(var(--loop-h, 0), var(--loop-s, 0%), 88%, 0.55);
     border-radius: 38% 62% 63% 37%/41% 44% 56% 59%;
-    box-shadow: inset 0 1px 0 hsla(var(--loop-h, 0), var(--loop-s, 0%), 96%, 0.7);
+    box-shadow: inset 0 1px 0 hsla(var(--loop-h, 0), var(--loop-s, 0%), 96%, 0.55);
 }
 #home-head #home-info .loop:nth-child(1) {
     --loop-h: var(--loop-1-h, 0);
@@ -535,8 +586,10 @@
     width: 100%;
 }
 #home-posts .page-current .current {
-    border-radius: 5px;
-    color: #da0a51;
+    background: rgba(133, 186, 192, 0.16);
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px rgba(133, 186, 192, 0.35);
+    color: #1e3e3f;
     display: inline-block;
     height: 35px;
     line-height: 35px;
@@ -546,13 +599,17 @@
 }
 #home-posts .page-current .page-num,
 #home-posts .page-current .page-omit {
-    border-radius: 5px;
+    border-radius: 999px;
     display: inline-block;
     height: 35px;
     line-height: 35px;
     margin: 0 7px;
     padding: 5px;
+    transition: background 0.25s, color 0.25s;
     width: 35px;
+}
+#home-posts .page-current .page-num:hover {
+    background: rgba(133, 186, 192, 0.1);
 }
 #home-posts .page-current a {
     color: #999;
@@ -589,7 +646,6 @@
 #archives a,
 #archives .tag-icon,
 #archives .item-time,
-#archives .categories-tags span a:hover .icon,
 .article .info a {
     color: #5c6b72;
 }
@@ -766,9 +822,9 @@
 #home-posts .post:hover {
     box-shadow:
         0 2px 4px rgba(0, 0, 0, 0.04),
-        0 6px 20px rgba(0, 0, 0, 0.08),
-        0 16px 48px rgba(155, 187, 247, 0.18);
-    transform: translate(-3px, -3px);
+        0 6px 20px rgba(0, 0, 0, 0.07),
+        0 18px 46px rgba(146, 116, 176, 0.16);
+    transform: translate(-2px, -2px);
     border-color: var(--tint-deep);
 }
 #home-posts-wrap {
@@ -798,26 +854,193 @@
     word-break: keep-all;
     z-index: 2147483647;
 }
-#loading h2,
-#loading p,
-#loading img {
+/* The loading word, and now the only thing on this screen — the gif and the
+   "turn caching on" hint are gone, so the word carries the ring: it is set well
+   larger than a heading would be and tracked open a little, which is what keeps
+   it from floating in the middle of an empty circle.
+   It arrives as a sweep. Each letter rises and fades in, one after the next from
+   left to right, and then leaves the way it came — upward — so a cycle has one
+   direction in it instead of a direction change. The letters are in an
+   inline-flex with a gap rather than letter-spaced text, because letter-spacing
+   also hangs a space off the last letter, which shifts the whole word off the
+   ring's centre by half of it.
+   The stagger is the span's own --i from the template, set once on the word in
+   layout.ejs, so this file never has to know how many letters it has.
+   Timings: 3.6s a cycle, 110ms between letters. The seven finish rising 1380ms
+   in and stay whole until 2160ms, so the word reads as a word for most of a
+   second before the first letter starts to leave. A cycle that turns faster than
+   this reads as busy rather than patient.
+   The rise is deliberately small — a quarter of an em, ten pixels at this size.
+   At half an em the letters arrived like a jump; at this size the sweep is read
+   as drift, which is what a wait should feel like. */
+#loading-word {
+    display: inline-flex;
+    font-size: 26px;
+    gap: 0.1em;
     margin: 10px;
 }
-#loading img {
-    border-radius: 0;
-    height: 50px;
+#loading-word span {
+    display: inline-block;
+    /* Nothing before the app mounts: the sweep is declared under .app-ready below.
+       A letter is invisible until its own animation puts it on screen. */
+    opacity: 0;
 }
+/* Gated on a class main.js sets in its mounted hook, because mounting Vue
+   replaces the markup that is already on screen — the loader included — so an
+   animation declared unconditionally started twice: the page's own copy ran to
+   about "A", the node was swapped for Vue's, and the sweep began again at "L".
+   The cost is a few hundred milliseconds of empty ring on a cold load, which is a
+   better thing to look at than a sweep restarting mid-word.
+   `both` so the start keyframe holds during the letter's own delay — that is what
+   makes the word assemble left to right instead of all at once. */
+html.app-ready #loading-word span {
+    animation: loading-letter 3.6s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+    animation-delay: calc(var(--i, 0) * 110ms);
+}
+@keyframes loading-letter {
+    0% {
+        opacity: 0;
+        transform: translateY(0.25em);
+    }
+    /* In, upward, on the sweep's stagger. */
+    20% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    /* Held. The letters' windows overlap here, which is the moment the word is
+       readable as a word. */
+    60% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    /* Out the way it came in. Without this stop the letter would drop while
+       fading and the cycle would read as reversing on itself. */
+    80% {
+        opacity: 0;
+        transform: translateY(-0.25em);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(0.25em);
+    }
+}
+/* The ring was the plainest thing on this screen: a solid circle holding a word.
+   It now carries the motion the word does not — a light travelling around it.
+   The ring itself is unchanged (10px solid #b0a4e3): the light is a white sweep
+   drawn on ::before and masked down to the ring's own width, so nothing is added
+   to the material and the word keeps its clean white disc. It moves by transform,
+   which the compositor can run on its own.
+   The sweep is given a lavender drop-shadow rather than a white one: on a white
+   page a white glow is invisible, and the halo is what makes it read as light
+   passing over glass instead of a stripe of paint.
+   The gradient is turned by 166deg so the head sits at 9 o'clock (166 + 104) on
+   the frame the animation starts, and travels clockwise from there. Left to start
+   at the top, the first half-lap reads as light arriving from nowhere.
+   2.4s a lap — two laps for every three of the word's cycle, unrelated enough to
+   read as two things breathing at once rather than one mechanism.
+   The second, fainter light starts from the same point and runs the other way on a
+   9s lap. It is deliberately below the threshold of "another spinner": all it does
+   is keep the ring from looking like a single unbroken dial. */
+/* The ring is the plainest thing on this screen on purpose: a 500px circle, the
+   same footprint the home hero draws behind its title, with no light running
+   round it and no bloom. Everything that moves lives outside it, on the orbits,
+   so the ring itself stays the calm centre rather than another light source. */
 #loading-circle {
     align-items: center;
-    border: 10px solid #b0a4e3;
+    border: 8px solid #b0a4e3;
     border-radius: 50%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    height: 50vmin;
+    height: min(44vmin, 400px);
     justify-content: center;
-    padding: 50px;
+    padding: 0;
+    position: relative;
     text-align: center;
-    width: 50vmin;
+    width: min(44vmin, 400px);
+}
+/* Two hairline orbits. Each is one thin rule plus a wide, low-alpha bloom that
+   by construction fades outward — a shadow, not a band — so the light thins out
+   the further it gets from the line instead of stopping at an edge. The outer
+   orbit is fainter still, which is what makes the pair read as distance. */
+#loading-circle > .ring-orbit,
+#loading-circle > .ring-orbit-alt {
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+}
+#loading-circle > .ring-orbit {
+    border: 1px solid rgba(176, 164, 227, 0.32);
+    box-shadow: 0 0 16px rgba(204, 164, 227, 0.14);
+    inset: -26px;
+}
+#loading-circle > .ring-orbit-alt {
+    border: 1px solid rgba(176, 164, 227, 0.18);
+    box-shadow: 0 0 22px rgba(204, 164, 227, 0.08);
+    inset: -52px;
+}
+/* The stars. One rotator per star, laid over the orbit by `inset: 0`, so the dot
+   always sits exactly on the orbit line whatever the viewport does to the ring's
+   size — no radius in px anywhere. The static angle comes from `--a` on the
+   `rotate` property and the drift from `transform` in the animation, which are
+   separate properties and compose, so every star can keep its own period while
+   starting where it was placed. */
+#loading-circle > .ring-orbit > i,
+#loading-circle > .ring-orbit-alt > i {
+    display: block;
+    inset: 0;
+    position: absolute;
+    rotate: var(--a, 0deg);
+}
+#loading-circle > .ring-orbit > i::before,
+#loading-circle > .ring-orbit-alt > i::before {
+    background: radial-gradient(circle at 35% 30%, #ffffff 0%, #e6d8f8 46%, #c3a8e8 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 7px 2px rgba(204, 164, 227, 0.55);
+    content: "";
+    height: var(--s, 5px);
+    left: 50%;
+    margin-left: calc(var(--s, 5px) / -2);
+    margin-top: calc(var(--s, 5px) / -2);
+    position: absolute;
+    top: 0;
+    width: var(--s, 5px);
+}
+/* Same gate as the word: nothing is painted, and no animation exists, until Vue
+   has finished rebuilding the layout and `.app-ready` lands. Otherwise the
+   rebuild hands every animation a fresh start time and the orbits jump. */
+html.app-ready #loading-circle > .ring-orbit,
+html.app-ready #loading-circle > .ring-orbit-alt {
+    opacity: 1;
+}
+html.app-ready #loading-circle > .ring-orbit {
+    animation: ring-travel 9s linear infinite reverse;
+}
+html.app-ready #loading-circle > .ring-orbit-alt {
+    animation: ring-travel 14s linear infinite;
+}
+/* Five stars, five periods, no two the same speed: they separate and rejoin the
+   way moons do, instead of turning as one rigid constellation. */
+html.app-ready #loading-circle > .ring-orbit > i:nth-child(1) {
+    animation: ring-travel 26s linear infinite;
+}
+html.app-ready #loading-circle > .ring-orbit > i:nth-child(2) {
+    animation: ring-travel 34s linear infinite reverse;
+}
+html.app-ready #loading-circle > .ring-orbit > i:nth-child(3) {
+    animation: ring-travel 19s linear infinite;
+}
+html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(1) {
+    animation: ring-travel 41s linear infinite;
+}
+html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
+    animation: ring-travel 29s linear infinite reverse;
+}
+@keyframes ring-travel {
+    to {
+        transform: rotate(1turn);
+    }
 }
 #main {
     margin-right: calc(100% - 100vw);
@@ -910,7 +1133,11 @@
     top: calc(var(--mp) * 12px);
     z-index: 1004;
 }
-/* Resting material: the tinted bar the menu has always been. */
+/* Resting material: the tinted bar the menu has always been, at full chroma.
+   A desaturated version of this was tried and read as neither one thing nor the
+   other — a grey band above a white card — so the two hues are back.
+   The over-wallpaper state (#menu.menu-color) is a dark scrim, because there it
+   is legibility, not decoration. */
 #menu::before {
     background: linear-gradient(120deg, #e4c6d0 0%, #cca4e3 100%);
     border-radius: inherit;
@@ -1314,6 +1541,12 @@
     box-shadow: 0 2px 16px rgba(204, 164, 227, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
+/* A full-width band under the capsule and fading out below it used to live here.
+   It was meant to soften content arriving beside the floating bar, but a
+   rectangular slab of --page-bg across the top of the viewport draws exactly the
+   edge it was hiding: a straight-sided frame around a rounded capsule, most
+   obvious where a white card passes under it. The bar carries its own shadow and
+   rim, so it is a surface on its own; nothing needs to sit behind it. */
 #preview {
     align-items: center;
     background-color: #fffc;
@@ -1334,8 +1567,19 @@
 }
 #search-bar {
     font-family: Lexend, "Noto Sans SC", sans-serif;
+    /* The list below starts at 30px — the rail's column — and the search field is
+       the first line of that same block, so it starts there too. Left flush with
+       #archives it read as 30px wider than every card under it. */
     margin-bottom: 50px;
+    margin-left: 30px;
+    width: calc(100% - 30px);
     z-index: 1000;
+    /* Rest state: the same 1px ink hairline and the same faint drop as the cards
+       below it, so the field belongs to the list it filters. The theme's
+       #d0d7de is a GitHub grey — the one cool neutral left on the page, and it
+       showed as a slightly bluish outline against a warm tint. */
+    border-color: rgba(30, 62, 63, 0.1);
+    box-shadow: 0 10px 26px -24px rgba(30, 62, 63, 0.5);
 }
 /* The focus glow is the bar's own gradient purple, not a blue of its own — the
    same #cca4e3 the menu's hover candidate uses, so the site's two accents agree.
@@ -1355,6 +1599,11 @@
 #timeline-wrap {
     display: flex;
     flex-direction: column-reverse;
+}
+/* The same wrapper on the tag / category pages, where the posts are already in
+   the order they are meant to be read and must not be reversed. */
+#timeline-wrap.is-static {
+    flex-direction: column;
 }
 * {
     margin: 0;
@@ -1440,6 +1689,7 @@
     top: 100px;
     width: 200px;
 }
+/* Sentence case, unspaced: the panel's own label, not a section marker. */
 .article-side-title {
     color: #85bac0;
     font-size: 13px;
@@ -1498,10 +1748,12 @@
     color: #85bac0;
     opacity: 1;
 }
+/* The active row is marked by its fill and its ink, nothing else: no ring (that
+   reads as a text field) and no rule down the left edge. */
 .article-side-toc .article-toc-item.active {
-    background: rgba(255, 255, 255, 0.75);
-    box-shadow: inset 0 0 0 1px rgba(133, 186, 192, 0.45);
-    color: #85bac0;
+    background: rgba(133, 186, 192, 0.12);
+    color: #1e3e3f;
+    font-weight: 600;
 }
 /* keep jumped-to headings clear of the fixed nav bar */
 .article .content h2,
@@ -1519,6 +1771,46 @@
 }
 .article .content {
     margin: 50px 0;
+}
+/* The heading scale inside an article, recalibrated for a 15px body. The site's
+   own h1–h6 are 30/27/24/21/18/15 — three pixels apart, which is not a scale, it
+   is a list. These step by ratio instead (1.5 / 1.25 / 1.12).
+   The air around them is asymmetric but close to the paragraph break, not a
+   multiple of it: 2.1em of space above (50px on an h2) opened a hole big enough
+   that a heading and the line it belonged to stopped reading as one block — the
+   附件 → link → 更新日志 case had most of a screen of nothing in it. Now the gap
+   above is ~2 line heights of the body text and the gap below is under one, so a
+   heading binds to the text underneath it. px, not em: these are gaps in the
+   body's rhythm and should not grow with the heading's own size.
+   `.article h1` is excluded on purpose — a heading written in the body is not a
+   title. */
+.article .content h2 {
+    font-size: 24px;
+    letter-spacing: -0.005em;
+    margin: 26px 0 10px;
+}
+.article .content h3 {
+    font-size: 20px;
+    margin: 22px 0 8px;
+}
+.article .content h4 {
+    font-size: 17.5px;
+    margin: 18px 0 6px;
+}
+.article .content h5 {
+    font-size: 16.5px;
+    margin: 18px 0 6px;
+}
+.article .content h6 {
+    color: #5c6b72;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    margin: 18px 0 6px;
+}
+/* The first heading in a body has nothing above it to be spaced off, and the 50px
+   the content block already carries is the gap. */
+.article .content > :first-child {
+    margin-top: 0;
 }
 .article .info .date {
     color: #5c6b72;
@@ -1756,11 +2048,38 @@ body::-webkit-scrollbar-track {
     transition: opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1);
 }
 /* Reduced motion gets the page as it was before any of this existed: no fade
-   here, and js/lib/reveal.js does not hide or animate anything at all. */
+   here, and js/lib/reveal.js does not hide or animate anything at all. The
+   loading word is the one thing that cannot simply be left alone — it starts
+   hidden and is only ever shown by its own animation, so the preference has to
+   put it on screen as a plain word. */
 @media (prefers-reduced-motion: reduce) {
     .into-enter-active,
     #menu.menu-enter {
         transition: none;
+    }
+    /* Both selectors on purpose: the first covers the page before the app mounts,
+       the second has to match the specificity of the rule that starts the sweep
+       under .app-ready, or the animation would win and this would do nothing. */
+    #loading-word span,
+    html.app-ready #loading-word span {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+    /* The orbits and their stars are decoration, so they are simply not drawn:
+       the ring stays a plain circle with the word in the middle. The gated
+       selectors have to be repeated here, or their animation would outrank this
+       rule and the stars would keep drifting. */
+    #loading-circle > .ring-orbit,
+    #loading-circle > .ring-orbit-alt,
+    #loading-circle > .ring-orbit > i,
+    #loading-circle > .ring-orbit-alt > i,
+    html.app-ready #loading-circle > .ring-orbit,
+    html.app-ready #loading-circle > .ring-orbit-alt,
+    html.app-ready #loading-circle > .ring-orbit > i,
+    html.app-ready #loading-circle > .ring-orbit-alt > i {
+        animation: none;
+        display: none;
     }
 }
 .katex {
@@ -1806,16 +2125,79 @@ body::-webkit-scrollbar-track {
     margin-bottom: 30px;
     transition: margin-top 0.5s, opacity 0.3s, visibility 0.3s;
 }
+/* The rail. One segment per row, drawn by the row itself, running from this
+   row's dot down into the next row's — which is why the segment's `bottom` is
+   the row gap minus half a dot rather than anything to do with the card. Drawn
+   this way rather than as one line on the container because only the row knows
+   where its own dot is, and a container line has to guess at both ends.
+   The visually-last row would otherwise trail a stub into empty space, and
+   which row that is depends on the page: archives wrap in a column-reverse
+   wrapper (DOM first = bottom), tag pages do not. */
+.timeline::before {
+    background: rgba(133, 186, 192, 0.32);
+    bottom: -19px;
+    content: "";
+    left: 7px;
+    position: absolute;
+    top: 11px;
+    width: 1px;
+}
+#timeline-wrap:not(.is-static) > .timeline:first-child::before,
+#timeline-wrap.is-static > .timeline:last-child::before {
+    background: none;
+}
 .timeline-content {
     background: #fff;
-    border: 1px solid #0002;
-    border-radius: 3px;
-    margin-left: 17.5px;
-    padding: 24px;
-    transition: box-shadow 0.5s;
+    border: 1px solid rgba(30, 62, 63, 0.07);
+    border-radius: 16px;
+    box-shadow:
+        0 1px 2px rgba(30, 62, 63, 0.03),
+        0 4px 14px rgba(30, 62, 63, 0.045);
+    margin-left: 30px;
+    padding: 26px 30px;
+    transition: box-shadow 0.35s, border-color 0.35s, transform 0.35s;
 }
+/* The old hover was a 12% black hairline plus a 9% black shadow: at that weight
+   the card darkened rather than lifted. This one keeps the shadow under the card
+   and lets the accent tint it, and the 2px rise does the rest — the same lift the
+   home page's cards make, at a quarter of the distance, since these are a list
+   and not a gallery. */
 .timeline-content:hover {
-    box-shadow: 0 2px 8px #00000017;
+    border-color: rgba(133, 186, 192, 0.32);
+    box-shadow:
+        0 2px 4px rgba(30, 62, 63, 0.04),
+        0 10px 26px rgba(146, 116, 176, 0.12);
+    transform: translateY(-2px);
+}
+/* List pages: the rows arrive in reading order, 20ms apart, each one rising into
+   place. Only the card moves — the dot and the rail are the list's scaffold and
+   stay put, so the line never tears as the rows settle.
+   The index is the row's position on screen (archives renders its rows
+   column-reverse, so its template counts backwards); it is capped at 18 there,
+   which is what keeps a 26-post page from taking a second to finish.
+   `backwards`, not `both`: once a row has landed the animation has to stop
+   applying, or its final transform would outrank the card's hover lift.
+   Gated on html.page-loaded (set in main.js when the loader is dismissed): the
+   loader covers the page until `load`, so a statically declared animation would
+   finish behind it and no one would ever see the stagger. */
+@media (prefers-reduced-motion: no-preference) {
+    html.page-loaded #timeline-wrap > .timeline > .timeline-content {
+        animation: timeline-row-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+        /* The 90ms lead-in clears the loader's own fade-out. Without it the first
+           rows were already half-way up behind the last of the white wash, and
+           the stagger read as a smear rather than as rows arriving. */
+        animation-delay: calc(90ms + var(--stagger-i, 0) * 20ms);
+    }
+}
+@keyframes timeline-row-in {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 /* The passage a content match grew inside its own row, and the height it opens
    with. js/lib/search.js measures the block and hands the number to max-height,
@@ -1857,12 +2239,19 @@ body::-webkit-scrollbar-track {
     /* The post-title green — the same #85bac0 the home page's titles and the
        Contents panel heading use — so the dot on the archive timeline reads as
        belonging to the titles it sits beside rather than as an accent of its own.
-       It was #a5c2f5, a periwinkle with no other source in the palette. */
-    border: 2px solid #85bac0;
+       It was #a5c2f5, a periwinkle with no other source in the palette.
+       Pinned to where the rail runs (left 7px, see .timeline::before) instead of
+       being left at its static position, so the dot sits ON the line rather than
+       beside it; the white halo is the rail being knocked out behind the dot,
+       which is what keeps the line from showing through the ring. */
+    border: 1.5px solid #85bac0;
     border-radius: 50%;
-    height: 7px;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.95);
+    height: 8px;
+    left: 3px;
     position: absolute;
-    width: 7px;
+    top: 7px;
+    width: 8px;
 }
 ::-webkit-scrollbar {
     height: 12px;
@@ -1888,20 +2277,36 @@ body::-webkit-scrollbar-track {
     border-radius: 100px;
 }
 ::selection {
-    background: rgba(180, 200, 240, 0.28);
+    background: rgba(255, 162, 196, 0.32);
     color: #1e3e3f;
     text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 /* Liquid glass selection for Firefox */
 ::-moz-selection {
-    background: rgba(180, 200, 240, 0.28);
+    background: rgba(255, 162, 196, 0.32);
     color: #1e3e3f;
     text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 a {
     color: #dfa4c9;
     text-decoration: none;
+}
+/* In-prose links keep the theme's own rose (a { color: #dfa4c9 }) and no
+   underline: the deeper rose + rule that used to be here made every link look
+   like a citation, which is not what the prose is doing. */
+/* Keyboard focus, for the whole site. The default Chromium ring is a blue that
+   appears nowhere in the palette and lands on the glass panels as a hard box;
+   this is the accent teal, offset far enough to clear a card's rounded rim. */
+:focus-visible {
+    outline: 2px solid rgba(103, 153, 160, 0.9);
+    outline-offset: 3px;
+}
+/* The search bar draws its own focus glow (see #search-bar:focus) and a ring on
+   top of it reads as a double border. */
+#search-bar:focus-visible,
+.input:focus-visible {
+    outline: none;
 }
 a:hover,
 .code-toggle:hover,
@@ -1930,7 +2335,12 @@ video,
 b,
 strong {
     font-weight: bold;
-    line-height: 2.5;
+    /* inherit, not a number. An inline box taller than the line it sits in opens
+       THAT line up, so every paragraph carrying a bold word or a code chip came
+       out with two line heights in it — visibly airier around the emphasis.
+       2.5 was the old value, sized for the chip look; the chip now gets its
+       height from padding instead. */
+    line-height: inherit;
 }
 blockquote {
     background: #ffd7f32d;
@@ -1963,9 +2373,14 @@ body {
 }
 code {
     background: #ffdef6b8;
-    border-radius: 4px;
-    line-height: 2.5;
-    padding: 4px 8px;
+    border-radius: 5px;
+    /* The chip is drawn with padding on a box that does not push its line apart:
+       inherit keeps the inline box at the paragraph's own line height, and a
+       slightly smaller font keeps the Fira Code glyphs from reading larger than
+       the Noto Sans SC they sit between. */
+    font-size: 0.93em;
+    line-height: inherit;
+    padding: 0.12em 0.36em;
 }
 h1,
 h2,
@@ -2008,14 +2423,16 @@ iframe {
 }
 mark {
     background: #fff13360;
-    border-radius: 4px;
+    border-radius: 5px;
     color: unset;
-    line-height: 2.5;
-    padding: 4px 8px;
+    line-height: inherit;
+    padding: 0.12em 0.36em;
 }
 p,
 ul,
 ol {
+    /* Back to the stock 1.7 with the stock 15px body: the two were calibrated
+       together, and a wider setting than this reads as airy rather than readable. */
     line-height: 1.7;
     margin: 15px 0;
 }
@@ -2035,6 +2452,17 @@ pre {
     margin: 25px 0;
     overflow: hidden;
     white-space: normal;
+}
+/* The inline chip's recipe, cancelled inside a block. Without this the pink wash
+   and the padding land on the <code> that wraps a whole listing — highlight.js
+   then builds its line table inside it, so the wash paints behind nothing and
+   the padding shows up as a stray inset around the table. */
+pre code {
+    background: none;
+    border-radius: 0;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0;
 }
 pre,
 code,

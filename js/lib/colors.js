@@ -57,10 +57,16 @@
                 color = palette[(palette.indexOf(color) + 1) % palette.length];
             }
             prev = color;
-            node.style.setProperty(
-                node.getAttribute("data-color-prop") === "background" ? "background" : "color",
-                color
-            );
+            // The colour is always published as --tag-c, so a rule can derive
+            // several things from one hue (the pill's wash, its rim, its ink).
+            // `data-color-prop="var"` asks for that and nothing else; otherwise
+            // the colour is painted onto the property the markup names — a tag's
+            // name in a list is set in it.
+            node.style.setProperty("--tag-c", color);
+            var prop = node.getAttribute("data-color-prop") || "background";
+            if (prop !== "var") {
+                node.style.setProperty(prop, color);
+            }
         }
     }
 

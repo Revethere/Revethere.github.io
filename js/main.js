@@ -28,9 +28,24 @@ const app = Vue.createApp({
     created() {
         window.addEventListener("load", () => {
             this.loading = false;
+            // The list pages' rows rise in with a 20ms stagger, and the gate for
+            // that is this class rather than the markup: the loader covers the
+            // page until `load`, so an animation declared statically would have
+            // finished behind it. Vue patches the app's elements on mount and
+            // leaves <html> alone, which is why the flag lives there.
+            document.documentElement.classList.add("page-loaded");
         });
     },
     mounted() {
+        // The loading word's sweep waits for this. Vue renders the whole layout
+        // from its own template, so mounting *replaces* the markup that was
+        // already on screen — the loader included. A CSS animation declared on the
+        // word would therefore run once on the page's own markup and then start
+        // over on Vue's copy: the word reached "A", the node was swapped, and the
+        // sweep began again at "L". Hiding the animation behind this class gives
+        // it exactly one start, on the elements that survive. Set on <html>
+        // because Vue patches the app's own elements and never touches this one.
+        document.documentElement.classList.add("app-ready");
         window.addEventListener("scroll", this.handleScroll, true);
         window.addEventListener("resize", this.queueMenuMorph);
         // The menu is wired up *before* the renderers run, not after. The renderers

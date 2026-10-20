@@ -62,9 +62,17 @@
         <transition name="fade">
             <div id="loading" v-show="loading">
                 <div id="loading-circle">
-                    <h2>LOADING</h2>
-                    <p>加载过慢请开启缓存 浏览器默认开启</p>
-                    <img src="/images/loading.gif" />
+                    
+                    <span class="ring-orbit" aria-hidden="true">
+                        <i style="--a: 24deg; --s: 7px"></i>
+                        <i style="--a: 148deg; --s: 6px"></i>
+                        <i style="--a: 262deg; --s: 8px"></i>
+                    </span>
+                    <span class="ring-orbit-alt" aria-hidden="true">
+                        <i style="--a: 78deg; --s: 6px"></i>
+                        <i style="--a: 208deg; --s: 7px"></i>
+                    </span>
+                    <h2 id="loading-word" aria-label="LOADING"><span aria-hidden="true" style="--i: 0">L</span><span aria-hidden="true" style="--i: 1">O</span><span aria-hidden="true" style="--i: 2">A</span><span aria-hidden="true" style="--i: 3">D</span><span aria-hidden="true" style="--i: 4">I</span><span aria-hidden="true" style="--i: 5">N</span><span aria-hidden="true" style="--i: 6">G</span></h2>
                 </div>
             </div>
         </transition>
@@ -219,7 +227,9 @@
     
     <div id="timeline-wrap" ref="timeline">
         
-        <div class="timeline" data-path="/posts/probsol-oi@atcoder-beginner-contest-158/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@atcoder-beginner-contest-158/" style="--stagger-i: 18">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/6/1</div>
@@ -261,7 +271,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@atcoder-beginner-contest-157/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@atcoder-beginner-contest-157/" style="--stagger-i: 18">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/6/1</div>
@@ -303,7 +315,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@atcoder-beginner-contest-156/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@atcoder-beginner-contest-156/" style="--stagger-i: 18">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/6/1</div>
@@ -345,7 +359,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@atcoder-beginner-contest-155/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@atcoder-beginner-contest-155/" style="--stagger-i: 18">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/6/1</div>
@@ -387,7 +403,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@atcoder-beginner-contest-151/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@atcoder-beginner-contest-151/" style="--stagger-i: 18">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/6/1</div>
@@ -429,7 +447,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-7-7/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-7-7/" style="--stagger-i: 18">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/7/11</div>
@@ -465,7 +485,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-7-10/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-7-10/" style="--stagger-i: 18">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/7/11</div>
@@ -501,7 +523,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-7-12/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-7-12/" style="--stagger-i: 18">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/7/13</div>
@@ -537,7 +561,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-7-14-coci-2020-2021/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-7-14-coci-2020-2021/" style="--stagger-i: 17">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/7/15</div>
@@ -573,7 +599,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-7/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-7/" style="--stagger-i: 16">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/8/8</div>
@@ -609,7 +637,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@text-23-8-9/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@text-23-8-9/" style="--stagger-i: 15">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/8/10</div>
@@ -645,7 +675,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-11/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-11/" style="--stagger-i: 14">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/8/12</div>
@@ -681,7 +713,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-12/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-12/" style="--stagger-i: 13">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/8/13</div>
@@ -717,7 +751,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-14/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-14/" style="--stagger-i: 12">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/8/15</div>
@@ -753,7 +789,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-16/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-16/" style="--stagger-i: 11">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/8/17</div>
@@ -789,7 +827,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-18/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-18/" style="--stagger-i: 10">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/8/19</div>
@@ -825,7 +865,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-19/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-19/" style="--stagger-i: 9">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/8/20</div>
@@ -861,7 +903,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-22/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-22/" style="--stagger-i: 8">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/8/23</div>
@@ -897,7 +941,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-23/">
+        
+        
+        <div class="timeline" data-path="/posts/probsol-oi@test-23-8-23/" style="--stagger-i: 7">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/8/24</div>
@@ -933,7 +979,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/code@cplusplus-fastio/">
+        
+        
+        <div class="timeline" data-path="/posts/code@cplusplus-fastio/" style="--stagger-i: 6">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2025/7/26</div>
@@ -981,7 +1029,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/config@obs-blur-configure-sharing/">
+        
+        
+        <div class="timeline" data-path="/posts/config@obs-blur-configure-sharing/" style="--stagger-i: 5">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2025/7/30</div>
@@ -1023,7 +1073,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/tutorials@how-2-play-sumo/">
+        
+        
+        <div class="timeline" data-path="/posts/tutorials@how-2-play-sumo/" style="--stagger-i: 4">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2025/8/7</div>
@@ -1071,7 +1123,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/introduction@rewind-mod-redefine-video-recording/">
+        
+        
+        <div class="timeline" data-path="/posts/introduction@rewind-mod-redefine-video-recording/" style="--stagger-i: 3">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2025/9/28</div>
@@ -1119,7 +1173,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/academic@min-kb-click-freq-lower-bound/">
+        
+        
+        <div class="timeline" data-path="/posts/academic@min-kb-click-freq-lower-bound/" style="--stagger-i: 2">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2025/10/18</div>
@@ -1167,7 +1223,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/academic@ed-of-minecraft-entity-mm-eqs/">
+        
+        
+        <div class="timeline" data-path="/posts/academic@ed-of-minecraft-entity-mm-eqs/" style="--stagger-i: 1">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2025/12/14</div>
@@ -1209,7 +1267,9 @@
             </div>
         </div>
         
-        <div class="timeline" data-path="/posts/studynotes@lagrange-interp-and-ge/">
+        
+        
+        <div class="timeline" data-path="/posts/studynotes@lagrange-interp-and-ge/" style="--stagger-i: 0">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2026/9/15</div>
