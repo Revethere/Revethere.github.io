@@ -53,6 +53,12 @@
     position: absolute;
     z-index: -1;
 }
+/* Hover: the wash deepens by one step, not two. It used to jump to 36% of the hue
+   with the ink pulled to 48%, which on the two pink hues landed as a solid rose
+   block under the pointer — the pill went from a tint to a fill and read heavier
+   than the tag you were actually on. Now the rim does most of the work (38 → 46)
+   and the fill only lifts a little (24 → 30), so the pill answers the pointer
+   without darkening. */
 #archives .categories-tags span a:hover {
     background: color-mix(in srgb, var(--tag-c) 36%, #fff);
     border-color: color-mix(in srgb, var(--tag-c) 58%, transparent);
@@ -271,7 +277,7 @@
     width: 100%;
 }
 #footer #footer-icon {
-    color: #66afef;
+    color: #dfa4c9;
     display: inline-block;
     font-size: 18px;
     margin: 0 10px;
@@ -1326,28 +1332,35 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
     right: 0;
     top: 100%;
 }
-/* The panel a group opens on hover. It is a surface of its own rather than a
-   continuation of the bar, and it has to be: at rest the bar is a transparent
-   tinted strip with white labels over the wallpaper, so a panel inheriting that
-   ink would be white text on a white panel. So it carries its own dark ink and
-   looks the same in both bar states — the ink is what fixes the readability
-   problem, which leaves the fill free to be glass.
-   Liquid glass, then, in the same terms as the bar's own cloud: translucent
-   white with a lit corner, a strong backdrop blur, a hairline rim and the same
-   two-layer shadow. Thin enough to show the wallpaper through it, which is safe
-   here because the ink is dark: at 0.62 white over a black wallpaper the rows
-   still measure about 6:1. */
+/* The panel a group opens on hover.
+   It used to be a flat milky card: no lit corner, no rim, no elevation, and a
+   near-black ink that made it the heaviest thing on screen — a different object
+   from the glass capsule it hangs off. It now borrows the capsule's recipe
+   outright (see #menu::after): the lit corner, the translucent white under it,
+   the same grey-purple rim and the same two-layer lavender shadow.
+   Held at 0.82 white rather than the capsule's 0.55. A sliver can lean on the
+   wallpaper for its body, a panel carrying four rows of text cannot: at 0.55 the
+   wallpaper's colour came through and the card read as a grey slab on a bright
+   photo. At 0.82 it is a white surface at every wallpaper, still showing a hint
+   of the photo through the blur, and the rows keep 7:1 on the worst of them. */
 #menu #desktop-menu .menu-sub {
+    --sub-fill: rgba(255, 255, 255, 0.82);
+    --sub-lit: rgba(255, 255, 255, 0.9);
+    --sub-rim: rgba(146, 132, 178, 0.34);
+    --sub-shadow: 0 1px 3px rgba(124, 106, 154, 0.12), 0 12px 32px rgba(124, 106, 154, 0.2);
+    --sub-ink: #1b3a3c;
+    --sub-ink-hover: #0d2628;
+    --sub-pill: rgba(230, 206, 242, 0.4);
+    --sub-pill-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 10px rgba(146, 116, 176, 0.12);
+    --sub-sheen: rgba(255, 255, 255, 0.9);
     background:
-        radial-gradient(120% 200% at 10% -50%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 62%),
-        rgba(255, 255, 255, 0.62);
-    backdrop-filter: blur(22px) saturate(170%);
-    -webkit-backdrop-filter: blur(22px) saturate(170%);
-    border: 1px solid rgba(146, 132, 178, 0.2);
-    border-radius: 16px;
-    box-shadow:
-        0 1px 3px rgba(124, 106, 154, 0.12),
-        0 12px 32px rgba(124, 106, 154, 0.2);
+        radial-gradient(120% 240% at 8% -60%, var(--sub-lit) 0%, rgba(255, 255, 255, 0) 58%),
+        var(--sub-fill);
+    backdrop-filter: blur(20px) saturate(170%);
+    -webkit-backdrop-filter: blur(20px) saturate(170%);
+    border: 1px solid var(--sub-rim);
+    border-radius: 18px;
+    box-shadow: var(--sub-shadow);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -1358,7 +1371,7 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
     /* Holds the drifting sheen inside the rounded corner. Nothing else needs to
        escape the panel — the hover bridge was moved to the group for this. */
     overflow: hidden;
-    padding: 8px;
+    padding: 6px;
     position: absolute;
     /* Below the bar, not below the pill — see --menu-sub-drop. */
     top: calc(100% + var(--menu-sub-drop));
@@ -1375,7 +1388,7 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
    a hidden panel still ticks its animations, and this one would be painting a
    card nobody can see on every page. */
 #menu #desktop-menu .menu-sub::after {
-    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 74%);
+    background: radial-gradient(closest-side, var(--sub-sheen), rgba(255, 255, 255, 0) 74%);
     border-radius: 50%;
     content: "";
     filter: blur(12px);
@@ -1404,29 +1417,60 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
         transform: translate3d(170%, 22%, 0);
     }
 }
-/* The panel's rows: text, not bar items, so they get their own spacing and a
-   hover wash instead of the bar's pill and its shared ink. They sit above the
-   sheen, which is at z-index -1.
-   The ink is a deeper step than the site's own #1e3e3f, and the reason is the
-   glass: at 0.62 white the panel comes out around 158 over a black wallpaper,
-   where the body ink measures 4.1:1 — under AA, on the darkest wallpapers. A
-   deeper ink fixes that at the source; thickening the fill would have fixed it
-   too, at the cost of the translucency this panel is for. Measured over the
-   same wallpaper: 6.4:1, and 11:1 over the page. */
+/* The panel's rows. They had a hover wash of their own and no candidate of any
+   kind, which is where the panel stopped matching the bar: on the bar the pointer
+   is tracked by one pill that slides between items, while down here the highlight
+   blinked on and off per row and, at 0.28 of #cca4e3, was the heaviest colour in
+   the whole menu.
+   So the panel gets the same device the bar uses — a single pill, placed by
+   main.js on mouseenter and slid by a transition — and the rows give up their
+   own background. The tint is the bar's cloud candidate seen through glass: the
+   same lavender, held at 0.4 over a 0.68 white panel, with an inner highlight so
+   it reads as a lit surface rather than a stain. The ink stays dark; only the
+   pill is new. Rows sit at z-index 1 so the pill (0) never crosses their text,
+   and the sheen stays at -1. */
 #menu #desktop-menu .menu-sub a {
-    border-radius: 10px;
-    color: #0e2627;
+    border-radius: 999px;
+    color: var(--sub-ink);
     font-size: 14px;
     line-height: 1.5;
-    padding: 8px 12px;
-    transition: background 0.2s ease, color 0.2s ease;
+    padding: 7px 14px;
+    position: relative;
+    transition: color 0.18s ease;
     white-space: nowrap;
+    z-index: 1;
 }
 /* opacity: 1 undoes the global a:hover dim, which would otherwise wash the row
-   out at the same time as the background comes in. */
-#menu #desktop-menu .menu-sub a:hover {
-    background: rgba(204, 164, 227, 0.28);
+   out at the same moment the pill arrives under it. */
+#menu #desktop-menu .menu-sub a:hover,
+#menu #desktop-menu .menu-sub a:focus-visible {
+    color: var(--sub-ink-hover);
     opacity: 1;
+}
+#menu #desktop-menu .menu-sub-indicator {
+    background: var(--sub-pill);
+    border-radius: 999px;
+    box-shadow: var(--sub-pill-shadow);
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transition:
+        left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.2s ease;
+    z-index: 0;
+}
+#menu #desktop-menu .menu-sub-indicator.visible {
+    opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+    #menu #desktop-menu .menu-sub-indicator {
+        transition: opacity 0.2s ease;
+    }
 }
 #menu-indicator {
     position: absolute;
@@ -1811,6 +1855,88 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
    the content block already carries is the gap. */
 .article .content > :first-child {
     margin-top: 0;
+}
+/* A spoiler (`%%文字%%`) is a solid bar lying on its own text: the fill takes the
+   ink's colour and the glyphs are painted transparent, so closed it reads as one
+   clean rule exactly the width of what is underneath — a redaction, not a
+   highlight. Hovering (or focusing: the span carries tabindex) takes both away,
+   and because fill and ink are the same colour the two crossfade instead of one
+   snapping off.
+
+   The glyphs are hidden with `-webkit-text-fill-color` rather than `color`
+   alone: it is the property that actually paints them, it inherits, and it beats
+   a descendant's own `color`, so a link or a code chip inside a spoiler goes
+   under the bar in the same colour as the rest of the sentence and comes back in
+   its own rose on reveal. `box-decoration-break: clone` gives a wrapped spoiler
+   one bar per line; without it the fill would be a single box behind both
+   fragments, with a gap at the wrap.
+
+   The fill is `currentColor`, not the ink's hex: the bar is the sentence's own
+   colour in whatever scheme the reader has the page in — including the pages of
+   browser dark-mode extensions, which recolour text and colours separately and
+   would otherwise leave a stale dark bar on a light-on-dark page. It is also
+   what makes the reveal a crossfade rather than a cut.
+
+   Bare `.spoiler` (like `code` and `a` further down), not
+   `.article .content .spoiler`: the home list renders a post's body as its
+   excerpt, and a spoiler there would otherwise be laid out with the text plain.
+   Nothing else in the theme uses the class name. */
+.spoiler {
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    background-color: currentColor;
+    border-radius: 3px;
+    cursor: help;
+    -webkit-text-fill-color: transparent;
+    /* The fill is the span's own box, so horizontal padding is a trap: any
+       padding wide enough to read as air inside the bar is painted over the
+       neighbour as well, and the negative margin that kept the line's spacing
+       then pulls that neighbour into the paint — in Chinese prose, which has no
+       spaces around the span, the glyphs either side lost their first sliver and
+       the bar visibly ate their strokes. The void belongs *outside* the bar
+       instead, as a hair of margin: the same 0.1em of air, none of it painted,
+       and the two words stay whole. Vertical padding stays — it never reaches a
+       neighbour, and it is what makes the fill read as a bar rather than a
+       highlight sitting exactly on the text's baseline box. */
+    margin: 0 0.1em;
+    padding: 0.05em 0;
+    transition:
+        background-color 0.18s ease,
+        -webkit-text-fill-color 0.18s ease;
+}
+/* Inline code and the theme's other text chips keep a background we would see
+   through the bar as a pale patch — and the patch's width would give away how
+   much text is hidden. They are turned off only in the closed state; opening the
+   spoiler hands them back as they were. */
+.spoiler:not(:hover):not(:focus) :is(code, kbd, mark) {
+    background: none;
+}
+.spoiler:hover,
+.spoiler:focus {
+    background-color: transparent;
+    -webkit-text-fill-color: currentColor;
+}
+/* Chromium paints selected glyphs with `color` and lets the selection band lie
+   over the bar, which left the text ink-on-ink under a translucent pink — a
+   smudge. The site's rose at full opacity (what rgba(255, 162, 196, 0.18) looks
+   like over a white card) buries the bar instead, so a reader dragging across a
+   spoiler gets the same selection as anywhere else in the sentence. */
+.spoiler::selection {
+    background-color: #ffeef4;
+    color: #1e3e3f;
+}
+@media (prefers-reduced-motion: reduce) {
+    .spoiler {
+        transition: none;
+    }
+}
+/* On paper there is no pointer to open it with, and an unexplained black rule is
+   just a censored paragraph. */
+@media print {
+    .spoiler {
+        background-color: transparent;
+        -webkit-text-fill-color: currentColor;
+    }
 }
 .article .info .date {
     color: #5c6b72;
@@ -2277,16 +2403,14 @@ body::-webkit-scrollbar-track {
     border-radius: 100px;
 }
 ::selection {
-    background: rgba(255, 162, 196, 0.32);
+    background: rgba(255, 162, 196, 0.18);
     color: #1e3e3f;
-    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 /* Liquid glass selection for Firefox */
 ::-moz-selection {
-    background: rgba(255, 162, 196, 0.32);
+    background: rgba(255, 162, 196, 0.18);
     color: #1e3e3f;
-    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 a {
     color: #dfa4c9;

@@ -112,6 +112,47 @@ const app = Vue.createApp({
             desktopMenu.addEventListener("mouseleave", () => {
                 indicator.classList.remove("visible");
             });
+
+            // The group panels get the same device on a smaller scale: one pill
+            // for the whole panel, moved to whichever row the pointer is on. Rows
+            // are measured with offsetLeft/offsetTop — the panel is their
+            // positioned ancestor — so this stays right whatever the panel's
+            // padding or the row heights become.
+            desktopMenu.querySelectorAll(".menu-sub").forEach(panel => {
+                const pill = panel.querySelector(".menu-sub-indicator");
+                if (!pill) return;
+                const rows = panel.querySelectorAll("a");
+                // The pill is born with no size, so the first placement has to
+                // skip the transition — otherwise every opening grows a capsule
+                // out of the panel's top-left corner before it settles on the row
+                // the pointer is already on.
+                let placed = false;
+                const moveTo = row => {
+                    if (!placed) {
+                        placed = true;
+                        pill.style.transition = "none";
+                    }
+                    pill.style.left = row.offsetLeft + "px";
+                    pill.style.top = row.offsetTop + "px";
+                    pill.style.width = row.offsetWidth + "px";
+                    pill.style.height = row.offsetHeight + "px";
+                    pill.classList.add("visible");
+                    if (pill.style.transition === "none") {
+                        // Flush the geometry before handing transitions back, or
+                        // the browser coalesces both frames into one and the
+                        // slide starts from nowhere.
+                        void pill.offsetWidth;
+                        pill.style.transition = "";
+                    }
+                };
+                rows.forEach(row => {
+                    row.addEventListener("mouseenter", () => moveTo(row));
+                    // Keyboard users get the same candidate as mouse users; the
+                    // rows are links, so tabbing through them is a hover.
+                    row.addEventListener("focus", () => moveTo(row));
+                });
+                panel.addEventListener("mouseleave", () => pill.classList.remove("visible"));
+            });
         },
         // One number drives the whole menu morph, and it only moves on a scroll
         // or a resize, so it is written straight onto the element instead of
