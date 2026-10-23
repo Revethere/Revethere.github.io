@@ -1,283 +1,7 @@
-
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="utf-8" />
-    <title>Revethere&#39;s Blog</title>
-    <meta name="author" content="Revethere" />
-    <meta name="description" content="分享一些超级有用的芝士" />
-    <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP, Code" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-    />
-    <link rel="icon" href="/images/avatar.jpg" />
-    <link rel="preconnect" href="https://s4.zstatic.net" />
-<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-<link rel="preconnect" href="https://fonts.googleapis.cn" />
-<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
-<link
-    rel="stylesheet"
-    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
-/>
-<script> const mixins = {}; </script>
-
-<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
-
-
-<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
-/>
-<script src="/js/lib/highlight.js"></script>
-
-
-<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
-<script src="/js/lib/math.js"></script>
-
-
-<script src="/js/lib/preview.js"></script>
-
-
-
-
-
-<script src="/js/lib/home.js"></script>
-
-
-
-<script src="/js/lib/reveal.js"></script>
-
-<link rel="stylesheet" href="/css/main.css" />
-
-<meta name="generator" content="Hexo 7.3.0"></head>
-<body>
-    <div id="layout">
-        <transition name="fade">
-            <div id="loading" v-show="loading">
-                <div id="loading-circle">
-                    
-                    <span class="ring-orbit" aria-hidden="true">
-                        <i style="--a: 24deg; --s: 7px"></i>
-                        <i style="--a: 148deg; --s: 6px"></i>
-                        <i style="--a: 262deg; --s: 8px"></i>
-                    </span>
-                    <span class="ring-orbit-alt" aria-hidden="true">
-                        <i style="--a: 78deg; --s: 6px"></i>
-                        <i style="--a: 208deg; --s: 7px"></i>
-                    </span>
-                    <h2 id="loading-word" aria-label="LOADING"><span aria-hidden="true" style="--i: 0">L</span><span aria-hidden="true" style="--i: 1">O</span><span aria-hidden="true" style="--i: 2">A</span><span aria-hidden="true" style="--i: 3">D</span><span aria-hidden="true" style="--i: 4">I</span><span aria-hidden="true" style="--i: 5">N</span><span aria-hidden="true" style="--i: 6">G</span></h2>
-                </div>
-            </div>
-        </transition>
-        
-<div
-    id="menu"
-    :class="{
-        'menu-color': menuColor,
-        'menu-cloud': menuCloud,
-        'menu-enter': !loading,
-    }"
->
-    <div id="menu-cloud-glow"></div>
-    <nav id="desktop-menu">
-        <div id="menu-indicator"></div>
-        <a class="title" href="/">
-            <span>REVETHERE&#39;S BLOG</span>
-        </a>
-        
-        
-        
-        <a href="/">
-            <span>Home</span>
-        </a>
-        
-        
-        
-        <a href="/about">
-            <span>About</span>
-        </a>
-        
-        
-        
-        <a href="/friends">
-            <span>Friends</span>
-        </a>
-        
-        
-        
-        <div class="menu-group">
-            <a class="menu-parent" href="/archives">
-                <span>Archives</span>
-            </a>
-            <div class="menu-sub">
-                
-                <div class="menu-sub-indicator"></div>
-                
-                <a href="/archives">Posts</a>
-                
-                <a href="/logs">Logs</a>
-                
-                <a href="/categories">Categories</a>
-                
-                <a href="/tags">Tags</a>
-                
-            </div>
-        </div>
-        
-        
-    </nav>
-    <nav id="mobile-menu">
-        <div class="title" @click="showMenuItems = !showMenuItems">
-            <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;REVETHERE&#39;S BLOG</span>
-        </div>
-        <transition name="slide">
-            <div class="items" v-show="showMenuItems">
-                
-                <a href="/">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-house fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
-                    </div>
-                </a>
-                
-                
-                
-                <a href="/about">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-id-card fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
-                    </div>
-                </a>
-                
-                
-                
-                <a href="/friends">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-user fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Friends</div>
-                    </div>
-                </a>
-                
-                
-                
-                <a href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-box-archive fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
-                    </div>
-                </a>
-                
-                
-                <a class="item-child" href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Posts</div>
-                    </div>
-                </a>
-                
-                <a class="item-child" href="/logs">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Logs</div>
-                    </div>
-                </a>
-                
-                <a class="item-child" href="/categories">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
-                    </div>
-                </a>
-                
-                <a class="item-child" href="/tags">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
-                    </div>
-                </a>
-                
-                
-            </div>
-        </transition>
-    </nav>
-</div>
-<transition name="fade">
-    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
-</transition>
-
-        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="home-head">
-    <div
-        id="home-background"
-        ref="homeBackground"
-        data-images="/images/background_02.webp,/images/background_05.webp,/images/background_07.webp,/images/background_12.webp,/images/background_13.webp,/images/background_winter_00.webp,/images/background_winter_02.webp,/images/background_ahyeon_00.webp,/images/background_ahyeon_01.webp,/images/background_jiwoo_00.webp,/images/background_stella_00.webp,/images/background_stella_01.webp,/images/background_minnie_00.webp,/images/background_minnie_01.webp"
-    ></div>
-    <div id="home-info" @click="homeClick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>Revethere&#39;s Blog</h1>
-                <h3></h3>
-                <h5>分享一些超级有用的芝士</h5>
-            </div>
-        </span>
-    </div>
-</div>
-<div
-    id="home-posts-wrap"
-    ref="homePostsWrap"
-    true
->
-    <div id="home-posts">
-        
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/studynotes@lagrange-interp-and-ge/">
-        <h2 class="post-title">多项式构造：高斯消元与拉格朗日插值</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E7%AB%9E%E8%B5%9B/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                竞赛
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2026/9/15
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>拉格朗日插值其实在初中搞竞赛的时候就学过了，鉴于当时学识浅薄，其实并没有理解其底层的原理。在熬过两年高中、成为苦逼高三生之后，终于有能力、想法和不太充裕的时间来填以前的坑了。</p>
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><title>Revethere&#39;s Blog</title><meta name="author" content="Revethere"><meta name="description" content="分享一些超级有用的芝士"><meta name="keywords" content="revethere, intp, minecraft, pvp, sumo, boxing, cube, code, c++, rust, OI, kpop, idle, aespa, newjeans, babymonster, hearts2hearts"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"><link rel="icon" href="/images/avatar.webp"><link rel="preconnect" href="https://s4.zstatic.net"><link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css"><link rel="preconnect" href="https://fonts.googleapis.cn"><link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"><!-- The theme's client runtime used to be a Vue app. The libs below still
+             register themselves into this registry; /js/main.js drives them. --><script>
+            const mixins = {};
+        </script><script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script><script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script><script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script><link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"><script src="/js/lib/highlight.js"></script><script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script><script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script><link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css"><script src="/js/lib/math.js"></script><script src="/js/lib/preview.js"></script><script src="/js/lib/home.js"></script><script src="/js/lib/reveal.js"></script><link rel="stylesheet" href="/css/main.css"></head><body><div id="layout"><div id="loading"><div id="loading-circle"><span class="ring-orbit" aria-hidden="true"><i style="--a: 24deg; --s: 7px"></i><i style="--a: 148deg; --s: 6px"></i><i style="--a: 262deg; --s: 8px"></i></span><span class="ring-orbit-alt" aria-hidden="true"><i style="--a: 78deg; --s: 6px"></i><i style="--a: 208deg; --s: 7px"></i></span><h2 id="loading-word" aria-label="LOADING"><span aria-hidden="true" style="--i: 0">L</span><span aria-hidden="true" style="--i: 1">O</span><span aria-hidden="true" style="--i: 2">A</span><span aria-hidden="true" style="--i: 3">D</span><span aria-hidden="true" style="--i: 4">I</span><span aria-hidden="true" style="--i: 5">N</span><span aria-hidden="true" style="--i: 6">G</span></h2></div></div><div id="menu"><div id="menu-cloud-glow"></div><nav id="desktop-menu"><div id="menu-indicator"></div><a class="title" href="/"><span>REVETHERE&#39;S BLOG</span></a><a href="/"><span>Home</span></a><a href="/about/"><span>About</span></a><a href="/friends/"><span>Friends</span></a><div class="menu-group"><a class="menu-parent" href="/archives/"><span>Archives</span></a><div class="menu-sub"><div class="menu-sub-indicator"></div><a href="/archives/">Posts</a><a href="/logs/">Logs</a><a href="/categories/">Categories</a><a href="/tags/">Tags</a></div></div></nav><nav id="mobile-menu"><div class="title"><i class="fa-solid fa-bars fa-fw"></i><span>&emsp;REVETHERE&#39;S BLOG</span></div><div class="items" style="display: none"><a href="/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"><i class="fa-solid fa-house fa-fw"></i></div><div style="min-width: 100px; max-width: 150%; width: 20%">Home</div></div></a><a href="/about/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"><i class="fa-solid fa-id-card fa-fw"></i></div><div style="min-width: 100px; max-width: 150%; width: 20%">About</div></div></a><a href="/friends/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"><i class="fa-solid fa-user fa-fw"></i></div><div style="min-width: 100px; max-width: 150%; width: 20%">Friends</div></div></a><a href="/archives/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"><i class="fa-solid fa-box-archive fa-fw"></i></div><div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div></div></a><a class="item-child" href="/archives/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"></div><div style="min-width: 100px; max-width: 150%; width: 20%">Posts</div></div></a><a class="item-child" href="/logs/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"></div><div style="min-width: 100px; max-width: 150%; width: 20%">Logs</div></div></a><a class="item-child" href="/categories/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"></div><div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div></div></a><a class="item-child" href="/tags/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"></div><div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div></div></a></div></nav></div><div id="menu-curtain" style="display: none"></div><div id="main" class="into-enter-from"><div id="home-head"><div id="home-background" ref="homeBackground" data-images="/images/background_02.webp,/images/background_05.webp,/images/background_07.webp,/images/background_12.webp,/images/background_13.webp,/images/background_winter_00.webp,/images/background_winter_02.webp,/images/background_ahyeon_00.webp,/images/background_ahyeon_01.webp,/images/background_jiwoo_00.webp,/images/background_stella_00.webp,/images/background_stella_01.webp,/images/background_minnie_00.webp,/images/background_minnie_01.webp"></div><div id="home-info"><span class="loop"></span><span class="loop"></span><span class="loop"></span><span class="loop"></span><span class="info"><div class="wrap"><h1>Revethere&#39;s Blog</h1><h3></h3><h5>分享一些超级有用的芝士</h5></div></span></div></div><div id="home-posts-wrap" ref="homePostsWrap"><div id="home-posts"><div class="post" data-has-more="false" data-single="true"><a href="/posts/studynotes@lagrange-interp-and-ge/"><h2 class="post-title">多项式构造：高斯消元与拉格朗日插值</h2></a><div class="category-and-date"><span class="category"><a href="/categories/%E7%AB%9E%E8%B5%9B/"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>竞赛</a></span><span class="date"><span class="icon"><i class="fa-solid fa-calendar fa-fw"></i></span>2026/9/15</span></div><div class="description"><div class="excerpt-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>拉格朗日插值其实在初中搞竞赛的时候就学过了，鉴于当时学识浅薄，其实并没有理解其底层的原理。在熬过两年高中、成为苦逼高三生之后，终于有能力、想法和不太充裕的时间来填以前的坑了。</p>
 <p>除了高中数学课内的知识外（也不算很课内吧😶‍🌫️），此篇还杂糅了相当部分的信息学竞赛内容，建议选择性阅读。</p>
 <h2 id="高斯消元"><a href="#高斯消元" class="headerlink" title="高斯消元"></a>高斯消元</h2><p>高中阶段高斯消元最典型的使用场景大多应用于求解多元一次方程组、待定系数法求函数解析式、解析几何求交点与位置关系等。后文将用一道简单的例子来展示高斯消元的用法。</p>
 <h3 id="函数解析式求解"><a href="#函数解析式求解" class="headerlink" title="函数解析式求解"></a>函数解析式求解</h3><p>已知二次函数 $f(x)$ 过点 $(1, 2)$、$(2, 9)$、$(3, 22)$，求该函数的解析式。</p>
@@ -392,67 +116,7 @@
 <p>$$L(x) &#x3D; \frac{\sum{权重}_i \cdot y_i}{\sum{权重_i}}$$</p>
 <p>跟「龙格现象」有冇关系。</p>
 <p>不嘻嘻。</p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            <a href="/tags/%E6%95%B0%E5%AD%A6/" data-color-key="数学" data-color-prop="color">数学</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F/" data-color-key="多项式" data-color-prop="color">多项式</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/academic@ed-of-minecraft-entity-mm-eqs/">
-        <h2 class="post-title">Minecraft 实体运动公式拓展推导</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E7%90%86%E8%AE%BA/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                理论
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/12/14
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文内容包含大量数学与物理公式，需要具备一定的数理基础阅读。</p>
+</div></div><div class="post-tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span><span class="tag"><a href="/tags/%E6%95%B0%E5%AD%A6/" data-color-key="数学" data-color-prop="color">数学</a></span><span class="tag"><a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F/" data-color-key="多项式" data-color-prop="color">多项式</a></span></div><div class="more-center"><span class="more-text">MORE</span><span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span></div><div class="collapse-arrow" title="收起文章"><i class="fa-solid fa-chevron-up"></i></div></div><div class="post" data-has-more="false" data-single="true"><a href="/posts/academic@ed-of-minecraft-entity-mm-eqs/"><h2 class="post-title">Minecraft 实体运动公式拓展推导</h2></a><div class="category-and-date"><span class="category"><a href="/categories/%E7%90%86%E8%AE%BA/"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>理论</a></span><span class="date"><span class="icon"><i class="fa-solid fa-calendar fa-fw"></i></span>2025/12/14</span></div><div class="description"><div class="excerpt-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文内容包含大量数学与物理公式，需要具备一定的数理基础阅读。</p>
 <p>因为一些客观因素博客中的<strong>部分公式并不完全</strong>，建议下载 PDF 版本（见附件）食用更佳。</p>
 <h2 id="实体基本运动公式"><a href="#实体基本运动公式" class="headerlink" title="实体基本运动公式"></a>实体基本运动公式</h2><h3 id="一些必要参数及定义"><a href="#一些必要参数及定义" class="headerlink" title="一些必要参数及定义"></a>一些必要参数及定义</h3><ul>
 <li>速度：$v_H$、$v_Y$，表示实体在水平、垂直上的速度。</li>
@@ -474,7 +138,7 @@
 <h2 id="稳态（渐进）速度推导"><a href="#稳态（渐进）速度推导" class="headerlink" title="稳态（渐进）速度推导"></a>稳态（渐进）速度推导</h2><h3 id="经典力学下的运动"><a href="#经典力学下的运动" class="headerlink" title="经典力学下的运动"></a>经典力学下的运动</h3><p>$$\frac{dv}{dt} &#x3D; a - fv \tag{2.1.1}$$</p>
 <p>$$v &#x3D; v_0 e^{-ft} + \frac{a}{f} (1 - e^{-ft})\tag{2.1.2}$$</p>
 <p>$$\frac{v}{v_0} &#x3D; \lim\limits_{t_0 \to 0} (1 - f t_0)^{\frac{t}{t_0}}, a &#x3D; 0\tag{2.1.3}$$</p>
-<p>其余见 <a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound/"><a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound/">『低版本 pvp 中玩家最优 kb 的点击频率下限分析』</a></a> 中 『经典力学下的运动』小结，这里不过多阐述。</p>
+<p>其余见 <a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound/" target="_blank" rel="noopener"><a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound/" target="_blank" rel="noopener">『低版本 pvp 中玩家最优 kb 的点击频率下限分析』</a></a> 中 『经典力学下的运动』小结，这里不过多阐述。</p>
 <h3 id="水平稳态（渐进）速度"><a href="#水平稳态（渐进）速度" class="headerlink" title="水平稳态（渐进）速度"></a>水平稳态（渐进）速度</h3><p>假设实体在运动过程中所有状态不变（$f_S$ 为常数），原递推式为一阶线性差分方程：$$v_t &#x3D; \alpha , v_{t-1} + \beta \tag{2.2.1}$$</p>
 <p>齐次方程 $v_t^{(h)} &#x3D; \alpha v_{t-1}^{(h)}$ 的解为 $v_t^{(h)} &#x3D; C \alpha^t$。由于非齐次项 $\beta$ 为常数，设其特解为 $K$，代入原方程 (2.2.1) 得：$$K &#x3D; \alpha K + \beta$$</p>
 <p>即 $K &#x3D; \frac{\beta}{1 - \alpha}, \ \alpha \neq 1$，特解为：$$v_t^{(p)} &#x3D; \frac{\beta}{1 - \alpha}$$</p>
@@ -586,72 +250,12 @@
 <p>再代入 $i$：$$x &#x3D; \gamma\left( 1 - \left( \frac{y + 3.92}{K} \right)^{\frac{\ln \alpha}{\ln 0.98}}\right) + \delta \frac{\ln \left(\frac{y + 3.92}{K} \right)}{\ln 0.98} \tag{3.2.2}$$</p>
 <p>将 $\gamma &#x3D; \frac{v_0}{1 - \alpha} - \frac{\beta}{(1 - \alpha)^2},\ \delta &#x3D; \frac{\beta}{1 - \alpha}, \ \alpha &#x3D; 0.91, \ \beta &#x3D; 0.02 k_M, \  K &#x3D; \frac{v_0}{0.98} + 4 $ 代入公式 (3.2.2) 得：$$x &#x3D; \left( \frac{v_0}{0.09} - \frac{0.02 k_M}{0.0081} \right) \left[ 1 - \left( \frac{y + 3.92}{\frac{v_0}{0.98} + 4}\right) ^ {\frac{\ln 0.91}{\ln 0.98}} \right] + \frac{0.02 k_M}{0.09 \ln 0.98} \ln \left( \frac{y + 3.92}{\frac{v_0}{0.98} + 4} \right) $$</p>
 <p>再略微化简一下：$$\boxed{x &#x3D; \frac{100}{81}(9v_0 - 2k_M) \left[ 1 - 0.91 \left( \frac{y + 3.92}{v_0 + 3.92} \right)^ {\frac{\ln 0.91}{\ln 0.98}} \right] + \frac{2k_M}{9} \left( 1 + \log_{0.98} \left( \frac{y + 3.92}{v_0 + 3.92} \right) \right) } \tag{3.2.3}$$</p>
-<h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><p><a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/academic%40ed-of-minecraft-entity-mm-eqs/Minecraft%20%E5%AE%9E%E4%BD%93%E8%BF%90%E5%8A%A8%E5%85%AC%E5%BC%8F%E6%8B%93%E5%B1%95%E6%8E%A8%E5%AF%BC.pdf">Minecraft 实体运动公式拓展推导.pdf</a></p>
+<h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><p><a href="https://github.com/Revethere/Files/blob/master/BlogFiles/academic%40ed-of-minecraft-entity-mm-eqs/Minecraft%20%E5%AE%9E%E4%BD%93%E8%BF%90%E5%8A%A8%E5%85%AC%E5%BC%8F%E6%8B%93%E5%B1%95%E6%8E%A8%E5%AF%BC.pdf" target="_blank" rel="noopener">Minecraft 实体运动公式拓展推导.pdf</a></p>
 <h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>25.12.14 $\LaTeX$  写完 PDF 附件</p>
 <p>25.12.21 抽空复制粘贴稍微改了一下文章同步到博客</p>
 <p><strong>持续更新</strong></p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            <a href="/tags/Minecraft/" data-color-key="Minecraft" data-color-prop="color">Minecraft</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/%E6%95%B0%E5%AD%A6/" data-color-key="数学" data-color-prop="color">数学</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/academic@min-kb-click-freq-lower-bound/">
-        <h2 class="post-title">低版本 pvp 中玩家最优 kb 的点击频率下限分析</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E7%90%86%E8%AE%BA/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                理论
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/10/18
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>⚠️<strong>硬核警告</strong>⚠️</p>
-<p>英译版见<a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound-en/">『Minimum KB Click Frequency Lower Bound Analysis』</a>.</p>
+</div></div><div class="post-tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span><span class="tag"><a href="/tags/Minecraft/" data-color-key="Minecraft" data-color-prop="color">Minecraft</a></span><span class="tag"><a href="/tags/%E6%95%B0%E5%AD%A6/" data-color-key="数学" data-color-prop="color">数学</a></span></div><div class="more-center"><span class="more-text">MORE</span><span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span></div><div class="collapse-arrow" title="收起文章"><i class="fa-solid fa-chevron-up"></i></div></div><div class="post" data-has-more="false" data-single="true"><a href="/posts/academic@min-kb-click-freq-lower-bound/"><h2 class="post-title">低版本 pvp 中玩家最优 kb 的点击频率下限分析</h2></a><div class="category-and-date"><span class="category"><a href="/categories/%E7%90%86%E8%AE%BA/"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>理论</a></span><span class="date"><span class="icon"><i class="fa-solid fa-calendar fa-fw"></i></span>2025/10/18</span></div><div class="description"><div class="excerpt-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>⚠️<strong>硬核警告</strong>⚠️</p>
+<p>英译版见<a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound-en/" target="_blank" rel="noopener">『Minimum KB Click Frequency Lower Bound Analysis』</a>.</p>
 <p>本文包含大量数学公式和代码分析，建议具备一定理论基础阅读。</p>
 <p>欢迎各位大佬指正🥰。</p>
 <p><del>嗯……AI 帮了点小忙，还是挺好看出来的，对吧。</del></p>
@@ -671,7 +275,7 @@
 <h3 id="Mojang-对于实体运动的实现"><a href="#Mojang-对于实体运动的实现" class="headerlink" title="Mojang 对于实体运动的实现"></a>Mojang 对于实体运动的实现</h3><p>以下是实体在水平和空中运动源代码简化版。已删去不必要和不相关的代码。</p>
 <ul>
 <li><p>在 <code>net/minecraft/entity/EntityLivingBase.java</code> 中：</p>
-<pre><code class="java">public void moveEntityWithHeading(float strafe, float forward) &#123;
+<pre><code class="java">public void moveEntityWithHeading(float strafe, float forward) {
     /**
      * 环境检测与移动类型判断
      * isInWater()、isInLava()、isFlying
@@ -680,7 +284,7 @@
     
     float f4 = 0.91F; // 惯性系数
     
-    if (this.onGround) &#123;
+    if (this.onGround) {
         f4 = this.worldObj.getBlockState(
             new BlockPos(
                 MathHelper.floor_double(this.posX),
@@ -690,7 +294,7 @@
         )
         .getBlock()
         .slipperiness * 0.91F;
-    &#125; // 获取下方方块滑度（后续将 slipperiness 称为滑度系数）
+    } // 获取下方方块滑度（后续将 slipperiness 称为滑度系数）
     
     float f = 0.16277136F / (f4 * f4 * f4);
     /**
@@ -723,40 +327,40 @@
     this.motionX *= (double)f4; this.motionZ *= (double)f4; // 摩擦力（水平）
     
     // 玩家肢体动画更新
-&#125;
+}
 </code></pre>
 </li>
 <li><p>方块的滑度系数在 <code>net/minecraft/block/Block.java</code> 等文件中定义：</p>
 <pre><code class="java">// Block.java
-public class Block &#123;
+public class Block {
     // 其它方块属性
     public float slipperiness;
-    public Block(Material blockMaterialIn, MapColor blockMapColorIn) &#123;
+    public Block(Material blockMaterialIn, MapColor blockMapColorIn) {
         // 其它属性初始化
         this.slipperiness = 0.6F;
-    &#125;
-&#125;
+    }
+}
 
 // BlockIce.java
-public class BlockIce extends BlockBreakable &#123;
-    public BlockIce() &#123;
+public class BlockIce extends BlockBreakable {
+    public BlockIce() {
         this.slipperiness = 0.98F;
-    &#125;
-&#125; // 冰
+    }
+} // 冰
 
 //BlockPackedIce.java
-public class BlockPackedIce extends Block &#123;
-    public BlockPackedIce() &#123;
+public class BlockPackedIce extends Block {
+    public BlockPackedIce() {
         this.slipperiness = 0.98F;
-    &#125;
-&#125; // 浮冰
+    }
+} // 浮冰
 
 // BlockSlime.java
-public class BlockSlime extends BlockBreakable &#123;
-    public BlockSlime() &#123;
+public class BlockSlime extends BlockBreakable {
+    public BlockSlime() {
         this.slipperiness = 0.8F;
-    &#125;
-&#125; // 史莱姆块
+    }
+} // 史莱姆块
 </code></pre>
 <p>滑度系数将用 $f_s$ 在后续的公式推导中来表示。</p>
 <blockquote>
@@ -764,20 +368,20 @@ public class BlockSlime extends BlockBreakable &#123;
 </blockquote>
 </li>
 <li><p>实体在地面的移速（通过 <code>getAIMoveSpeed()</code> 函数返回，本质上是变量 <code>landMovementFactor</code> 的值）在文件 <code>net/minecraft/entity/EntityLivingBase.java</code> 定义：</p>
-<pre><code class="java">public abstract class EntityLivingBase extends Entity &#123;
+<pre><code class="java">public abstract class EntityLivingBase extends Entity {
     private float landMovementFactor;
-    public float getAIMoveSpeed() &#123;
+    public float getAIMoveSpeed() {
         return this.landMovementFactor;
-    &#125;
-&#125;
+    }
+}
 </code></pre>
 <p>其基本值在 <code>net/minecraft/entity/player/PlayerCapabilities.java</code> 给出：</p>
-<pre><code class="java">public class PlayerCapabilities &#123;
+<pre><code class="java">public class PlayerCapabilities {
     private float walkSpeed = 0.1F;
-&#125;
+}
 </code></pre>
 <p>疾跑状态的修饰在 <code>net/minecraft/entity/EntityLivingBase.java</code> 中定义：</p>
-<pre><code class="java">public abstract class EntityLivingBase extends Entity &#123;
+<pre><code class="java">public abstract class EntityLivingBase extends Entity {
     private static final AttributeModifier sprintingSpeedBoostModifier = 
         (new AttributeModifier(
             sprintingSpeedBoostModifierUUID,
@@ -785,55 +389,55 @@ public class BlockSlime extends BlockBreakable &#123;
             0.30000001192092896D,
             2
         )).setSaved(false);
-&#125;
+}
 </code></pre>
 <p>疾跑速度则是通过 <code>net/minecraft/entity/ai/attributes/ModifiableAttributeInstance.java</code> 中的方法实现：</p>
-<pre><code class="java">private double computeValue() &#123;
+<pre><code class="java">private double computeValue() {
     double d0 = this.getBaseValue(); // 属性基本值获取
     
-    for (AttributeModifier attributemodifier : this.func_180375_b(0)) &#123;
+    for (AttributeModifier attributemodifier : this.func_180375_b(0)) {
         d0 += attributemodifier.getAmount();
-    &#125;
+    }
     double d1 = d0;
-    for (AttributeModifier attributemodifier1 : this.func_180375_b(1)) &#123;
+    for (AttributeModifier attributemodifier1 : this.func_180375_b(1)) {
         d1 += d0 * attributemodifier1.getAmount();
-    &#125;
-    for (AttributeModifier attributemodifier2 : this.func_180375_b(2)) &#123;
+    }
+    for (AttributeModifier attributemodifier2 : this.func_180375_b(2)) {
         d1 *= 1.0D + attributemodifier2.getAmount();
-    &#125;
+    }
     // 三种类型修饰叠加
     
     return this.genericAttribute.clampValue(d1);
-&#125;
+}
 </code></pre>
 <p>实体在空中的移速（<code>jumpMovementFactor</code>）在 <code>net/minecraft/entity/EntityLivingBase.java</code> 中定义：</p>
-<pre><code class="java">public abstract class EntityLivingBase extends Entity &#123;
+<pre><code class="java">public abstract class EntityLivingBase extends Entity {
     public float jumpMovementFactor = 0.02F;
-&#125;
+}
 </code></pre>
 <p>疾跑时在 <code>net/minecraft/entity/player/EntityPlayer.java</code> 中更新：</p>
-<pre><code class="java">public abstract class EntityPlayer extends EntityLivingBase &#123;
-    public void onLivingUpdate() &#123;
-        if (this.isSprinting()) &#123;
+<pre><code class="java">public abstract class EntityPlayer extends EntityLivingBase {
+    public void onLivingUpdate() {
+        if (this.isSprinting()) {
             this.jumpMovementFactor = (float)(
                 (double)this.jumpMovementFactor +
                 (double)this.speedInAir * 0.3D
             );
-        &#125;
-    &#125;
-&#125;
+        }
+    }
+}
 </code></pre>
 <p><del>屎山代码这两种运动实现还不一样 ):</del></p>
 </li>
 <li><p>实体的「motion」在 <code>net/minecraft/entity/Entity.java</code> 中更新：</p>
-<pre><code class="java">public void moveFlying(float strafe, float forward, float friction) &#123;
+<pre><code class="java">public void moveFlying(float strafe, float forward, float friction) {
     float f = strafe * strafe + forward * forward;
     
-    if (f &gt;= 1.0E-4F) &#123;
+    if (f &gt;= 1.0E-4F) {
         f = MathHelper.sqrt_float(f); // 模长为 1 的单位向量
-        if (f &lt; 1.0F) &#123;
+        if (f &lt; 1.0F) {
             f = 1.0F; // 避免斜向速度异常
-        &#125;
+        }
         
         f = friction / f;
         strafe = strafe * f;
@@ -846,26 +450,26 @@ public class BlockSlime extends BlockBreakable &#123;
         this.motionX += (double)(strafe * f2 - forward * f1);
         this.motionZ += (double)(forward * f2 + strafe * f1);
         // 2D 旋转矩阵
-    &#125;
-&#125;
+    }
+}
 </code></pre>
 <p><code>strafe</code> 和 <code>forward</code> 变量在 <code>net/minecraft/util/MovementInputFromOptions.java</code> 中获取按键输入更新：</p>
-<pre><code class="java">public void updatePlayerMoveState() &#123;
+<pre><code class="java">public void updatePlayerMoveState() {
     this.moveStrafe = 0.0F;
     this.moveForward = 0.0F;
 
-    if (this.gameSettings.keyBindForward.isKeyDown()) &#123;
+    if (this.gameSettings.keyBindForward.isKeyDown()) {
         ++this.moveForward;
-    &#125;
-    if (this.gameSettings.keyBindBack.isKeyDown()) &#123;
+    }
+    if (this.gameSettings.keyBindBack.isKeyDown()) {
         --this.moveForward;
-    &#125;
-    if (this.gameSettings.keyBindLeft.isKeyDown()) &#123;
+    }
+    if (this.gameSettings.keyBindLeft.isKeyDown()) {
         ++this.moveStrafe;
-    &#125;
-    if (this.gameSettings.keyBindRight.isKeyDown()) &#123;
+    }
+    if (this.gameSettings.keyBindRight.isKeyDown()) {
         --this.moveStrafe;
-    &#125;
+    }
     
     // 其它按键事件
     
@@ -873,7 +477,7 @@ public class BlockSlime extends BlockBreakable &#123;
      * 潜行事件
      * moveStrafe 和 moveForward 乘以 0.3
      */
-&#125;
+}
 </code></pre>
 </li>
 </ul>
@@ -892,7 +496,7 @@ public class BlockSlime extends BlockBreakable &#123;
 <li>效果乘数：$k_E &#x3D; 1 \times 1 &#x3D; 1$.</li>
 <li>动量阈值：$v_{th} &#x3D; 0.005$，当实体在某条轴上的速度经衰减后小于该值时，对应轴上的速度归零。</li>
 </ul>
-<p>由此推导得到实体运动的递推关系（主要参考 <a target="_blank" rel="noopener" href="https://www.mcpk.wiki/wiki/Main_Page">Minecraft Parkour Wiki</a>）：</p>
+<p>由此推导得到实体运动的递推关系（主要参考 <a href="https://www.mcpk.wiki/wiki/Main_Page" target="_blank" rel="noopener">Minecraft Parkour Wiki</a>）：</p>
 <ul>
 <li><p><strong>地面水平速度公式：</strong>$$v_{H,t} &#x3D; \underbrace{v_{H,t-1} \times f_{s, t-1} \times 0.91} _ \text{动量保留} + \underbrace{0.1 \times \left( \frac{0.6}{f_{s,t}}\right)^3 \times k_M \times k_E} _ \text{加速度} \tag{1.3.1}$$</p>
 </li>
@@ -928,8 +532,8 @@ public class BlockSlime extends BlockBreakable &#123;
 <p>🧠☠️</p>
 <hr>
 <h2 id="击退算法杂谈"><a href="#击退算法杂谈" class="headerlink" title="击退算法杂谈"></a>击退算法杂谈</h2><h3 id="原版击退算法"><a href="#原版击退算法" class="headerlink" title="原版击退算法"></a>原版击退算法</h3><p>当玩家攻击时调用 <code>net/minecraft/entity/player/EntityPlayer.java</code>  文件中的  <code>attackTargetEntityWithCurrentItem()</code> 函数处理该过程：</p>
-<pre><code class="java">public abstract class EntityPlayer extends EntityLivingBase &#123;
-    public void attackTargetEntityWithCurrentItem(Entity targetEntity) &#123; 
+<pre><code class="java">public abstract class EntityPlayer extends EntityLivingBase {
+    public void attackTargetEntityWithCurrentItem(Entity targetEntity) { 
         /**
          * 可攻击检查
          * 基础伤害计算
@@ -938,9 +542,9 @@ public class BlockSlime extends BlockBreakable &#123;
         
         int i = 0;
         i = i + EnchantmentHelper.getKnockbackModifier(this);
-        if (this.isSprinting()) &#123;
+        if (this.isSprinting()) {
             ++i;
-        &#125;
+        }
         // 击退效果计算
              
         /** 
@@ -955,8 +559,8 @@ public class BlockSlime extends BlockBreakable &#123;
         boolean flag2 = targetEntity.attackEntityFrom(DamageSource.causePlayerDamage(this), f);
         // 伤害应用
         
-        if (flag2) &#123;
-            if (i &gt; 0) &#123;
+        if (flag2) {
+            if (i &gt; 0) {
                 targetEntity.addVelocity(
                     (double)(-MathHelper.sin(
                             this.rotationYaw * (float)Math.PI / 180.0F) * (float)i * 0.5F),
@@ -969,9 +573,9 @@ public class BlockSlime extends BlockBreakable &#123;
                 this.motionZ *= 0.6D;
                 this.setSprinting(false);
                 // 攻击者减速并取消疾跑状态
-            &#125;
+            }
             
-            if (targetEntity instanceof EntityPlayerMP &amp;&amp; targetEntity.velocityChanged) &#123;
+            if (targetEntity instanceof EntityPlayerMP &amp;&amp; targetEntity.velocityChanged) {
                 ((EntityPlayerMP)targetEntity).playerNetServerHandler.sendPacket(
                     new S12PacketEntityVelocity(targetEntity)
                 );
@@ -979,18 +583,18 @@ public class BlockSlime extends BlockBreakable &#123;
                 targetEntity.motionX = d0;
                 targetEntity.motionY = d1;
                 targetEntity.motionZ = d2;
-            &#125; // 避免重复叠加击退
+            } // 避免重复叠加击退
         
         /**
          * 伤害成功后续处理
          * 攻击失败处理
          */
-    &#125;
-&#125;
+    }
+}
 </code></pre>
 <pre><code class="java">// net/minecraft/entity/EntityLivingBase.java
-public abstract class EntityLivingBase extends Entity &#123;
-    public boolean attackEntityFrom(DamageSource source, float amount) &#123;
+public abstract class EntityLivingBase extends Entity {
+    public boolean attackEntityFrom(DamageSource source, float amount) {
         /**
          * 检查实体是否对特定伤害源免疫
          * 客户端检查
@@ -1006,9 +610,9 @@ public abstract class EntityLivingBase extends Entity &#123;
         double d0;
         for(d0 = entity.posZ - this.posZ;
             d1 * d1 + d0 * d0 &lt; 1.0E-4D;
-            d0 = (Math.random() - Math.random()) * 0.01D) &#123;
+            d0 = (Math.random() - Math.random()) * 0.01D) {
             d1 = (Math.random() - Math.random()) * 0.01D;
-        &#125; // 距离过近的随机击退
+        } // 距离过近的随机击退
 
         this.attackedAtYaw = (float)(
             MathHelper.atan2(d0, d1) * 180.0D / Math.PI 
@@ -1018,11 +622,11 @@ public abstract class EntityLivingBase extends Entity &#123;
         this.knockBack(entity, amount, d1, d0);  // 执行击退
         
         // 其它操作
-    &#125;
+    }
     
-    public void knockBack(Entity entityIn, float amount, double d0, double d1) &#123;
+    public void knockBack(Entity entityIn, float amount, double d0, double d1) {
         if (this.rand.nextDouble() &gt;= this.getEntityAttribute(
-            SharedMonsterAttributes.knockbackResistance).getAttributeValue()) &#123;
+            SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
             this.isAirBorne = true;
             float f = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
             float f1 = 0.4F;
@@ -1037,27 +641,27 @@ public abstract class EntityLivingBase extends Entity &#123;
             this.motionZ -= d1 / (double)f * (double)f1;
             // 第一阶段击退计算
 
-            if (this.motionY &gt; 0.4000000059604645D) &#123;
+            if (this.motionY &gt; 0.4000000059604645D) {
                 this.motionY = 0.4000000059604645D;
-            &#125; // 垂直击退上限
-        &#125;
-    &#125;
-&#125;
+            } // 垂直击退上限
+        }
+    }
+}
 </code></pre>
 <pre><code class="java">// net/minecraft/entity/Entity.java
-public abstract class Entity implements ICommandSender &#123;
-    protected void setBeenAttacked() &#123;
+public abstract class Entity implements ICommandSender {
+    protected void setBeenAttacked() {
         this.velocityChanged = true;
-    &#125;
-    public boolean attackEntityFrom(DamageSource source, float amount) &#123;
-        if (this.isEntityInvulnerable(source)) &#123;
+    }
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (this.isEntityInvulnerable(source)) {
             return false;
-        &#125; else &#123;
+        } else {
             this.setBeenAttacked();
             return false;
-        &#125;
-    &#125;
-&#125;
+        }
+    }
+}
 </code></pre>
 <p>为了更清晰地理解击退机制，在这里定义以下参数：</p>
 <ul>
@@ -1075,7 +679,7 @@ public abstract class Entity implements ICommandSender &#123;
 </ul>
 <h3 id="MMC-击退算法"><a href="#MMC-击退算法" class="headerlink" title="MMC 击退算法"></a>MMC 击退算法</h3><p>本小节重点讨论与原版击退算法不同之处。</p>
 <blockquote>
-<p> 详细实现见 <a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/academic%40how-does-kb-work-exactly/How%20MMC%20Knockback%20Actually%20Works.pdf">How MMC Knockback Actually Works</a>.</p>
+<p> 详细实现见 <a href="https://github.com/Revethere/Files/blob/master/BlogFiles/academic%40how-does-kb-work-exactly/How%20MMC%20Knockback%20Actually%20Works.pdf" target="_blank" rel="noopener">How MMC Knockback Actually Works</a>.</p>
 </blockquote>
 <p>MMC 引入了以下新的或修改的参数：</p>
 <pre><code class="java">totalHorizontal = 0.8835d    // 总水平击退
@@ -1106,7 +710,7 @@ friction = 0.0d
 <p>特别地，当 <code>friction = 0.0</code> 时，受击者的动量归零，即击退完全覆盖原速度。</p>
 </blockquote>
 <p>第一阶段击退算法：</p>
-<pre><code class="java">void firstStage(EntityLiving attacker, EntityLiving victim) &#123;
+<pre><code class="java">void firstStage(EntityLiving attacker, EntityLiving victim) {
     // 省略部分伪代码
     
     double distance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
@@ -1121,14 +725,14 @@ friction = 0.0d
     double yaw = Math.toRadians(attacker.yaw)
     victim.motX += -Math.sin(yaw) * (modifiedHorizontal * 0.5d)
     victim.motZ += Math.cos(yaw) * (modifiedHorizontal * 0.5d)
-&#125;
+}
 </code></pre>
 <p>与原版不同的是，MMC 算法中第一阶段的击退同时与玩家的相对位置和攻击者的偏航角相关（占比各 50%）。并增加了 <code>calculateRangeReduction()</code> 函数用于减免远距离击退。</p>
 <p>第二阶段击退算法与第一阶段相似：</p>
-<pre><code class="java">void secondStage(EntityLiving attacker, EntityLiving victim, int knockbackEnchantLevel) &#123;
+<pre><code class="java">void secondStage(EntityLiving attacker, EntityLiving victim, int knockbackEnchantLevel) {
     // 省略部分伪代码
     
-    if (extraKBMult &gt; 0) &#123;
+    if (extraKBMult &gt; 0) {
         double distanceX = attacker.locX - victim.locX
         double distanceZ = attacker.locZ - victim.locZ
         double distance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ)
@@ -1142,95 +746,31 @@ friction = 0.0d
         double yaw = Math.toRadians(attacker.yaw)  
         victim.motX += -Math.sin(yaw) * (modifiedExtraHorizontal * 0.5d)
         victim.motZ += Math.cos(yaw) * (modifiedExtraHorizontal * 0.5d)
-    &#125;
-&#125;
+    }
+}
 </code></pre>
 <p>额外水平击退由 <code>horizontalExtra</code> 参数和 <code>extraKBMult</code> 共同决定。并保持与第一阶段相同的 50&#x2F;50 分配。</p>
 <hr>
 <h2 id="最优-kb-的点击频率下限分析"><a href="#最优-kb-的点击频率下限分析" class="headerlink" title="最优 kb 的点击频率下限分析"></a>最优 kb 的点击频率下限分析</h2><hr>
 <h2 id="一起来品鉴赤石-Mojang-的代码"><a href="#一起来品鉴赤石-Mojang-的代码" class="headerlink" title="一起来品鉴赤石 Mojang 的代码"></a>一起来<del>品鉴</del>赤石 Mojang 的代码</h2><hr>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.mcpk.wiki/wiki/Movement_Formulas">运动公式 - Minecraft Parkour Wiki</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/academic%40how-does-kb-work-exactly/How%20MMC%20Knockback%20Actually%20Works.pdf">How MMC Knockback Actually Works</a></p>
-<p><a target="_blank" rel="noopener" href="https://pages.carm.cc/dev/knockback-study.html">对我的世界中PVP击退的研究报告 - LSeng, CarmJos</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/opus/175537636967628180">关于修正并改进 xwj 的 MC 实体运动公式 —— 适用于MC中所有实体 - Bio-Hazard</a></p>
-<p><a target="_blank" rel="noopener" href="http://lovexyn0827.space/mcdocs/docs/Minecraft%E5%AE%9E%E4%BD%93%E8%BF%90%E5%8A%A8%E7%A0%94%E7%A9%B6%E4%B8%8E%E5%BA%94%E7%94%A8/0-Minecraft%E5%AE%9E%E4%BD%93%E8%BF%90%E5%8A%A8%E7%9B%B8%E5%85%B3%E7%A0%94%E7%A9%B6%E4%B8%8E%E5%BA%94%E7%94%A8.html">Minecraft 实体运动研究与应用 - lovexyn0827</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=o-a0szldhs8">The ULTIMATE Guide to PING - sceyna</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Marcelektro/MCP-919">MCP-919 ( Fully decompiled )</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/CobbleSword/NachoSpigot">NachoSpigot</a></p>
-<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p><a target="_blank" rel="noopener" href="https://space.bilibili.com/298238084">蔚蓝天空Azure_Sky</a></p>
-<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/165837583">时代地产</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.mcpk.wiki/wiki/Movement_Formulas" target="_blank" rel="noopener">运动公式 - Minecraft Parkour Wiki</a></p>
+<p><a href="https://github.com/Revethere/Files/blob/master/BlogFiles/academic%40how-does-kb-work-exactly/How%20MMC%20Knockback%20Actually%20Works.pdf" target="_blank" rel="noopener">How MMC Knockback Actually Works</a></p>
+<p><a href="https://pages.carm.cc/dev/knockback-study.html" target="_blank" rel="noopener">对我的世界中PVP击退的研究报告 - LSeng, CarmJos</a></p>
+<p><a href="https://www.bilibili.com/opus/175537636967628180" target="_blank" rel="noopener">关于修正并改进 xwj 的 MC 实体运动公式 —— 适用于MC中所有实体 - Bio-Hazard</a></p>
+<p><a href="http://lovexyn0827.space/mcdocs/docs/Minecraft%E5%AE%9E%E4%BD%93%E8%BF%90%E5%8A%A8%E7%A0%94%E7%A9%B6%E4%B8%8E%E5%BA%94%E7%94%A8/0-Minecraft%E5%AE%9E%E4%BD%93%E8%BF%90%E5%8A%A8%E7%9B%B8%E5%85%B3%E7%A0%94%E7%A9%B6%E4%B8%8E%E5%BA%94%E7%94%A8.html" target="_blank" rel="noopener">Minecraft 实体运动研究与应用 - lovexyn0827</a></p>
+<p><a href="https://www.youtube.com/watch?v=o-a0szldhs8" target="_blank" rel="noopener">The ULTIMATE Guide to PING - sceyna</a></p>
+<p><a href="https://github.com/Marcelektro/MCP-919" target="_blank" rel="noopener">MCP-919 ( Fully decompiled )</a></p>
+<p><a href="https://github.com/CobbleSword/NachoSpigot" target="_blank" rel="noopener">NachoSpigot</a></p>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p><a href="https://space.bilibili.com/298238084" target="_blank" rel="noopener">蔚蓝天空Azure_Sky</a></p>
+<p><a href="https://space.bilibili.com/165837583" target="_blank" rel="noopener">时代地产</a></p>
 <h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>25.11.30 - 发布已基本写完的三章</p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            <a href="/tags/Minecraft/" data-color-key="Minecraft" data-color-prop="color">Minecraft</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/sumo/" data-color-key="sumo" data-color-prop="color">sumo</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/Java/" data-color-key="Java" data-color-prop="color">Java</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/introduction@rewind-mod-redefine-video-recording/">
-        <h2 class="post-title">这个 mod 将重新定义视频录制...</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E4%BB%8B%E7%BB%8D/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                介绍
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/9/28
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前写过一篇<a href="https://revethere.github.io/2025/07/30/config@obs-blur-configure-sharing/">『录制 &amp; 渲染配置分享（OBS &amp; Blur）』</a></p>
+</div></div><div class="post-tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span><span class="tag"><a href="/tags/Minecraft/" data-color-key="Minecraft" data-color-prop="color">Minecraft</a></span><span class="tag"><a href="/tags/sumo/" data-color-key="sumo" data-color-prop="color">sumo</a></span><span class="tag"><a href="/tags/Java/" data-color-key="Java" data-color-prop="color">Java</a></span></div><div class="more-center"><span class="more-text">MORE</span><span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span></div><div class="collapse-arrow" title="收起文章"><i class="fa-solid fa-chevron-up"></i></div></div><div class="post" data-has-more="false" data-single="true"><a href="/posts/introduction@rewind-mod-redefine-video-recording/"><h2 class="post-title">这个 mod 将重新定义视频录制...</h2></a><div class="category-and-date"><span class="category"><a href="/categories/%E4%BB%8B%E7%BB%8D/"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>介绍</a></span><span class="date"><span class="icon"><i class="fa-solid fa-calendar fa-fw"></i></span>2025/9/28</span></div><div class="description"><div class="excerpt-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前写过一篇<a href="https://revethere.github.io/2025/07/30/config@obs-blur-configure-sharing/" target="_blank" rel="noopener">『录制 &amp; 渲染配置分享（OBS &amp; Blur）』</a></p>
 <p>后来调录制参数一直没调好过（</p>
 <p>120fps 下的素材跑 blur 之后就会变得非常非常糊 🤬，但是提高帧速率会带来更高的占用、游戏的卡顿以及可能卡炸的素材</p>
 <p>很难去找到一个平衡点</p>
 <p>Lunar 最近更新的新模组 Rewind，一定程度上解决了上述的问题：</p>
-<p><a target="_blank" rel="noopener" href="https://www.lunarclient.com/news/how-to-use-rewind-on-lunar-client?utm_source=launcher&utm_medium=blog-post&utm_campaign=lead">HOW TO USE REWIND ON LUNAR CLIENT</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=hr8tofL1U9I">Lunar Client | Introducing Rewind</a></p>
+<p><a href="https://www.lunarclient.com/news/how-to-use-rewind-on-lunar-client?utm_source=launcher&utm_medium=blog-post&utm_campaign=lead" target="_blank" rel="noopener">HOW TO USE REWIND ON LUNAR CLIENT</a></p>
+<p><a href="https://www.youtube.com/watch?v=hr8tofL1U9I" target="_blank" rel="noopener">Lunar Client | Introducing Rewind</a></p>
 <p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/introduction%40rewind-mod-redefine-video-recording/rewind-mod.png?raw=true"></p>
 <p><del>不要在意上面这张图左上角的 logo 为什么这么奇怪，扒不到高清的图拿 AI 跑的超清像素</del></p>
 <h2 id="Rewind-简介"><a href="#Rewind-简介" class="headerlink" title="Rewind 简介"></a>Rewind 简介</h2><p>Rewind 是一款功能全面的剪辑、录制和编辑软件，并完全集成于 Lunar Client。无需任何外部软件即可录制 Minecraft 游戏内容</p>
@@ -1286,71 +826,7 @@ friction = 0.0d
 
 <h2 id="其它功能"><a href="#其它功能" class="headerlink" title="其它功能"></a>其它功能</h2><p>自己摸索摸索吧，这次更新的这个 mod 真的挺好 $\phantom{其实是懒(}$</p>
 <p>甚至能做绿幕❗</p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            <a href="/tags/Minecraft/" data-color-key="Minecraft" data-color-prop="color">Minecraft</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/LunarClient/" data-color-key="LunarClient" data-color-prop="color">LunarClient</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/Rewind/" data-color-key="Rewind" data-color-prop="color">Rewind</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/tutorials@how-2-play-sumo/">
-        <h2 class="post-title">sumo 打法教学 &amp; 浅层理论分析 &amp; 心理博弈</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E6%95%99%E7%A8%8B/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                教程
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/8/7
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <h2 id="阅读文章前，你需要知道的…"><a href="#阅读文章前，你需要知道的…" class="headerlink" title="阅读文章前，你需要知道的…"></a>阅读文章前，你需要知道的…</h2><ul>
+</div></div><div class="post-tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span><span class="tag"><a href="/tags/Minecraft/" data-color-key="Minecraft" data-color-prop="color">Minecraft</a></span><span class="tag"><a href="/tags/LunarClient/" data-color-key="LunarClient" data-color-prop="color">LunarClient</a></span><span class="tag"><a href="/tags/Rewind/" data-color-key="Rewind" data-color-prop="color">Rewind</a></span></div><div class="more-center"><span class="more-text">MORE</span><span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span></div><div class="collapse-arrow" title="收起文章"><i class="fa-solid fa-chevron-up"></i></div></div><div class="post" data-has-more="false" data-single="true"><a href="/posts/tutorials@how-2-play-sumo/"><h2 class="post-title">sumo 打法教学 &amp; 浅层理论分析 &amp; 心理博弈</h2></a><div class="category-and-date"><span class="category"><a href="/categories/%E6%95%99%E7%A8%8B/"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>教程</a></span><span class="date"><span class="icon"><i class="fa-solid fa-calendar fa-fw"></i></span>2025/8/7</span></div><div class="description"><div class="excerpt-content"><h2 id="阅读文章前，你需要知道的…"><a href="#阅读文章前，你需要知道的…" class="headerlink" title="阅读文章前，你需要知道的…"></a>阅读文章前，你需要知道的…</h2><ul>
 <li>文章中所有的定义（以及一些生僻概念）仅为了规范与统一文章的内容，<strong>不代表圈内叫法</strong>👌🏼</li>
 <li>大部分技巧讲简述原理，少数从底层机制分析</li>
 <li>部分技巧因适用于多个场景会重复出现</li>
@@ -1445,7 +921,7 @@ friction = 0.0d
 <p>dc 由于更高的点击密度可以做到更稳定、（少部分情况下）更小的 kb，代价是相对不灵活的瞄准，更长的间隔以及（对于部分人可能存在的）点击不稳定性</p>
 <h3 id="一些奇妙的想法"><a href="#一些奇妙的想法" class="headerlink" title="一些奇妙的想法"></a>一些奇妙的想法</h3><ul>
 <li><p>（不太合法的）减 kb 的新思路</p>
-<p>一些助于理解的理论补充见<a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound/">这里</a></p>
+<p>一些助于理解的理论补充见<a href="https://revethere.github.io/posts/academic@min-kb-click-freq-lower-bound/" target="_blank" rel="noopener">这里</a></p>
 <p>若不考虑击退刻的问题，假设玩家的伤害刻时长为 20tick（当然实际情况不是这样）</p>
 <p>对于分布均匀的 dbc 20cps，放到时间轴上大概长这样（左键可放大）：</p>
 <p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/tutorials%40how-2-play-sumo/dbc-20cps-uniform-clicks.png?raw=true"></p>
@@ -1516,7 +992,7 @@ friction = 0.0d
 </li>
 <li><p><strong>pinger ( over 130ms )</strong></p>
 <p>在有加速 ip 或者加速器的情况下请不要用高 ping 玩❗❗❗虽然高延迟玩的少但是据我了解第一刀打法主要就是侧身 + 长 hs 很容易反制，同时这样的 ping 在对刀中节奏非常不好把控</p>
-<p>130ms 左右的延迟都还算可以接受（比如 boxing 圈有 <a target="_blank" rel="noopener" href="https://space.bilibili.com/498900274">BBDL</a> 这样非常强势的 130ms 玩家），<strong>再高真的不行了</strong></p>
+<p>130ms 左右的延迟都还算可以接受（比如 boxing 圈有 <a href="https://space.bilibili.com/498900274" target="_blank" rel="noopener">BBDL</a> 这样非常强势的 130ms 玩家），<strong>再高真的不行了</strong></p>
 <p>其实 90ms 以上的延迟打起来就已经很难受了</p>
 <p>更多关于延迟的讲解见下一部分『关于延迟』</p>
 </li>
@@ -1527,7 +1003,7 @@ friction = 0.0d
 </li>
 </ul>
 <h3 id="关于延迟"><a href="#关于延迟" class="headerlink" title="关于延迟"></a>关于延迟</h3><p>有空再填这个坑（🤐</p>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=o-a0szldhs8">The ULTIMATE Guide to PING - sceyna</a></p>
+<p><a href="https://www.youtube.com/watch?v=o-a0szldhs8" target="_blank" rel="noopener">The ULTIMATE Guide to PING - sceyna</a></p>
 <p><del>现在好讨厌打 lowping 的对局，尤其是在 wihar，小的 kb 拼不过，技巧在 lowping 的作用很小😕 $\phantom{kb 还很猎奇}$</del></p>
 <p><del>但是 wihar 新赛季（Season 4）的水平 kb 好像变小了，可以直接推了（</del></p>
 <h2 id="End-Game-心理博弈"><a href="#End-Game-心理博弈" class="headerlink" title="End Game - 心理博弈"></a>End Game - 心理博弈</h2><h3 id="如何心平气和地打-ranked-sumo"><a href="#如何心平气和地打-ranked-sumo" class="headerlink" title="如何心平气和地打 ranked sumo"></a><del>如何心平气和地打 ranked sumo</del></h3><p>众所周知 ranked sumo 是 ft3，因此在第一局中判断对手打法以及在比分 2 : 2 时稳定心态十分重要</p>
@@ -1567,7 +1043,7 @@ friction = 0.0d
 <p>不保证说法完全正确，大概意思没问题就行（</p>
 <ul>
 <li><p>circle combo ( + style )</p>
-<p>关于环绕 combo，国外有非常高质的创作者，见 <a target="_blank" rel="noopener" href="https://www.youtube.com/@iusehuzuni">iusehuzuni</a> 的频道（这家伙一年没更新了www~）</p>
+<p>关于环绕 combo，国外有非常高质的创作者，见 <a href="https://www.youtube.com/@iusehuzuni" target="_blank" rel="noopener">iusehuzuni</a> 的频道（这家伙一年没更新了www~）</p>
 <p>combo style 则是在环绕 combo 的过程中进行 style，大致可以理解为 boxing style，但相比于 boxing style，sumo 的 style 对瞄准、控距要求更高，节奏也与 boxing 差异很大</p>
 </li>
 <li><p>trade style</p>
@@ -1580,202 +1056,24 @@ friction = 0.0d
 <h3 id="部分圈内玩家打法分析（不代表最新）"><a href="#部分圈内玩家打法分析（不代表最新）" class="headerlink" title="部分圈内玩家打法分析（不代表最新）"></a>部分圈内玩家打法分析（不代表最新）</h3><p>原本是想把这个放到打法优化那个 part 写的，在这里单独列出来</p>
 <p>很久以后再补吧 QAQ - 25.10</p>
 <p>嗯很久很久以后再补吧 QAQ - 26.4.4</p>
-<h3 id="一些奇妙的东西"><a href="#一些奇妙的东西" class="headerlink" title="一些奇妙的东西"></a>一些奇妙的东西</h3><p><a target="_blank" rel="noopener" href="https://github.com/ghast/HitDelayFixMod/">HitDelayFixMod</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/prplz/MouseDelayFix">MouseDelayFix</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Weave-MC/Weave-Manager/releases">Weave Manager</a></p>
-<p><a target="_blank" rel="noopener" href="https://weave.op-ffa.net/">Weave Mod</a></p>
+<h3 id="一些奇妙的东西"><a href="#一些奇妙的东西" class="headerlink" title="一些奇妙的东西"></a>一些奇妙的东西</h3><p><a href="https://github.com/ghast/HitDelayFixMod/" target="_blank" rel="noopener">HitDelayFixMod</a></p>
+<p><a href="https://github.com/prplz/MouseDelayFix" target="_blank" rel="noopener">MouseDelayFix</a></p>
+<p><a href="https://github.com/Weave-MC/Weave-Manager/releases" target="_blank" rel="noopener">Weave Manager</a></p>
+<p><a href="https://weave.op-ffa.net/" target="_blank" rel="noopener">Weave Mod</a></p>
 <h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>25.10.6 -（主体）完结撒花🥰🥳🎉</p>
 <p>26.4.4 - 修正 &#x2F; 删除了部分理论，补充 &#x2F; 添加了一些不知道有没有用的内容，删掉了参考资料（因为根本没用上😗）</p>
 <p>26.4.7 - 一点小更新</p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            <a href="/tags/Minecraft/" data-color-key="Minecraft" data-color-prop="color">Minecraft</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/sumo/" data-color-key="sumo" data-color-prop="color">sumo</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/%E5%8D%9A%E5%BC%88/" data-color-key="博弈" data-color-prop="color">博弈</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-        <div class="page-current">
-    
-    <span class="current">1</span>
-    
-    <a class="page-num" href="/page/2">
-        2
-    </a>
-    
-    
-    <a class="page-num" href="/page/3">
-        3
-    </a>
-    
-    
-    <span class="page-omit">...</span>
-    <a class="page-num" href="/page/6">6</a>
-    
-    
-    <a class="page-num" href="/page/2/">
-        <i class="fa-solid fa-caret-right fa-fw"></i>
-    </a>
-    
-</div>
-
-    </div>
-    
-    <div id="home-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="/images/avatar.jpg" alt="avatar" />
-        </div>
-        <div class="name">Revethere</div>
-        <div class="description">
-            <p>挖坑专业户<br>填坑是以后的事</p>
-
-        </div>
-        
-        <div class="icon-links">
-            
-            <span class="icon-link">
-                <a href="mailto:neverland-revethere@outlook.com">
-                    <i
-                        class="fa-solid fa-envelope fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=103325164&site=qq&menu=yes">
-                    <i
-                        class="fa-brands fa-qq fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://github.com/Revethere">
-                    <i
-                        class="fa-brands fa-github fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://space.bilibili.com/3493089175931788">
-                    <i
-                        class="fa-brands fa-bilibili fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-        </div>
-        
-        
-        <div class="statistics">
-            <div class="stat-item">
-                <span class="stat-num">26</span>
-                <span class="stat-label">Posts</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-num">50.6k</span>
-                <span class="stat-label">Words</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">508</span>
-                <span class="stat-label">Days</span>
-            </div>
-        </div>
-        <script>
-            (function() {
-                var el = document.getElementById('stat-days');
+</div></div><div class="post-tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span><span class="tag"><a href="/tags/Minecraft/" data-color-key="Minecraft" data-color-prop="color">Minecraft</a></span><span class="tag"><a href="/tags/sumo/" data-color-key="sumo" data-color-prop="color">sumo</a></span><span class="tag"><a href="/tags/%E5%8D%9A%E5%BC%88/" data-color-key="博弈" data-color-prop="color">博弈</a></span></div><div class="more-center"><span class="more-text">MORE</span><span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span></div><div class="collapse-arrow" title="收起文章"><i class="fa-solid fa-chevron-up"></i></div></div><div class="page-current"><span class="current">1</span><a class="page-num" href="/page/2/">2</a><a class="page-num" href="/page/3/">3</a><span class="page-omit">...</span><a class="page-num" href="/page/6/">6</a><a class="page-num" href="/page/2/"><i class="fa-solid fa-caret-right fa-fw"></i></a></div></div><div id="home-card"><div id="card-style"><div id="card-div"><div class="avatar"><img src="/images/avatar.webp" alt="avatar"></div><div class="name">Revethere</div><div class="description"><p>挖坑专业户<br>填坑是以后的事</p>
+</div><div class="icon-links"><span class="icon-link"><a href="mailto:revethere@outlook.com"><i class="fa-solid fa-envelope fa-fw"></i></a></span><span class="icon-link"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=103325164&amp;site=qq&amp;menu=yes"><i class="fa-brands fa-qq fa-fw"></i></a></span><span class="icon-link"><a href="https://github.com/Revethere"><i class="fa-brands fa-github fa-fw"></i></a></span><span class="icon-link"><a href="https://space.bilibili.com/3493089175931788"><i class="fa-brands fa-bilibili fa-fw"></i></a></span></div><div class="statistics"><div class="stat-item"><span class="stat-num">26</span><span class="stat-label">Posts</span></div><div class="stat-item"><span class="stat-num">50.6k</span><span class="stat-label">Words</span></div><div class="stat-item"><span class="stat-num" id="stat-days" data-start-date="2025-06-01">510</span><span class="stat-label">Days</span></div></div><!-- The counter is baked in at build time; this corrects it to the
+             visitor's clock (and survives a long-lived cached page). --><script>
+            (function () {
+                var el = document.getElementById("stat-days");
                 if (!el) return;
-                var startDate = el.getAttribute('data-start-date');
+                var startDate = el.getAttribute("data-start-date");
                 if (!startDate) return;
-                var days = Math.floor((Date.now() - new Date(startDate + 'T00:00:00').getTime()) / 86400000);
+                var days = Math.floor(
+                    (Date.now() - new Date(startDate + "T00:00:00").getTime()) / 86400000
+                );
                 el.textContent = days;
             })();
-        </script>
-    </div>
-</div>
-
-    </div>
-    
-</div>
-
-            <footer id="footer">
-    <div id="footer-wrap">
-        <div>
-            &copy;
-            2024 - 2026 Revethere&#39;s Blog
-            <span id="footer-icon">
-                <i class="fa-solid fa-font-awesome fa-fw"></i>
-            </span>
-            &commat;Revethere
-        </div>
-        <div>
-            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
-            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
-        </div>
-        
-    </div>
-</footer>
-
-        </div>
-        
-        <transition name="fade">
-            <div id="preview" ref="preview" v-show="previewShow">
-                <img id="preview-content" ref="previewContent" />
-            </div>
-        </transition>
-        
-    </div>
-    <script>
-        window.__TAG_COLORS__ = {"palette":["#ffa2c4","#00bcd4","#03a9f4","#00a596","#ff7d73"],"scheme":"hash","salt":"","avoidAdjacentDuplicates":true};
-    </script>
-    <script src="/js/lib/colors.js"></script>
-    <script src="/js/main.js"></script>
-
-    <canvas
-        id="background"
-        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
-    ></canvas>
-    <script src="/js/background.min.js"></script>
-
-    <canvas
-        id="fireworks"
-        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
-    ></canvas>
-    <script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="/js/fireworks.min.js"></script>
-
-    
-</body>
-</html>
+        </script></div></div></div></div><footer id="footer"><div id="footer-wrap"><div>&copy; 2024 - 2026 Revethere&#39;s Blog <span id="footer-icon"><i class="fa-solid fa-font-awesome fa-fw"></i></span> &commat;Revethere</div><div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a></div></div></footer></div><div id="preview" style="display: none"><img id="preview-content"></div></div><script>window.__TAG_COLORS__ = {"palette":["#ffa2c4","#00bcd4","#03a9f4","#00a596","#ff7d73"],"scheme":"hash","salt":"","avoidAdjacentDuplicates":true};</script><script src="/js/lib/colors.js"></script><script src="/js/main.js"></script><canvas id="background" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"></canvas><script src="/js/background.min.js"></script><canvas id="fireworks" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"></canvas><script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script><script src="/js/fireworks.min.js"></script></body></html>

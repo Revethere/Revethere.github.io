@@ -1,285 +1,9 @@
-
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="utf-8" />
-    <title>Revethere&#39;s Blog</title>
-    <meta name="author" content="Revethere" />
-    <meta name="description" content="分享一些超级有用的芝士" />
-    <meta name="keywords" content="Revethere, Minecraft, INTP, KPOP, Code" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-    />
-    <link rel="icon" href="/images/avatar.jpg" />
-    <link rel="preconnect" href="https://s4.zstatic.net" />
-<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-<link rel="preconnect" href="https://fonts.googleapis.cn" />
-<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
-<link
-    rel="stylesheet"
-    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
-/>
-<script> const mixins = {}; </script>
-
-<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
-
-
-<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
-/>
-<script src="/js/lib/highlight.js"></script>
-
-
-<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
-<script src="/js/lib/math.js"></script>
-
-
-<script src="/js/lib/preview.js"></script>
-
-
-
-
-
-<script src="/js/lib/home.js"></script>
-
-
-
-<script src="/js/lib/reveal.js"></script>
-
-<link rel="stylesheet" href="/css/main.css" />
-
-<meta name="generator" content="Hexo 7.3.0"></head>
-<body>
-    <div id="layout">
-        <transition name="fade">
-            <div id="loading" v-show="loading">
-                <div id="loading-circle">
-                    
-                    <span class="ring-orbit" aria-hidden="true">
-                        <i style="--a: 24deg; --s: 7px"></i>
-                        <i style="--a: 148deg; --s: 6px"></i>
-                        <i style="--a: 262deg; --s: 8px"></i>
-                    </span>
-                    <span class="ring-orbit-alt" aria-hidden="true">
-                        <i style="--a: 78deg; --s: 6px"></i>
-                        <i style="--a: 208deg; --s: 7px"></i>
-                    </span>
-                    <h2 id="loading-word" aria-label="LOADING"><span aria-hidden="true" style="--i: 0">L</span><span aria-hidden="true" style="--i: 1">O</span><span aria-hidden="true" style="--i: 2">A</span><span aria-hidden="true" style="--i: 3">D</span><span aria-hidden="true" style="--i: 4">I</span><span aria-hidden="true" style="--i: 5">N</span><span aria-hidden="true" style="--i: 6">G</span></h2>
-                </div>
-            </div>
-        </transition>
-        
-<div
-    id="menu"
-    :class="{
-        'menu-color': menuColor,
-        'menu-cloud': menuCloud,
-        'menu-enter': !loading,
-    }"
->
-    <div id="menu-cloud-glow"></div>
-    <nav id="desktop-menu">
-        <div id="menu-indicator"></div>
-        <a class="title" href="/">
-            <span>REVETHERE&#39;S BLOG</span>
-        </a>
-        
-        
-        
-        <a href="/">
-            <span>Home</span>
-        </a>
-        
-        
-        
-        <a href="/about">
-            <span>About</span>
-        </a>
-        
-        
-        
-        <a href="/friends">
-            <span>Friends</span>
-        </a>
-        
-        
-        
-        <div class="menu-group">
-            <a class="menu-parent" href="/archives">
-                <span>Archives</span>
-            </a>
-            <div class="menu-sub">
-                
-                <div class="menu-sub-indicator"></div>
-                
-                <a href="/archives">Posts</a>
-                
-                <a href="/logs">Logs</a>
-                
-                <a href="/categories">Categories</a>
-                
-                <a href="/tags">Tags</a>
-                
-            </div>
-        </div>
-        
-        
-    </nav>
-    <nav id="mobile-menu">
-        <div class="title" @click="showMenuItems = !showMenuItems">
-            <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;REVETHERE&#39;S BLOG</span>
-        </div>
-        <transition name="slide">
-            <div class="items" v-show="showMenuItems">
-                
-                <a href="/">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-house fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
-                    </div>
-                </a>
-                
-                
-                
-                <a href="/about">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-id-card fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
-                    </div>
-                </a>
-                
-                
-                
-                <a href="/friends">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-user fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Friends</div>
-                    </div>
-                </a>
-                
-                
-                
-                <a href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-box-archive fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
-                    </div>
-                </a>
-                
-                
-                <a class="item-child" href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Posts</div>
-                    </div>
-                </a>
-                
-                <a class="item-child" href="/logs">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Logs</div>
-                    </div>
-                </a>
-                
-                <a class="item-child" href="/categories">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
-                    </div>
-                </a>
-                
-                <a class="item-child" href="/tags">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%"></div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
-                    </div>
-                </a>
-                
-                
-            </div>
-        </transition>
-    </nav>
-</div>
-<transition name="fade">
-    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
-</transition>
-
-        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="home-head">
-    <div
-        id="home-background"
-        ref="homeBackground"
-        data-images="/images/background_02.webp,/images/background_05.webp,/images/background_07.webp,/images/background_12.webp,/images/background_13.webp,/images/background_winter_00.webp,/images/background_winter_02.webp,/images/background_ahyeon_00.webp,/images/background_ahyeon_01.webp,/images/background_jiwoo_00.webp,/images/background_stella_00.webp,/images/background_stella_01.webp,/images/background_minnie_00.webp,/images/background_minnie_01.webp"
-    ></div>
-    <div id="home-info" @click="homeClick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>Revethere&#39;s Blog</h1>
-                <h3></h3>
-                <h5>分享一些超级有用的芝士</h5>
-            </div>
-        </span>
-    </div>
-</div>
-<div
-    id="home-posts-wrap"
-    ref="homePostsWrap"
-    true
->
-    <div id="home-posts">
-        
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/config@obs-blur-configure-sharing/">
-        <h2 class="post-title">录制 &amp; 渲染配置分享（OBS &amp; Blur）</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E9%85%8D%E7%BD%AE/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                配置
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/7/30
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <p>超级省流版：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/config%40obs-blur-configure-sharing/recordEncoder.json">编码器配置文件</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Revethere/Files/blob/master/BlogFiles/config%40obs-blur-configure-sharing/.blur-config.cfg">Blur 渲染配置文件</a></p>
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><title>Revethere&#39;s Blog</title><meta name="author" content="Revethere"><meta name="description" content="分享一些超级有用的芝士"><meta name="keywords" content="revethere, intp, minecraft, pvp, sumo, boxing, cube, code, c++, rust, OI, kpop, idle, aespa, newjeans, babymonster, hearts2hearts"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"><link rel="icon" href="/images/avatar.webp"><link rel="preconnect" href="https://s4.zstatic.net"><link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css"><link rel="preconnect" href="https://fonts.googleapis.cn"><link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"><!-- The theme's client runtime used to be a Vue app. The libs below still
+             register themselves into this registry; /js/main.js drives them. --><script>
+            const mixins = {};
+        </script><script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script><script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script><script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script><link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"><script src="/js/lib/highlight.js"></script><script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script><script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script><link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css"><script src="/js/lib/math.js"></script><script src="/js/lib/preview.js"></script><script src="/js/lib/home.js"></script><script src="/js/lib/reveal.js"></script><link rel="stylesheet" href="/css/main.css"></head><body><div id="layout"><div id="loading"><div id="loading-circle"><span class="ring-orbit" aria-hidden="true"><i style="--a: 24deg; --s: 7px"></i><i style="--a: 148deg; --s: 6px"></i><i style="--a: 262deg; --s: 8px"></i></span><span class="ring-orbit-alt" aria-hidden="true"><i style="--a: 78deg; --s: 6px"></i><i style="--a: 208deg; --s: 7px"></i></span><h2 id="loading-word" aria-label="LOADING"><span aria-hidden="true" style="--i: 0">L</span><span aria-hidden="true" style="--i: 1">O</span><span aria-hidden="true" style="--i: 2">A</span><span aria-hidden="true" style="--i: 3">D</span><span aria-hidden="true" style="--i: 4">I</span><span aria-hidden="true" style="--i: 5">N</span><span aria-hidden="true" style="--i: 6">G</span></h2></div></div><div id="menu"><div id="menu-cloud-glow"></div><nav id="desktop-menu"><div id="menu-indicator"></div><a class="title" href="/"><span>REVETHERE&#39;S BLOG</span></a><a href="/"><span>Home</span></a><a href="/about/"><span>About</span></a><a href="/friends/"><span>Friends</span></a><div class="menu-group"><a class="menu-parent" href="/archives/"><span>Archives</span></a><div class="menu-sub"><div class="menu-sub-indicator"></div><a href="/archives/">Posts</a><a href="/logs/">Logs</a><a href="/categories/">Categories</a><a href="/tags/">Tags</a></div></div></nav><nav id="mobile-menu"><div class="title"><i class="fa-solid fa-bars fa-fw"></i><span>&emsp;REVETHERE&#39;S BLOG</span></div><div class="items" style="display: none"><a href="/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"><i class="fa-solid fa-house fa-fw"></i></div><div style="min-width: 100px; max-width: 150%; width: 20%">Home</div></div></a><a href="/about/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"><i class="fa-solid fa-id-card fa-fw"></i></div><div style="min-width: 100px; max-width: 150%; width: 20%">About</div></div></a><a href="/friends/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"><i class="fa-solid fa-user fa-fw"></i></div><div style="min-width: 100px; max-width: 150%; width: 20%">Friends</div></div></a><a href="/archives/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"><i class="fa-solid fa-box-archive fa-fw"></i></div><div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div></div></a><a class="item-child" href="/archives/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"></div><div style="min-width: 100px; max-width: 150%; width: 20%">Posts</div></div></a><a class="item-child" href="/logs/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"></div><div style="min-width: 100px; max-width: 150%; width: 20%">Logs</div></div></a><a class="item-child" href="/categories/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"></div><div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div></div></a><a class="item-child" href="/tags/"><div class="item"><div style="min-width: 20px; max-width: 50px; width: 10%"></div><div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div></div></a></div></nav></div><div id="menu-curtain" style="display: none"></div><div id="main" class="into-enter-from"><div id="home-head"><div id="home-background" ref="homeBackground" data-images="/images/background_02.webp,/images/background_05.webp,/images/background_07.webp,/images/background_12.webp,/images/background_13.webp,/images/background_winter_00.webp,/images/background_winter_02.webp,/images/background_ahyeon_00.webp,/images/background_ahyeon_01.webp,/images/background_jiwoo_00.webp,/images/background_stella_00.webp,/images/background_stella_01.webp,/images/background_minnie_00.webp,/images/background_minnie_01.webp"></div><div id="home-info"><span class="loop"></span><span class="loop"></span><span class="loop"></span><span class="loop"></span><span class="info"><div class="wrap"><h1>Revethere&#39;s Blog</h1><h3></h3><h5>分享一些超级有用的芝士</h5></div></span></div></div><div id="home-posts-wrap" ref="homePostsWrap"><div id="home-posts"><div class="post" data-has-more="false" data-single="true"><a href="/posts/config@obs-blur-configure-sharing/"><h2 class="post-title">录制 &amp; 渲染配置分享（OBS &amp; Blur）</h2></a><div class="category-and-date"><span class="category"><a href="/categories/%E9%85%8D%E7%BD%AE/"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>配置</a></span><span class="date"><span class="icon"><i class="fa-solid fa-calendar fa-fw"></i></span>2025/7/30</span></div><div class="description"><div class="excerpt-content"><p>超级省流版：</p>
+<p><a href="https://github.com/Revethere/Files/blob/master/BlogFiles/config%40obs-blur-configure-sharing/recordEncoder.json" target="_blank" rel="noopener">编码器配置文件</a></p>
+<p><a href="https://github.com/Revethere/Files/blob/master/BlogFiles/config%40obs-blur-configure-sharing/.blur-config.cfg" target="_blank" rel="noopener">Blur 渲染配置文件</a></p>
 <h2 id="OBS-设置"><a href="#OBS-设置" class="headerlink" title="OBS 设置"></a>OBS 设置</h2><h3 id="常规设置"><a href="#常规设置" class="headerlink" title="常规设置"></a>常规设置</h3><h3 id=""><a href="#" class="headerlink" title=""></a><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40obs-blur-configure-sharing/conventional.png?raw=true"></h3><h3 id="录制设置"><a href="#录制设置" class="headerlink" title="录制设置"></a>录制设置</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40obs-blur-configure-sharing/record.png?raw=true"></p>
 <h3 id="编码器设置"><a href="#编码器设置" class="headerlink" title="编码器设置"></a>编码器设置</h3><p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40obs-blur-configure-sharing/encode.png?raw=true"></p>
 <h3 id="一些录制建议"><a href="#一些录制建议" class="headerlink" title="一些录制建议"></a>一些录制建议</h3><p>分辨率一般建议缩放为 1080p，略微提高分辨率后期做视频的容错更高，酌情选择</p>
@@ -292,74 +16,14 @@
 </li>
 </ul>
 <p>目标质量设为 16 为视觉无损，大部分情况也够用，更高的质量带来的视频观感的提升并不明显</p>
-<h2 id="Blur-设置"><a href="#Blur-设置" class="headerlink" title="Blur 设置"></a>Blur 设置</h2><p><a target="_blank" rel="noopener" href="https://github.com/f0e/blur/releases/latest">软件下载</a></p>
+<h2 id="Blur-设置"><a href="#Blur-设置" class="headerlink" title="Blur 设置"></a>Blur 设置</h2><p><a href="https://github.com/f0e/blur/releases/latest" target="_blank" rel="noopener">软件下载</a></p>
 <h3 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h3><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40obs-blur-configure-sharing/blur-config_0.png?raw=true"></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/config%40obs-blur-configure-sharing/blur-config_1.png?raw=true"></h3><h3 id="一些渲染建议-错误处理"><a href="#一些渲染建议-错误处理" class="headerlink" title="一些渲染建议 &amp; 错误处理"></a>一些渲染建议 &amp; 错误处理</h3><p>blur-weighting 建议选择 vegas（目前观感最好）</p>
 <p>插针倍数（interpolated fps）不建议超过 6x，建议使用 svp 而不是 rife 模式进行插针（否则您将会体验到非常慢的速度以及报错的视频）</p>
 <p>AI 补帧（pre-interpolation）视个人喜好而定，开启画面会有一种粘腻感。倍数越高，渲染速度越慢</p>
 <p>质量（quality）拉到 16 差不多就够了，似乎是因为软件没有进行多次编码导致输出文件过于庞大（如果您不在意内存消耗可以掠过）</p>
-<p>如果你遇到了与该 <a target="_blank" rel="noopener" href="https://github.com/f0e/blur/issues/226">issues</a> 相同的问题，尝试关闭 GPU 编码，如果还是不行，请重置渲染设置</p>
-<p>更多详见 <a target="_blank" rel="noopener" href="https://github.com/f0e/blur/blob/master/README.md">README</a></p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            <a href="/tags/OBS/" data-color-key="OBS" data-color-prop="color">OBS</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/Blur/" data-color-key="Blur" data-color-prop="color">Blur</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/code@cplusplus-fastio/">
-        <h2 class="post-title">奇淫巧技之最强 C++ 封装快读快写模板</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E7%AB%9E%E8%B5%9B/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                竞赛
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/7/26
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <p>源码见 <a target="_blank" rel="noopener" href="https://github.com/Revethere/Algorithm/blob/master/IO/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99%20-%20BetterIO/BetterIO.cpp">Github</a></p>
+<p>如果你遇到了与该 <a href="https://github.com/f0e/blur/issues/226" target="_blank" rel="noopener">issues</a> 相同的问题，尝试关闭 GPU 编码，如果还是不行，请重置渲染设置</p>
+<p>更多详见 <a href="https://github.com/f0e/blur/blob/master/README.md" target="_blank" rel="noopener">README</a></p>
+</div></div><div class="post-tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span><span class="tag"><a href="/tags/OBS/" data-color-key="OBS" data-color-prop="color">OBS</a></span><span class="tag"><a href="/tags/Blur/" data-color-key="Blur" data-color-prop="color">Blur</a></span></div><div class="more-center"><span class="more-text">MORE</span><span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span></div><div class="collapse-arrow" title="收起文章"><i class="fa-solid fa-chevron-up"></i></div></div><div class="post" data-has-more="false" data-single="true"><a href="/posts/code@cplusplus-fastio/"><h2 class="post-title">奇淫巧技之最强 C++ 封装快读快写模板</h2></a><div class="category-and-date"><span class="category"><a href="/categories/%E7%AB%9E%E8%B5%9B/"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>竞赛</a></span><span class="date"><span class="icon"><i class="fa-solid fa-calendar fa-fw"></i></span>2025/7/26</span></div><div class="description"><div class="excerpt-content"><p>源码见 <a href="https://github.com/Revethere/Algorithm/blob/master/IO/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99%20-%20BetterIO/BetterIO.cpp" target="_blank" rel="noopener">Github</a></p>
 <p>或直接在以下代码块中直接复制：</p>
 <pre><code class="cpp">#include &lt;iostream&gt;
 #include &lt;cstring&gt;
@@ -368,157 +32,157 @@
 #include &lt;new&gt;
 #include &lt;type_traits&gt;
 
-namespace BetterIO &#123;
-    namespace ExtraType &#123;
-        inline bool isDigit(const char &amp;ch) &#123;
+namespace BetterIO {
+    namespace ExtraType {
+        inline bool isDigit(const char &amp;ch) {
             return &#39;0&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;9&#39;;
-        &#125;
-        inline bool isLetter(const char &amp;ch) &#123;
+        }
+        inline bool isLetter(const char &amp;ch) {
             return &#39;A&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;Z&#39;
                 || &#39;a&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;z&#39;;
-        &#125;
-        inline bool isChar(const char &amp;ch) &#123;
+        }
+        inline bool isChar(const char &amp;ch) {
             return isDigit(ch) || isLetter(ch);
-        &#125;
-        inline bool isVaild(const char &amp;ch) &#123;
+        }
+        inline bool isVaild(const char &amp;ch) {
             return &#39;!&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;~&#39;;
-        &#125;
-    &#125;
+        }
+    }
     using std::string, std::is_same_v;
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 1 &lt;&lt; 16
 #endif
-    class betterInput &#123;
+    class betterInput {
         FILE *stream;
         char *buffer, *iter;
         int buffer_size, volume;
-        void input() &#123;
+        void input() {
             volume = fread(buffer, 1, buffer_size, stream);
             iter = buffer;
-        &#125;
-        inline void getChar(void) &#123;
+        }
+        inline void getChar(void) {
             if(iter - buffer == volume) input();
             else ++iter;
-        &#125;
+        }
     public:
-        betterInput(FILE *stream = stdin) &#123;
+        betterInput(FILE *stream = stdin) {
             this -&gt; stream = stream;
             buffer_size = BUFFER_SIZE;
             buffer = new char [buffer_size];
             iter = buffer;
             volume = 0;
-        &#125;
-        template &lt;typename _Tp&gt; betterInput&amp; operator &gt;&gt; (_Tp &amp;var) &#123;
+        }
+        template &lt;typename _Tp&gt; betterInput&amp; operator &gt;&gt; (_Tp &amp;var) {
             if constexpr(is_same_v&lt;_Tp, char&gt; || is_same_v&lt;_Tp, string&gt;) return inputCharType(var);
-            else &#123;
+            else {
                 static bool neg = false;
-                while(!ExtraType::isDigit(*iter)) &#123;
+                while(!ExtraType::isDigit(*iter)) {
                     neg ^= *iter == &#39;-&#39;;
                     getChar();
-                &#125;
+                }
                 var = 0;
                 if constexpr(is_same_v&lt;_Tp, float&gt; || is_same_v&lt;_Tp, double&gt;) return inputFloat(var, neg);
-                else &#123;
-                    while(ExtraType::isDigit(*iter)) &#123;
+                else {
+                    while(ExtraType::isDigit(*iter)) {
                         var = (var &lt;&lt; 1) + (var &lt;&lt; 3) + (*iter ^ &#39;0&#39;);
                         getChar();
-                    &#125;
+                    }
                     if(neg) var = ~var + 1;
-                &#125;
-            &#125;
+                }
+            }
             return *this;
-        &#125;
-        template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123;
+        }
+        template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) {
             while(!ExtraType::isVaild(*iter)) getChar();
             if constexpr(is_same_v&lt;_Tp, char&gt;) var = *iter, getChar();
-            else &#123;
+            else {
                 var.clear();
-                while(ExtraType::isVaild(*iter)) &#123;
+                while(ExtraType::isVaild(*iter)) {
                     var.push_back(*iter);
                     getChar();
-                &#125;
-            &#125;
+                }
+            }
             return *this;
-        &#125;
-        template &lt;typename _Tp&gt; betterInput&amp; inputFloat(_Tp &amp;var, const bool &amp;neg) &#123;
-            while(ExtraType::isDigit(*iter)) &#123;
+        }
+        template &lt;typename _Tp&gt; betterInput&amp; inputFloat(_Tp &amp;var, const bool &amp;neg) {
+            while(ExtraType::isDigit(*iter)) {
                 var = var * 10 + (*iter ^ &#39;0&#39;);
                 getChar();
-            &#125;
-            if(*iter == &#39;.&#39;) &#123;
+            }
+            if(*iter == &#39;.&#39;) {
                 getChar(); 
                 _Tp dec = 0.1;
-                while(ExtraType::isDigit(*iter)) &#123;
+                while(ExtraType::isDigit(*iter)) {
                     var += dec * (*iter ^ &#39;0&#39;);
                     dec /= 10;
                     getChar();
-                &#125;
-            &#125; else getChar();
+                }
+            } else getChar();
             if(neg) var = -var;
             return *this;
-        &#125;
-        ~betterInput() &#123; delete[] buffer; &#125;
-    &#125;;
-    class betterOutput &#123;
+        }
+        ~betterInput() { delete[] buffer; }
+    };
+    class betterOutput {
         FILE *stream;
         char *buffer;
         int buffer_size, volume;
-        inline void putChar(const char &amp;ch) &#123;
+        inline void putChar(const char &amp;ch) {
             if(buffer_size == volume) flush();
             buffer[volume++] = ch;
-        &#125;
+        }
     public:
-        betterOutput(FILE *stream = stdout) &#123;
+        betterOutput(FILE *stream = stdout) {
             this -&gt; stream = stream;
             buffer_size = BUFFER_SIZE;
             buffer = new char [buffer_size];
             volume = 0;
-        &#125;
-        void flush(void) &#123;
+        }
+        void flush(void) {
             fwrite(buffer, 1, volume, stream);
             volume = 0;
-        &#125;
-        template &lt;typename _Tp&gt; betterOutput&amp; operator &lt;&lt; (_Tp var) &#123;
+        }
+        template &lt;typename _Tp&gt; betterOutput&amp; operator &lt;&lt; (_Tp var) {
             if(var &lt; 0) putChar(&#39;-&#39;), var = -var;
             if constexpr(is_same_v&lt;_Tp, float&gt; || is_same_v&lt;_Tp, double&gt;) return outputFloat(var);
-            else &#123;
+            else {
                 static char digit[25];
                 static short cur = 0;
                 do digit[cur++] = static_cast&lt;char&gt; (var % 10 + &#39;0&#39;); while(var /= 10);
                 while(cur) putChar(digit[--cur]);
-            &#125;
+            }
             return *this;
-        &#125;
-        betterOutput&amp; operator &lt;&lt; (const char &amp;var) &#123;
+        }
+        betterOutput&amp; operator &lt;&lt; (const char &amp;var) {
             putChar(var);
             return *this;
-        &#125;
-        betterOutput&amp; operator &lt;&lt; (const char *var) &#123;
+        }
+        betterOutput&amp; operator &lt;&lt; (const char *var) {
             while(*var) putChar(*var++);
             return *this;
-        &#125;
-        betterOutput&amp; operator &lt;&lt; (const string &amp;var) &#123;
+        }
+        betterOutput&amp; operator &lt;&lt; (const string &amp;var) {
             for(auto cur: var) putChar(cur);
             return *this;
-        &#125;
-        template &lt;typename _Tp&gt; betterOutput&amp; outputFloat(_Tp &amp;var) &#123;
+        }
+        template &lt;typename _Tp&gt; betterOutput&amp; outputFloat(_Tp &amp;var) {
             const string str_var = std::to_string(var);
             for(auto cur: str_var) putChar(cur);
             return *this;
-        &#125;
-        ~betterOutput() &#123; flush(); delete[] buffer; &#125;
-    &#125;;
+        }
+        ~betterOutput() { flush(); delete[] buffer; }
+    };
 #undef BUFFER_SIZE
-&#125;
+}
 
-signed main() &#123;
+signed main() {
 
     return 0;
-&#125;
+}
 </code></pre>
 <h2 id="模板简介"><a href="#模板简介" class="headerlink" title="模板简介"></a>模板简介</h2><p>为了更好地食用模板，<strong>请务必仔细阅读以下内容</strong></p>
 <ul>
-<li><p>完整版代码长度4.7k，不考虑写成头文件（毕竟竞赛没有多文件）。或者也可以选择 <a target="_blank" rel="noopener" href="https://github.com/Revethere/Algorithm/blob/master/IO/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99%20-%20BetterIO/BetterIO%20-%20Lite.cpp">Lite 版</a> 模板</p>
+<li><p>完整版代码长度4.7k，不考虑写成头文件（毕竟竞赛没有多文件）。或者也可以选择 <a href="https://github.com/Revethere/Algorithm/blob/master/IO/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99%20-%20BetterIO/BetterIO%20-%20Lite.cpp" target="_blank" rel="noopener">Lite 版</a> 模板</p>
 </li>
 <li><p>使用 <code>fread/fwrite</code> 函数实现。默认缓冲区大小为 $2^{16}$，也可以通过更改模板中 <code>BUFFER_SIZE</code> 的值来更改缓冲区大小（不建议超过 $2^{23}$）</p>
 </li>
@@ -542,7 +206,7 @@ signed main() &#123;
 <li><p>对于 <code>char</code> 与 <code>std::string</code> 类型的输入，默认有效字符的范围为 ACSII 码表中的 33 至 126</p>
 <p>您可以通过更改以上输入类型的判定条件输入特定字符范围的数据</p>
 <pre><code class="cpp">...
-template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123;
+template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) {
     while(!ExtraType::isVaild(*iter)) getChar(); // 更改 ExtraType::isVaild 函数以输入特定字符范围数据
         if constexpr(is_same_v&lt;_Tp, char&gt;) var = *iter, getChar();
 ...
@@ -557,71 +221,7 @@ template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123
 </li>
 </ul>
 <h2 id="性能比较"><a href="#性能比较" class="headerlink" title="性能比较"></a>性能比较</h2><p>待补 —— 25.7.26</p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            <a href="/tags/C/" data-color-key="C++" data-color-prop="color">C++</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" data-color-key="快读快写" data-color-prop="color">快读快写</a>
-        </span>
-        
-        <span class="tag">
-            <a href="/tags/%E6%A8%A1%E6%9D%BF/" data-color-key="模板" data-color-prop="color">模板</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/probsol-oi@test-23-8-23/">
-        <h2 class="post-title">做题记录 Test 8.23</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                做题记录
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/8/24
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <h2 id="题面很短-Short"><a href="#题面很短-Short" class="headerlink" title="题面很短 Short"></a>题面很短 Short</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>对于串 $s$ , 每次操作得到 $s^\prime &#x3D; s + \operatorname{rev}(s)$ , $\operatorname{rev}(s)$ 表示 $s$ 的反串 .</p>
+</div></div><div class="post-tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span><span class="tag"><a href="/tags/C/" data-color-key="C++" data-color-prop="color">C++</a></span><span class="tag"><a href="/tags/%E5%BF%AB%E8%AF%BB%E5%BF%AB%E5%86%99/" data-color-key="快读快写" data-color-prop="color">快读快写</a></span><span class="tag"><a href="/tags/%E6%A8%A1%E6%9D%BF/" data-color-key="模板" data-color-prop="color">模板</a></span></div><div class="more-center"><span class="more-text">MORE</span><span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span></div><div class="collapse-arrow" title="收起文章"><i class="fa-solid fa-chevron-up"></i></div></div><div class="post" data-has-more="false" data-single="true"><a href="/posts/probsol-oi@test-23-8-23/"><h2 class="post-title">做题记录 Test 8.23</h2></a><div class="category-and-date"><span class="category"><a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>做题记录</a></span><span class="date"><span class="icon"><i class="fa-solid fa-calendar fa-fw"></i></span>2023/8/24</span></div><div class="description"><div class="excerpt-content"><h2 id="题面很短-Short"><a href="#题面很短-Short" class="headerlink" title="题面很短 Short"></a>题面很短 Short</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>对于串 $s$ , 每次操作得到 $s^\prime &#x3D; s + \operatorname{rev}(s)$ , $\operatorname{rev}(s)$ 表示 $s$ 的反串 .</p>
 <p>给定串 $t$ , 求最小的 $s$ .</p>
 <h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>签到题 .</p>
 <p>二分加上暴力判断 , 复杂度 $O(T n \log n)$ .</p>
@@ -634,316 +234,28 @@ template &lt;typename _Tp&gt; betterInput&amp; inputCharType(_Tp &amp;var) &#123
 <h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>把集合中每个数减去 $x$ , 则集合的和为 0 是原集合平均数为 $x$ 的充要条件 .</p>
 <p>只需要求出 $f_{i , j}$ 表示用 $[1 , i]$ 中的数凑出 $j$ 的方案数 . $f_{i , j} &#x3D; \sum\limits_{0 \le x \le k} f_{i - 1 , }$ , 维护每个模 $i$ 的同余类的前缀和 .</p>
 <p>复杂度 $O(n^3 k)$ .</p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            <a href="/tags/OI/" data-color-key="OI" data-color-prop="color">OI</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/probsol-oi@test-23-8-22/">
-        <h2 class="post-title">做题记录 Test 8.22</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                做题记录
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/8/23
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <h2 id="压轴题-Hard"><a href="#压轴题-Hard" class="headerlink" title="压轴题 Hard"></a>压轴题 Hard</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>求所有长度为 $p$ 的非负整数序列 $f$ ( 下标从 0 开始 ) . $\forall x \in [0 , p - 1]$ : $f_{k x \mod p} &#x3D; k f_x \mod p$ 的方案总数 .</p>
+</div></div><div class="post-tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span><span class="tag"><a href="/tags/OI/" data-color-key="OI" data-color-prop="color">OI</a></span></div><div class="more-center"><span class="more-text">MORE</span><span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span></div><div class="collapse-arrow" title="收起文章"><i class="fa-solid fa-chevron-up"></i></div></div><div class="post" data-has-more="false" data-single="true"><a href="/posts/probsol-oi@test-23-8-22/"><h2 class="post-title">做题记录 Test 8.22</h2></a><div class="category-and-date"><span class="category"><a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>做题记录</a></span><span class="date"><span class="icon"><i class="fa-solid fa-calendar fa-fw"></i></span>2023/8/23</span></div><div class="description"><div class="excerpt-content"><h2 id="压轴题-Hard"><a href="#压轴题-Hard" class="headerlink" title="压轴题 Hard"></a>压轴题 Hard</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>求所有长度为 $p$ 的非负整数序列 $f$ ( 下标从 0 开始 ) . $\forall x \in [0 , p - 1]$ : $f_{k x \mod p} &#x3D; k f_x \mod p$ 的方案总数 .</p>
 <h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>$k &#x3D; 0$ 或 $k &#x3D; 1$ 时特判 .</p>
 <p>费马小定理得到该等式构成若干个环 , $f_0$ 始终为 0 . 暴力找环即可 .</p>
 <p>复杂度 $O(p)$ .</p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            <a href="/tags/OI/" data-color-key="OI" data-color-prop="color">OI</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-<div class="post" data-has-more="true" data-single="true">
-    <a href="/posts/probsol-oi@test-23-8-19/">
-        <h2 class="post-title">做题记录 Test 8.19</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                做题记录
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/8/20
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="excerpt-content" v-pre>
-            
-            <h2 id="数学-Math"><a href="#数学-Math" class="headerlink" title="数学 Math"></a>数学 Math</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>求一对正整数 $(x , y)$ 满足 : $x y + 1 | x^2 + y^2$ , $1 \le x \le y \le n$ .</p>
+</div></div><div class="post-tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span><span class="tag"><a href="/tags/OI/" data-color-key="OI" data-color-prop="color">OI</a></span></div><div class="more-center"><span class="more-text">MORE</span><span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span></div><div class="collapse-arrow" title="收起文章"><i class="fa-solid fa-chevron-up"></i></div></div><div class="post" data-has-more="false" data-single="true"><a href="/posts/probsol-oi@test-23-8-19/"><h2 class="post-title">做题记录 Test 8.19</h2></a><div class="category-and-date"><span class="category"><a href="/categories/%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><span class="icon"><i class="fa-solid fa-bookmark fa-fw"></i></span>做题记录</a></span><span class="date"><span class="icon"><i class="fa-solid fa-calendar fa-fw"></i></span>2023/8/20</span></div><div class="description"><div class="excerpt-content"><h2 id="数学-Math"><a href="#数学-Math" class="headerlink" title="数学 Math"></a>数学 Math</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>求一对正整数 $(x , y)$ 满足 : $x y + 1 | x^2 + y^2$ , $1 \le x \le y \le n$ .</p>
 <h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>通过 Veta Jump ( 韦达跳跃 ) 可以发现 : $x^2 + y^2 &#x3D; k(x y + 1)$ , 其中 $x &lt; y$ . 则 $(y , k y - x)$ 也是一组解 , 从初解 $(x , x^3)$ 开始生成 , 总合法解数量为 $O(n^{\frac{1}{3}} \log n)$ . 不过不会 ╮(╯▽╰)╭ .</p>
 <p>假设 $x$ 为主元 :</p>
 <p>$$x^2 - k x y + y^2 - k &#x3D; 0$$</p>
 <p>易得 :</p>
 <p>$$x_1 + x_2 &#x3D; k y$$</p>
 <p>当 $x_2 &#x3D; kx - x$ 时是另一组解 , 同理可得另一组解 $kx - y$ .</p>
-
-            
-        </div>
-        
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            <a href="/tags/OI/" data-color-key="OI" data-color-prop="color">OI</a>
-        </span>
-        
-    </div>
-    
-    <div class="more-center" @click="toggleExpand">
-        <span class="more-text">MORE</span>
-        <span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span>
-    </div>
-    <div class="collapse-arrow" @click="toggleExpand" title="收起文章">
-        <i class="fa-solid fa-chevron-up"></i>
-    </div>
-    
-</div>
-
-
-        <div class="page-current">
-    
-    <a class="page-num" href="/">
-        <i class="fa-solid fa-caret-left fa-fw"></i>
-    </a>
-    <a class="page-num" href="/">1</a>
-    <span class="page-omit">...</span>
-    
-    <span class="current">2</span>
-    
-    <a class="page-num" href="/page/3">
-        3
-    </a>
-    
-    
-    <a class="page-num" href="/page/4">
-        4
-    </a>
-    
-    
-    <span class="page-omit">...</span>
-    <a class="page-num" href="/page/6">6</a>
-    
-    
-    <a class="page-num" href="/page/3/">
-        <i class="fa-solid fa-caret-right fa-fw"></i>
-    </a>
-    
-</div>
-
-    </div>
-    
-    <div id="home-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="/images/avatar.jpg" alt="avatar" />
-        </div>
-        <div class="name">Revethere</div>
-        <div class="description">
-            <p>挖坑专业户<br>填坑是以后的事</p>
-
-        </div>
-        
-        <div class="icon-links">
-            
-            <span class="icon-link">
-                <a href="mailto:neverland-revethere@outlook.com">
-                    <i
-                        class="fa-solid fa-envelope fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=103325164&site=qq&menu=yes">
-                    <i
-                        class="fa-brands fa-qq fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://github.com/Revethere">
-                    <i
-                        class="fa-brands fa-github fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://space.bilibili.com/3493089175931788">
-                    <i
-                        class="fa-brands fa-bilibili fa-fw"
-                    ></i>
-                </a>
-            </span>
-            
-        </div>
-        
-        
-        <div class="statistics">
-            <div class="stat-item">
-                <span class="stat-num">26</span>
-                <span class="stat-label">Posts</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-num">50.6k</span>
-                <span class="stat-label">Words</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-num" id="stat-days" data-start-date="2025-06-01">508</span>
-                <span class="stat-label">Days</span>
-            </div>
-        </div>
-        <script>
-            (function() {
-                var el = document.getElementById('stat-days');
+</div></div><div class="post-tags"><span class="icon"><i class="fa-solid fa-tags fa-fw"></i></span><span class="tag"><a href="/tags/OI/" data-color-key="OI" data-color-prop="color">OI</a></span></div><div class="more-center"><span class="more-text">MORE</span><span class="more-icon"><i class="fa-solid fa-chevron-down"></i></span></div><div class="collapse-arrow" title="收起文章"><i class="fa-solid fa-chevron-up"></i></div></div><div class="page-current"><a class="page-num" href="/"><i class="fa-solid fa-caret-left fa-fw"></i></a><a class="page-num" href="/">1</a><span class="page-omit">...</span><span class="current">2</span><a class="page-num" href="/page/3/">3</a><a class="page-num" href="/page/4/">4</a><span class="page-omit">...</span><a class="page-num" href="/page/6/">6</a><a class="page-num" href="/page/3/"><i class="fa-solid fa-caret-right fa-fw"></i></a></div></div><div id="home-card"><div id="card-style"><div id="card-div"><div class="avatar"><img src="/images/avatar.webp" alt="avatar"></div><div class="name">Revethere</div><div class="description"><p>挖坑专业户<br>填坑是以后的事</p>
+</div><div class="icon-links"><span class="icon-link"><a href="mailto:revethere@outlook.com"><i class="fa-solid fa-envelope fa-fw"></i></a></span><span class="icon-link"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=103325164&amp;site=qq&amp;menu=yes"><i class="fa-brands fa-qq fa-fw"></i></a></span><span class="icon-link"><a href="https://github.com/Revethere"><i class="fa-brands fa-github fa-fw"></i></a></span><span class="icon-link"><a href="https://space.bilibili.com/3493089175931788"><i class="fa-brands fa-bilibili fa-fw"></i></a></span></div><div class="statistics"><div class="stat-item"><span class="stat-num">26</span><span class="stat-label">Posts</span></div><div class="stat-item"><span class="stat-num">50.6k</span><span class="stat-label">Words</span></div><div class="stat-item"><span class="stat-num" id="stat-days" data-start-date="2025-06-01">510</span><span class="stat-label">Days</span></div></div><!-- The counter is baked in at build time; this corrects it to the
+             visitor's clock (and survives a long-lived cached page). --><script>
+            (function () {
+                var el = document.getElementById("stat-days");
                 if (!el) return;
-                var startDate = el.getAttribute('data-start-date');
+                var startDate = el.getAttribute("data-start-date");
                 if (!startDate) return;
-                var days = Math.floor((Date.now() - new Date(startDate + 'T00:00:00').getTime()) / 86400000);
+                var days = Math.floor(
+                    (Date.now() - new Date(startDate + "T00:00:00").getTime()) / 86400000
+                );
                 el.textContent = days;
             })();
-        </script>
-    </div>
-</div>
-
-    </div>
-    
-</div>
-
-            <footer id="footer">
-    <div id="footer-wrap">
-        <div>
-            &copy;
-            2024 - 2026 Revethere&#39;s Blog
-            <span id="footer-icon">
-                <i class="fa-solid fa-font-awesome fa-fw"></i>
-            </span>
-            &commat;Revethere
-        </div>
-        <div>
-            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
-            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
-        </div>
-        
-    </div>
-</footer>
-
-        </div>
-        
-        <transition name="fade">
-            <div id="preview" ref="preview" v-show="previewShow">
-                <img id="preview-content" ref="previewContent" />
-            </div>
-        </transition>
-        
-    </div>
-    <script>
-        window.__TAG_COLORS__ = {"palette":["#ffa2c4","#00bcd4","#03a9f4","#00a596","#ff7d73"],"scheme":"hash","salt":"","avoidAdjacentDuplicates":true};
-    </script>
-    <script src="/js/lib/colors.js"></script>
-    <script src="/js/main.js"></script>
-
-    <canvas
-        id="background"
-        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
-    ></canvas>
-    <script src="/js/background.min.js"></script>
-
-    <canvas
-        id="fireworks"
-        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
-    ></canvas>
-    <script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="/js/fireworks.min.js"></script>
-
-    
-</body>
-</html>
+        </script></div></div></div></div><footer id="footer"><div id="footer-wrap"><div>&copy; 2024 - 2026 Revethere&#39;s Blog <span id="footer-icon"><i class="fa-solid fa-font-awesome fa-fw"></i></span> &commat;Revethere</div><div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a></div></div></footer></div><div id="preview" style="display: none"><img id="preview-content"></div></div><script>window.__TAG_COLORS__ = {"palette":["#ffa2c4","#00bcd4","#03a9f4","#00a596","#ff7d73"],"scheme":"hash","salt":"","avoidAdjacentDuplicates":true};</script><script src="/js/lib/colors.js"></script><script src="/js/main.js"></script><canvas id="background" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"></canvas><script src="/js/background.min.js"></script><canvas id="fireworks" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"></canvas><script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script><script src="/js/fireworks.min.js"></script></body></html>
