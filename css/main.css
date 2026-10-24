@@ -168,6 +168,212 @@
     margin: 3px 0;
     line-height: 1.7;
 }
+/* ── moments ──────────────────────────────────────────────────────────────
+   A WeChat-style stream, in the logs page's clothes: hairline-separated entries
+   and no card shell. The time sits at the bottom of each entry with an optional
+   location beside it, and a single masthead carries the avatar so the rows
+   themselves stay quiet.
+
+   The gallery shape comes from how many images sit between two paragraphs (see
+   lib/moments.js): one image keeps its own ratio, two read 2-up, three 3-up,
+   four as a 2×2 block, five or more fill rows of three. Everything except the
+   single image is cropped square, the way WeChat crops its grid. */
+#moments {
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+}
+#moments .moments-stream {
+    margin: auto;
+    max-width: 750px;
+}
+#moments .moments-head {
+    align-items: center;
+    display: flex;
+    gap: 16px;
+    padding: 0 0 26px;
+}
+#moments .moments-avatar {
+    border-radius: 50%;
+    flex-shrink: 0;
+    height: 54px;
+    object-fit: cover;
+    width: 54px;
+}
+#moments .moments-name {
+    color: #1e3e3f;
+    font-size: 16px;
+    font-weight: 700;
+}
+#moments .moments-note {
+    color: #8a979b;
+    font-size: 12px;
+    margin-top: 3px;
+}
+#moments .moment {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 24px 0;
+}
+#moments .moment:first-of-type {
+    border-top: 1px solid #e0e0e0;
+}
+#moments .moment-body {
+    display: flex;
+    gap: 14px;
+}
+/* Only rendered when theme.moments.entryAvatar is on. */
+#moments .moment-avatar {
+    border-radius: 50%;
+    flex-shrink: 0;
+    height: 40px;
+    object-fit: cover;
+    width: 40px;
+}
+#moments .moment-content {
+    flex: 1;
+    min-width: 0;
+}
+#moments .moment-content p {
+    font-size: 15px;
+    line-height: 1.78;
+    margin: 0 0 10px;
+}
+#moments .moment-content p:last-child,
+#moments .moment-content ul:last-child,
+#moments .moment-content ol:last-child {
+    margin-bottom: 0;
+}
+#moments .moment-content ul,
+#moments .moment-content ol {
+    margin: 0 0 10px;
+    padding-left: 18px;
+}
+#moments .moment-content li {
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 3px 0;
+}
+#moments .moment-images {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+    /* The image box and the text box share a left edge, but a rounded corner
+       reads as if it bulges outward, so the gallery is inset by a hair to line
+       up with the first glyph instead of the em box. */
+    margin: 0 0 10px 4px;
+    max-width: 540px;
+}
+#moments .moment-images img {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    cursor: zoom-in;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+/* One image is the only case WeChat does not crop. */
+#moments .moment-images.is-single {
+    display: block;
+    max-width: 62%;
+}
+#moments .moment-images.is-single img {
+    aspect-ratio: auto;
+    border-radius: 10px;
+    height: auto;
+    max-height: 420px;
+    max-width: 100%;
+    object-fit: contain;
+    width: auto;
+}
+#moments .moment-meta {
+    /* Baseline, not the default stretch: the place is an inline-block, and a
+       stretched flex item centres its text, which dropped "上海 · 徐汇" 2px below
+       the time. Baselines line the two up whatever the icon's metrics are. */
+    align-items: baseline;
+    color: #8a979b;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 12px;
+    gap: 4px 14px;
+    margin-top: 12px;
+}
+#moments .moment-place {
+    display: inline-block;
+    white-space: nowrap;
+}
+#moments .moment-place i {
+    font-size: 11px;
+    margin-right: 5px;
+}
+/* A shared link: cover, title, one line of counts. Kept small on purpose — it is
+   a footnote to the note above it, not a player; the whole row links out. */
+#moments .moment-media {
+    align-items: center;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    color: inherit;
+    display: flex;
+    gap: 12px;
+    margin: 0 0 10px 4px;
+    max-width: 380px;
+    padding: 8px;
+    text-decoration: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+#moments .moment-media:hover {
+    border-color: #e2d7ea;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), 0 10px 26px rgba(146, 116, 176, 0.12);
+}
+#moments .moment-media-cover {
+    border-radius: 8px;
+    flex-shrink: 0;
+    height: 64px;
+    object-fit: cover;
+    width: 64px;
+}
+/* An uncached link keeps the row's shape with a quiet icon instead of a photo. */
+#moments .moment-media-cover.is-empty {
+    align-items: center;
+    background: #f4f2f6;
+    color: #b9bcc4;
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+}
+#moments .moment-media-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+#moments .moment-media-title {
+    display: -webkit-box;
+    font-size: 14px;
+    line-height: 1.45;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+#moments .moment-media-meta {
+    color: #8a979b;
+    font-size: 11.5px;
+}
+/* At desktop width the stream sits dead centre and reads left-heavy against the
+   empty right half, so the column starts a little right of centre. The masthead
+   keeps a smaller offset of its own: the avatar is what the eye lands on first,
+   so it stays put while the text column moves. */
+@media (min-width: 901px) {
+    #moments .moments-stream {
+        /* Relative offset, not padding: the stream keeps its 750px column and
+           simply leans right, so the text does not get narrower. */
+        left: 24px;
+        position: relative;
+    }
+    #moments .moments-head {
+        left: -18px;
+        position: relative;
+    }
+}
 #friends {
     margin: auto;
     margin-top: 100px;
@@ -2873,6 +3079,38 @@ ol li {
     }
     #logs .log-tagline {
         font-size: 11px;
+    }
+    #moments .moments-head {
+        gap: 12px;
+        padding-bottom: 20px;
+    }
+    #moments .moments-avatar {
+        height: 46px;
+        width: 46px;
+    }
+    #moments .moment {
+        padding: 20px 0;
+    }
+    #moments .moment-content p,
+    #moments .moment-content li {
+        font-size: 14px;
+    }
+    #moments .moment-images {
+        gap: 4px;
+        max-width: 100%;
+    }
+    #moments .moment-images.is-single {
+        max-width: 80%;
+    }
+    #moments .moment-media {
+        max-width: none;
+    }
+    #moments .moment-media-cover {
+        height: 56px;
+        width: 56px;
+    }
+    #moments .moment-media-title {
+        font-size: 13px;
     }
     #menu #desktop-menu,
     #home-card {

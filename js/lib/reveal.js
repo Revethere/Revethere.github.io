@@ -61,6 +61,7 @@ const REVEAL_GROUPS = [
     { selector: "#archives", rise: 24, base: 170, stagger: 0, ms: 700 },
     { selector: "#friends", rise: 24, base: 170, stagger: 0, ms: 700 },
     { selector: "#logs", rise: 24, base: 170, stagger: 0, ms: 700 },
+    { selector: "#moments", rise: 24, base: 170, stagger: 0, ms: 700 },
     { selector: "#footer", rise: 24, base: 170, stagger: 0, ms: 700 },
 ];
 
