@@ -225,17 +225,25 @@ mixins.home = {
         },
         // Sets the wallpaper and tints the page to match it.
         //
-        // The fetch is started before the stylesheet is handed the same URL, so
-        // the two share one request and the tint lands with the wallpaper rather
-        // than a beat after it — otherwise the bottom of the hero settles twice,
-        // the second time when the colour it dissolves into changes underneath.
+        // One request feeds both consumers. The tint is sampled from the
+        // picture's own pixels, which are only readable when the response is a
+        // CORS one, and the stylesheet is then pointed at those same bytes —
+        // an object URL — instead of being handed the remote URL and fetching
+        // the wallpaper a second time. That matters twice over: it halves the
+        // bytes the visitor downloads, and a plain request for a URL that was
+        // cached as a CORS response (or the reverse) is refused outright, so
+        // two requests for one picture were also the thing standing between the
+        // page and a working tint.
         //
         // Only the bottom slice of the wallpaper matters: that is the part the
         // fade dissolves into the page, so it is the part the background has to
         // agree with.
-        showWallpaper(element, url) {
-            const image = new Image();
-            image.onload = () => {
+        async showWallpaper(element, url) {
+            try {
+                const response = await fetch(url, { mode: "cors" });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const blob = await response.blob();
+                const picture = await createImageBitmap(blob);
                 try {
                     const size = 32;
                     const canvas = document.createElement("canvas");
@@ -243,11 +251,11 @@ mixins.home = {
                     canvas.height = size;
                     const ctx = canvas.getContext("2d");
                     ctx.drawImage(
-                        image,
+                        picture,
                         0,
-                        image.height * TINT_SAMPLE_FROM,
-                        image.width,
-                        image.height * (1 - TINT_SAMPLE_FROM),
+                        picture.height * TINT_SAMPLE_FROM,
+                        picture.width,
+                        picture.height * (1 - TINT_SAMPLE_FROM),
                         0,
                         0,
                         size,
@@ -265,7 +273,7 @@ mixins.home = {
                     document.body.style.setProperty("--tint-deep", tint.deep);
                     // The rings again, off the whole picture this time.
                     ctx.clearRect(0, 0, size, size);
-                    ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, size, size);
+                    ctx.drawImage(picture, 0, 0, picture.width, picture.height, 0, 0, size, size);
                     const whole = hueOfPixels(
                         ctx.getImageData(0, 0, size, size).data
                     );
@@ -289,15 +297,18 @@ mixins.home = {
                             `${Math.round(ringSat * 100)}%`
                         );
                     });
-                } catch (e) {
-                    // A wallpaper served from another origin taints the canvas;
-                    // the default page background simply stays.
+                } finally {
+                    picture.close?.();
                 }
-            };
-            image.src = url;
-            // Set synchronously, as before this method existed, so the stylesheet
-            // request is still part of the load event.
-            element.style.backgroundImage = `url('${url}')`;
+                // Kept alive for the page's lifetime: the stylesheet decodes it
+                // lazily, so revoking it here would blank the wallpaper.
+                element.style.backgroundImage = `url('${URL.createObjectURL(blob)}')`;
+            } catch (e) {
+                // A bucket that does not allow this origin, or a network blip,
+                // must not cost the visitor the picture itself: let the
+                // stylesheet fetch it directly and keep the default background.
+                element.style.backgroundImage = `url('${url}')`;
+            }
         },
         initPostClamp() {
             this.$nextTick(() => {

@@ -90,6 +90,24 @@
     font-weight: 600;
     letter-spacing: 0.08em;
 }
+/* `outdated: true` in a post's front matter keeps it out of the home, tag and
+   category listings; the archive is the one list it still shows in, so this
+   badge is how it announces itself there. Deliberately grey and small: the post
+   is still readable and searchable, the badge is a caution, not a warning. */
+#archives .timeline .outdated-badge {
+    background: #eceff0;
+    border-radius: 999px;
+    color: #8a979b;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.6;
+    margin-left: 10px;
+    padding: 1px 9px;
+    text-transform: uppercase;
+    vertical-align: 1px;
+}
 #logs {
     margin: auto;
     margin-top: 100px;
