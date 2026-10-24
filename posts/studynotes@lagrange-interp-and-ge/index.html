@@ -43,7 +43,7 @@
 <p>令：</p>
 <p>$$\ell_0(x) &#x3D; \frac{x - x_1}{x_0 - x_1}, \ell_1(x) &#x3D; \frac{x - x_0}{x_1 - x_0}$$</p>
 <p>设点 $(x_0, y_0) &#x3D; (1, 1), (x_1, y_1) &#x3D; (2, 2)$，并将 $y &#x3D; y_0\ell_0(x)$ 与 $y &#x3D; y_1\ell_1(x)$ 表示在图像上：</p>
-<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/studynotes%40lagrange-interp-and-ge/l-linear-func.png?raw=true"></p>
+<p><img src="https://cdn.revethere.me/Blog/studynotes%40lagrange-interp-and-ge/l-linear-func.png"></p>
 <p>它们显然满足：</p>
 <p>$$\ell_0(x_0) &#x3D; 1, \ell_0(x_1) &#x3D; 0$$</p>
 <p>$$\ell_1(x_0) &#x3D; 0, \ell_1(x_1) &#x3D; 1$$</p>
@@ -92,7 +92,7 @@
 <p>这部分的推导相当常规，所以决定增加一点本人对于此概念的碎碎念😗</p>
 </blockquote>
 <p>刚开始看到这个概念时以为是解决高次项插值的的，就是把下图的插值函数 $L_{10}(x)$ 重新拟合到更接近原函数 $f(x) &#x3D; \frac{1}{1 + (\frac{x}{2})^2}$ 的算法。</p>
-<p><img src="https://github.com/Revethere/Img/blob/master/Img/Blog/studynotes@lagrange-interp-and-ge/runge.png?raw=true"></p>
+<p><img src="https://cdn.revethere.me/Blog/studynotes@lagrange-interp-and-ge/runge.png"></p>
 <p>注意到 $L_{10}(x)$ 在 $x &#x3D; 9$ 与 $x &#x3D; -9$ 附近上下剧烈震荡，与原函数 $f(x)$ 相差甚大，这就是典型的「龙格现象」。。<del>噢你问这个图怎么跟上面不一样因为上面那个是拿 Desmos 画的这个是 Matplotlib，Python 画图还是太优雅了 awa</del></p>
 <p>回到正题。不难看出，在上述插值的做法下对于每一次查询都是 $O(n^2)$ 的，多次查询的时间显然是爆炸。每插入一个值，整个多项式都需要重新构造，因此传统的拉格朗日插值在特定情境下并不优雅。重心拉格朗日插值则提供了一种在 $O(n)$ 内求值与更新多项式的方法。</p>
 <p>将 $\ell_i(x)$ 拆开：</p>
