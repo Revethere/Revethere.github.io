@@ -61,7 +61,10 @@ const REVEAL_GROUPS = [
     { selector: "#archives", rise: 24, base: 170, stagger: 0, ms: 700 },
     { selector: "#friends", rise: 24, base: 170, stagger: 0, ms: 700 },
     { selector: "#logs", rise: 24, base: 170, stagger: 0, ms: 700 },
-    { selector: "#moments", rise: 24, base: 170, stagger: 0, ms: 700 },
+    // The stream, not the whole section: a transform on the section becomes the
+    // containing block of the fixed month index inside it, so the index would ride
+    // the 24px entrance and then snap back when the transform cleared.
+    { selector: "#moments .moments-stream", rise: 24, base: 170, stagger: 0, ms: 700 },
     { selector: "#footer", rise: 24, base: 170, stagger: 0, ms: 700 },
 ];
 

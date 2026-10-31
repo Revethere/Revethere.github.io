@@ -377,7 +377,8 @@ let app;
 
 const target = Object.assign({}, data);
 
-// computed: `search` (read the query, lowercased, whitespace stripped).
+// Computed blocks run as live getters on the app; the archive's search, filter
+// and sort state is local to js/lib/search.js, so there is none here any more.
 Object.keys(computedDefs).forEach((name) => {
     Object.defineProperty(target, name, {
         enumerable: true,
@@ -488,13 +489,6 @@ function wireTemplate() {
     if (curtain) {
         curtain.addEventListener("click", () => {
             app.showMenuItems = !app.showMenuItems;
-        });
-    }
-
-    const searchBar = document.getElementById("search-bar");
-    if (searchBar) {
-        searchBar.addEventListener("input", (event) => {
-            app.rawSearch = event.target.value;
         });
     }
 }

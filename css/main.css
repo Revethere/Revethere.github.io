@@ -3,75 +3,239 @@
     margin-top: 100px;
     padding: 20px;
 }
-#archives .categories-tags {
-    margin: auto;
-    margin-bottom: 50px;
-    max-width: 900px;
-    text-align: center;
-    width: 100%;
-}
-#archives .categories-tags span {
-    display: inline-block;
-    margin: 10px;
-}
-#archives .categories-tags span .icon {
-    color: inherit;
-    margin-left: 0;
-    margin-right: 8px;
-    opacity: 0.75;
-}
-/* A wash of the tag's own hue, not a fill: the palette's five hues are saturated
-   enough that a solid chip turns the page into a colour chart, and at this size
-   the fill was doing more shouting than the names in it.
-   The pill is the hue kept pale, with white poured into its middle — a radial
-   overlay that is opaque at the centre and gone by the rim — so the colour reads
-   as belonging to the chip's edge rather than as a background behind the word.
-   The overlay is its own layer so hover can animate the base colour: a gradient
-   in `background` cannot be interpolated, and the fill would have snapped.
-   The type keeps the hue but pulled toward the ink, because the palette's
-   lighter hues measure under 2:1 on white.
-   colors.js publishes the colour as --tag-c (`data-color-prop="var"` in the
-   markup) and everything here is derived from it, so one hue drives fill, rim
-   and ink and no rule has to know which of the five it got. */
-#archives .categories-tags span a {
-    background: color-mix(in srgb, var(--tag-c) 24%, #fff);
-    border: 1px solid color-mix(in srgb, var(--tag-c) 38%, transparent);
+/* The archive controls: one search pill with the filter icon inside it, a panel
+   that opens under the pill, and a one-line status under both. The pill owns the
+   field's look so the icon reads as part of the field instead of as a second
+   control splitting the row in half. */
+.archive-search {
+    align-items: center;
+    background: #f6f8fa;
+    border: 1px solid rgba(30, 62, 63, 0.1);
     border-radius: 999px;
-    color: color-mix(in srgb, var(--tag-c) 62%, #1e3e3f);
-    font-weight: 600;
-    isolation: isolate;
-    overflow: hidden;
-    padding: 9px 16px 9px 13px;
-    position: relative;
-    transition: background 0.25s, border-color 0.25s, color 0.25s, box-shadow 0.25s;
+    box-sizing: border-box;
+    box-shadow: 0 10px 26px -24px rgba(30, 62, 63, 0.5);
+    display: flex;
+    /* The list below starts at the rail's 30px column: the search pill and the
+       panel above it line up with the cards, not with the rail. */
+    margin: 0 0 14px 30px;
+    padding: 0 9px 0 4px;
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+    width: calc(100% - 30px);
+    z-index: 1000;
 }
-#archives .categories-tags span a::before {
-    background: radial-gradient(140% 170% at 50% 50%, #fff 0%, rgba(255, 255, 255, 0.78) 45%, rgba(255, 255, 255, 0) 100%);
-    content: "";
-    inset: 0;
-    pointer-events: none;
+.archive-search:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+/* The focus glow is the bar's own gradient purple, matching the field it used to
+   sit on: one soft halo around the whole pill, icon included. */
+.archive-search:focus-within {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border-color: rgba(204, 164, 227, 0.6);
+    box-shadow: 0 4px 28px rgba(204, 164, 227, 0.32),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+/* The input stops painting its own field: the pill around it does that now. The
+   selector has to out-rank the #search-bar rule further down, which still sets
+   the field's margins for the page's first-load fade. */
+#archives .archive-search #search-bar {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    flex: 1;
+    height: 48px;
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+    text-indent: 20px;
+    width: auto;
+}
+#archives .archive-search #search-bar:hover,
+#archives .archive-search #search-bar:focus {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    outline: none;
+}
+/* The icon is the panel's door, drawn as a quiet glyph inside the pill. The dot
+   on its corner counts the active filters, so a closed panel never hides a
+   narrowing the reader forgot about. */
+.filter-toggle {
+    align-items: center;
+    background: none;
+    border: 0;
+    border-radius: 999px;
+    color: #a7b3b6;
+    cursor: pointer;
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 14px;
+    height: 34px;
+    justify-content: center;
+    transition: background 0.25s, color 0.25s;
+    width: 34px;
+}
+.filter-toggle:hover,
+.filter-toggle[aria-expanded="true"] {
+    background: rgba(204, 164, 227, 0.16);
+    color: #6b4c86;
+}
+.filter-toggle.has-filters {
+    color: #6b4c86;
+}
+.filter-count {
+    background: #b98fd8;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 14px;
+    padding: 2px 3px;
     position: absolute;
-    z-index: -1;
+    right: 2px;
+    text-align: center;
+    top: 1px;
 }
-/* Hover: the wash deepens by one step, not two. It used to jump to 36% of the hue
-   with the ink pulled to 48%, which on the two pink hues landed as a solid rose
-   block under the pointer — the pill went from a tint to a fill and read heavier
-   than the tag you were actually on. Now the rim does most of the work (38 → 46)
-   and the fill only lifts a little (24 → 30), so the pill answers the pointer
-   without darkening. */
-#archives .categories-tags span a:hover {
-    background: color-mix(in srgb, var(--tag-c) 36%, #fff);
-    border-color: color-mix(in srgb, var(--tag-c) 58%, transparent);
-    box-shadow: 0 4px 14px -8px color-mix(in srgb, var(--tag-c) 70%, transparent);
-    color: color-mix(in srgb, var(--tag-c) 48%, #1e3e3f);
+.filter-count[hidden] {
+    display: none;
 }
-/* The tag being looked at: the same wash, held deeper, with the hue let one step
-   further into the type. No ring — the whole chip is already one. */
-#archives .categories-tags span a.is-active {
-    background: color-mix(in srgb, var(--tag-c) 44%, #fff);
-    border-color: color-mix(in srgb, var(--tag-c) 62%, transparent);
-    color: color-mix(in srgb, var(--tag-c) 44%, #1e3e3f);
+/* The panel opened by the icon. A two-column grid, so every group label sits in
+   the same column (sized by the longest word) and every rail starts on the same
+   left edge — a flex label with a fixed width did not line up once "CATEGORIES"
+   outgrew "SORT". It takes a background and paints above the list: collapsing a
+   row with a negative margin can pull it above the list's top edge, and without
+   a solid panel under the pointer a fast click could land on that row instead of
+   on the option being pressed. */
+.archive-panel {
+    background: var(--page-bg);
+    border-radius: 18px;
+    box-sizing: border-box;
+    column-gap: 18px;
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    margin: 0 0 14px 30px;
+    overflow: hidden;
+    padding: 10px 14px 12px;
+    position: relative;
+    row-gap: 10px;
+    width: calc(100% - 30px);
+    z-index: 3;
 }
+.archive-panel[hidden] {
+    display: none;
+}
+.group-label {
+    color: #8aa0a4;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 37px;
+    text-align: right;
+    text-transform: uppercase;
+}
+/* Options use the sort buttons' look: one rounded rail, the active one tinted.
+   The tag rail wraps, so the group grows downwards instead of pushing the label
+   around. */
+.option-rail {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(30, 62, 63, 0.1);
+    border-radius: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    justify-self: start;
+    max-width: 100%;
+    padding: 3px;
+}
+.archive-option,
+.sort-button,
+.direction-button {
+    background: none;
+    border: 0;
+    border-radius: 13px;
+    color: #8aa0a4;
+    cursor: pointer;
+    font-family: Lexend, "Noto Sans SC", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 6px 12px;
+    transition: background 0.25s, color 0.25s;
+}
+.archive-option:hover,
+.sort-button:hover,
+.direction-button:hover {
+    color: #1e3e3f;
+}
+.archive-option.is-active,
+.sort-button.is-active {
+    background: color-mix(in srgb, #cca4e3 22%, #fff);
+    color: #6b4c86;
+}
+/* The direction reads as part of the sentence the sort buttons start: "Time ·
+   Newest first", so one button says both what it orders by and which way. */
+.archive-sort-rail {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-self: stretch;
+}
+.direction-button {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(30, 62, 63, 0.1);
+    border-radius: 999px;
+    padding: 6px 14px;
+}
+.direction-button:hover {
+    border-color: color-mix(in srgb, #cca4e3 45%, transparent);
+    color: #6b4c86;
+}
+/* The one action in the panel: clears the search box and every selected tag and
+   category. It rides at the far end of the Sort row, so it reads as a footnote
+   to the panel instead of a fourth filter group, and stays disabled until
+   something is actually selected. */
+.reset-button {
+    background: none;
+    border: 0;
+    border-radius: 13px;
+    color: #8aa0a4;
+    cursor: pointer;
+    font-family: Lexend, "Noto Sans SC", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    margin-left: auto;
+    padding: 6px 12px;
+    text-transform: uppercase;
+    transition: background 0.25s, color 0.25s;
+}
+.reset-button:hover:not(:disabled) {
+    background: rgba(204, 164, 227, 0.14);
+    color: #6b4c86;
+}
+.reset-button:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+/* Sits above the same negative-margin rows as the panel, for the same reason. */
+.archive-status {
+    background: var(--page-bg);
+    color: #8aa0a4;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    margin: 0 0 18px 30px;
+    position: relative;
+    text-align: center;
+    width: calc(100% - 30px);
+    z-index: 2;
+}
+
 #archives .category,
 #archives .tags .tag,
 .article .info .category,
@@ -183,8 +347,11 @@
     margin-top: 100px;
     padding: 20px;
 }
-#moments .moments-stream {
+#moments .moments-column {
     margin: auto;
+    max-width: 750px;
+}
+#moments .moments-stream {
     max-width: 750px;
 }
 #moments .moments-head {
@@ -261,7 +428,10 @@
        reads as if it bulges outward, so the gallery is inset by a hair to line
        up with the first glyph instead of the em box. */
     margin: 0 0 10px 4px;
-    max-width: 540px;
+    /* Tiles are sized, not the row: a 2-up grid would otherwise stretch each
+       image to 264px and dwarf the 3-up ones. The component sets --tile to a hair
+       over the 3-up width, so every grid reads as the same scale. */
+    max-width: calc(var(--cols, 3) * var(--tile, 176px) + (var(--cols, 3) - 1) * 6px);
 }
 #moments .moment-images img {
     aspect-ratio: 1;
@@ -271,16 +441,18 @@
     object-fit: cover;
     width: 100%;
 }
-/* One image is the only case WeChat does not crop. */
+/* One image is the only case WeChat does not crop. Sized between the tiled grid
+   and the old hero-like 62%: big enough to actually look at, small enough that a
+   lone photo still reads as one note among the others. */
 #moments .moment-images.is-single {
     display: block;
-    max-width: 62%;
+    max-width: 45%;
 }
 #moments .moment-images.is-single img {
     aspect-ratio: auto;
     border-radius: 10px;
     height: auto;
-    max-height: 420px;
+    max-height: 300px;
     max-width: 100%;
     object-fit: contain;
     width: auto;
@@ -305,11 +477,69 @@
     font-size: 11px;
     margin-right: 5px;
 }
+/* The sentinel at the end of the stream, where the next batch gets spliced in.
+   It is a 1px line — invisible at rest — and only grows into a status line while
+   a batch is loading or after one failed. */
+#moments .moments-feed {
+    height: 1px;
+    overflow: hidden;
+}
+#moments .moments-feed.is-loading,
+#moments .moments-feed.is-failed {
+    height: auto;
+    overflow: visible;
+    padding: 26px 0 6px;
+    text-align: center;
+}
+#moments .moments-feed-status {
+    color: #8a979b;
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+}
+#moments .moments-feed.is-failed .moments-feed-status {
+    cursor: pointer;
+    text-decoration: underline dotted;
+    text-underline-offset: 4px;
+}
+/* A photo that pops in after the page has arrived reads as a flash, so the page
+   script hides photos until their bytes are in and fades them in — `has-fade` is
+   only ever added by that script, so a browser without JS renders the plain
+   images. The `.is-entering` / `.is-entered` pair does the same for a batch of
+   older entries, which is inserted only once all of its photos are loaded. */
+#moments.has-fade img {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+#moments.has-fade img.is-shown {
+    opacity: 1;
+}
+#moments .moment.is-entering {
+    opacity: 0;
+    transform: translateY(10px);
+}
+#moments .moment.is-entered {
+    opacity: 1;
+    transform: none;
+    transition:
+        opacity 0.42s ease,
+        transform 0.42s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+    #moments.has-fade img,
+    #moments .moment.is-entering {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
 /* A shared link: cover, title, one line of counts. Kept small on purpose — it is
    a footnote to the note above it, not a player; the whole row links out. */
 #moments .moment-media {
     align-items: center;
-    border: 1px solid #ececec;
+    /* Original flat card, but the edge is the theme's lavender instead of a grey
+       that disappeared into the page tint. */
+    border: 1px solid #d5c0ea;
     border-radius: 12px;
     color: inherit;
     display: flex;
@@ -321,8 +551,8 @@
     transition: border-color 0.25s, box-shadow 0.25s;
 }
 #moments .moment-media:hover {
-    border-color: #e2d7ea;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), 0 10px 26px rgba(146, 116, 176, 0.12);
+    border-color: #bfa2dd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 0 10px 26px rgba(146, 116, 176, 0.16);
 }
 #moments .moment-media-cover {
     border-radius: 8px;
@@ -359,19 +589,118 @@
     font-size: 11.5px;
 }
 /* At desktop width the stream sits dead centre and reads left-heavy against the
-   empty right half, so the column starts a little right of centre. The masthead
-   keeps a smaller offset of its own: the avatar is what the eye lands on first,
-   so it stays put while the text column moves. */
+   empty right half, so the column starts right of centre. The masthead keeps the
+   same relative position, which means the avatar travels with it: one lean for
+   the whole page, not a text block sliding out from under its own header. */
 @media (min-width: 901px) {
-    #moments .moments-stream {
-        /* Relative offset, not padding: the stream keeps its 750px column and
+    #moments .moments-column {
+        /* Relative offset, not padding: the column keeps its 750px width and
            simply leans right, so the text does not get narrower. */
-        left: 24px;
+        left: 52px;
         position: relative;
     }
     #moments .moments-head {
         left: -18px;
         position: relative;
+    }
+}
+/* A month index beside the timeline. It is pinned rather than dropped into the
+   column because the stream is 750px wide no matter the window: the entries stay
+   put, and the index sits a step to their right instead of drifting to the edge
+   of the screen. 50% + 449px is the stream's right edge plus the gap; 125px puts
+   the 44px button on the masthead avatar's centre line at the top of the page. */
+#moments .moments-calendar {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    left: calc(50% + 449px);
+    position: fixed;
+    top: 125px;
+    z-index: 30;
+}
+#moments .moments-calendar-toggle {
+    align-items: center;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    background: rgba(255, 255, 255, 0.62);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 6px 20px rgba(0, 0, 0, 0.07);
+    color: #4a5a5c;
+    cursor: pointer;
+    display: flex;
+    height: 44px;
+    justify-content: center;
+    transition: color 0.2s, box-shadow 0.3s, transform 0.3s;
+    width: 44px;
+}
+#moments .moments-calendar-toggle:hover {
+    color: #1e3e3f;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 6px 20px rgba(0, 0, 0, 0.07),
+        0 14px 34px rgba(146, 116, 176, 0.14);
+    transform: translate(-1px, -1px);
+}
+#moments .moments-calendar.is-open .moments-calendar-toggle {
+    color: #1e3e3f;
+}
+#moments .moments-calendar-panel {
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    background: rgba(255, 255, 255, 0.62);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 10px 30px rgba(0, 0, 0, 0.06);
+    /* Collapsed by height so the list unrolls downwards rather than popping. */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 14px;
+    transition: max-height 0.34s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease,
+        padding 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 104px;
+}
+#moments .moments-calendar.is-open .moments-calendar-panel {
+    max-height: 62vh;
+    opacity: 1;
+    overflow-y: auto;
+    padding: 12px 14px;
+}
+#moments .moments-calendar-year + .moments-calendar-year {
+    margin-top: 10px;
+}
+#moments .moments-calendar-year-label {
+    color: #1e3e3f;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 2px 2px 4px;
+}
+#moments .moments-calendar-month {
+    border-radius: 8px;
+    color: #5d6b6d;
+    display: block;
+    font-size: 13px;
+    padding: 5px 6px;
+    transition: background 0.2s, color 0.2s;
+}
+#moments .moments-calendar-month:hover {
+    background: rgba(146, 116, 176, 0.1);
+    color: #1e3e3f;
+}
+/* Below this the index would sit in the last 40px of the window, so it folds into
+   the column instead of hugging the edge of the screen. */
+@media (max-width: 1260px) {
+    #moments .moments-calendar {
+        left: auto;
+        margin: 0 0 6px 4px;
+        position: static;
+    }
+    #moments .moments-calendar-panel {
+        width: 100%;
+    }
+    #moments .moments-calendar.is-open .moments-calendar-panel {
+        max-height: 48vh;
     }
 }
 #friends {
@@ -1055,6 +1384,25 @@
 #home-posts .post-title {
     color: #85bac0;
     text-align: center;
+}
+/* A post's optional `subtitle: …` on the home card — the same line the article
+   page shows under its h1, and deliberately spaced the same way: a tight 8px
+   to the title (it belongs to the title block) and 14px on to the meta row.
+   It lives inside the title link, so hovering or clicking the subtitle follows
+   the post like the title does. The ink is the title teal (#85bac0) a touch
+   deeper, so the line reads as an echo of the title rather than a new colour. */
+#home-posts .post .post-subtitle {
+    color: #8ebfc5;
+    font-size: 20px;
+    line-height: 1.5;
+    margin: -7px auto 0;
+    max-width: 34em;
+    text-align: center;
+}
+/* The subtitle now sits inside .post-title-link, so the meta row can no longer
+   be its adjacent sibling; key the gap off the link instead. */
+#home-posts .post .post-title-link + .category-and-date {
+    margin-top: 14px;
 }
 #home-posts .post:hover {
     box-shadow:
@@ -1875,11 +2223,6 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
     display: flex;
     flex-direction: column-reverse;
 }
-/* The same wrapper on the tag / category pages, where the posts are already in
-   the order they are meant to be read and must not be reversed. */
-#timeline-wrap.is-static {
-    flex-direction: column;
-}
 * {
     margin: 0;
     padding: 0;
@@ -1926,6 +2269,20 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
 .article .info > :last-child,
 .article .info .tags > :last-child {
     margin-right: 0;
+}
+/* A post's optional `subtitle: …` — one line between the centered title and the
+   meta row. It belongs to the title block rather than to the body, so it sits
+   8px under the h1 and 14px above the date/category row — the same two gaps the
+   home card uses, so a post reads the same on both pages. Ink is halfway
+   between the h1 (#1e3e3f) and the meta grey (#5c6b72); size between 30px and
+   15px. */
+.article .article-subtitle {
+    color: #3d5559;
+    font-size: 20px;
+    line-height: 1.5;
+    margin: -7px auto 14px;
+    max-width: 34em;
+    text-align: center;
 }
 /* Article TOC sidebar: sticky glass column pinned to the right of the article.
    Built by js/lib/toc.js; hidden until the article has any headings. */
@@ -2462,7 +2819,7 @@ body::-webkit-scrollbar-track {
 .page-num:hover,
 .icon-link a:hover,
 .friend-link a:hover,
-.categories-tags a:hover,
+.archive-option:hover,
 .more-center:hover {
     opacity: 1;
 }
@@ -2499,8 +2856,10 @@ body::-webkit-scrollbar-track {
     top: 11px;
     width: 1px;
 }
-#timeline-wrap:not(.is-static) > .timeline:first-child::before,
-#timeline-wrap.is-static > .timeline:last-child::before {
+/* The visually-last row would otherwise trail a stub into empty space. The
+   archives wrapper is column-reverse, so the DOM's first row is the one at the
+   bottom, and the rail is drawn by each row down into the next. */
+#timeline-wrap > .timeline:first-child::before {
     background: none;
 }
 .timeline-content {
@@ -2675,7 +3034,7 @@ img,
 video,
 #home-head,
 #menu,
-.categories-tags a,
+.archive-option,
 .code-toggle,
 .copycode,
 .friend-link a,
@@ -3100,7 +3459,7 @@ ol li {
         max-width: 100%;
     }
     #moments .moment-images.is-single {
-        max-width: 80%;
+        max-width: 55%;
     }
     #moments .moment-media {
         max-width: none;
@@ -3122,5 +3481,28 @@ ol li {
     ul,
     ol {
         padding-left: 20px;
+    }
+}
+/* The archive controls on narrow screens: the panel drops to one column, so the
+   group labels sit above their rails instead of beside them. */
+@media (max-width: 720px) {
+    #archives .archive-search #search-bar {
+        text-indent: 16px;
+    }
+    .archive-panel {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 8px 10px 10px;
+        row-gap: 4px;
+    }
+    .group-label {
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        line-height: 1.4;
+        padding-top: 8px;
+        text-align: left;
+    }
+    .option-rail,
+    .archive-sort-rail {
+        justify-self: stretch;
     }
 }
