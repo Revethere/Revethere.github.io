@@ -1188,8 +1188,8 @@
        nothing left to show through — so the card keeps the page's own colour in
        its rim instead of a rim of its own invention, and the shadows stay
        neutral. */
-    background: #fff;
-    border: 1px solid var(--page-bg);
+    background: var(--art-home-bg, #fff);
+    border: 1px solid var(--art-home-border, var(--page-bg));
     border-radius: 20px;
     box-shadow:
         0 1px 2px rgba(0, 0, 0, 0.03),
@@ -1199,7 +1199,7 @@
     transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
 }
 #home-posts .post .category-and-date {
-    color: #5c6b72;
+    color: var(--art-home-meta-color, #5c6b72);
     margin-top: 15px;
     text-align: center;
     width: 100%;
@@ -1208,11 +1208,19 @@
     display: inline-block;
     margin-right: 25px;
 }
-#home-posts .post .category-and-date .category a,
+/* The post's article theme (data-article-theme on the card) sets the card's
+   meta ink; without one the blog's own grey applies. The article page's meta
+   row is the same story — both selectors used to sit in the shared #archives
+   group below, which does not belong to an article theme. */
+#home-posts .post .category-and-date .category a {
+    color: var(--art-home-meta-color, #5c6b72);
+}
+#home-posts .post .category-and-date .icon {
+    color: var(--art-home-meta-color, #5c6b72);
+}
 #archives a,
 #archives .tag-icon,
-#archives .item-time,
-.article .info a {
+#archives .item-time {
     color: #5c6b72;
 }
 #home-posts .post .category-and-date .date,
@@ -1313,6 +1321,10 @@
        interpolate as the post opens and closes. */
     --excerpt-fade: linear-gradient(to bottom, #000 calc(100% - 72px), rgba(0, 0, 0, 0) 100%);
     --excerpt-fade-open: linear-gradient(to bottom, #000 100%, rgba(0, 0, 0, 0) 100%);
+    /* The article theme's home-card body ink and size. The defaults are the
+       blog's own body text (14px #1e3e3f, inherited from body before). */
+    color: var(--art-home-text-color, #1e3e3f);
+    font-size: var(--art-home-text-size, 14px);
     overflow: hidden;
     position: relative;
 }
@@ -1382,7 +1394,8 @@
     opacity: 1;
 }
 #home-posts .post-title {
-    color: #85bac0;
+    color: var(--art-home-title-color, #85bac0);
+    font-size: var(--art-home-title-size, 27px);
     text-align: center;
 }
 /* A post's optional `subtitle: …` on the home card — the same line the article
@@ -1392,8 +1405,8 @@
    the post like the title does. The ink is the title teal (#85bac0) a touch
    deeper, so the line reads as an echo of the title rather than a new colour. */
 #home-posts .post .post-subtitle {
-    color: #8ebfc5;
-    font-size: 20px;
+    color: var(--art-home-subtitle-color, #8ebfc5);
+    font-size: var(--art-home-subtitle-size, 20px);
     line-height: 1.5;
     margin: -7px auto 0;
     max-width: 34em;
@@ -1425,9 +1438,29 @@
 #footer #footer-wrap {
     box-sizing: border-box;
 }
+/* The sheet that hides the page while it loads. It is a zero-sized circle
+   centred in the viewport with a 100vmax shadow, so its footprint is the whole
+   screen — and growing the circle opens a hole in the middle, which is what lets
+   the loader leave as a widening window rather than a fade. */
+#loading::before {
+    border-radius: 50%;
+    box-shadow: 0 0 0 100vmax #fff;
+    /* A hard circle would read as a wipe; this gives the window a soft rim so
+       the edge looks like light rather than a mask. */
+    filter: blur(18px);
+    content: "";
+    height: 0;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+}
 #loading {
     align-items: center;
-    background: #fff;
+    /* The sheet is #loading::before: a zero-sized circle whose shadow covers
+       the screen, so the loader can open from its centre on the way out. */
+    background: none;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -2232,16 +2265,21 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
     word-wrap: break-word;
 }
 .article {
-    background: rgba(255, 255, 255, 0.8);
+    /* Every value here can be overridden by the post's article theme
+       (theme.articleThemes in site.config.js, selected with `theme:` in the
+       front matter). The fallbacks are the blog's own look, so `default` and
+       an unthemed post render exactly as before. */
+    background: var(--art-article-bg, rgba(255, 255, 255, 0.8));
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--art-article-border, rgba(255, 255, 255, 0.5));
     box-shadow:
         0 1px 2px rgba(0, 0, 0, 0.03),
         0 3px 10px rgba(0, 0, 0, 0.05),
         0 12px 40px rgba(0, 0, 0, 0.07);
-    font-size: 15px;
+    color: var(--art-article-text-color, #1e3e3f);
+    font-size: var(--art-article-text-size, 15px);
     margin: auto;
     margin-top: 100px;
     padding: 40px;
@@ -2252,6 +2290,12 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
    title block moves. */
 .article-title {
     text-align: center;
+}
+/* An article theme can restyle the title's size and ink. Addressed through the
+   title block, so a body h1 (`$ markdown`) is not a title. */
+.article .article-title h1 {
+    color: var(--art-article-title-color, #1e3e3f);
+    font-size: var(--art-article-title-size, 30px);
 }
 /* The date / category / tag line under it goes with the title, so it is centered
    too — a centered title over a left-aligned meta line reads as a mistake. This
@@ -2277,8 +2321,8 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
    between the h1 (#1e3e3f) and the meta grey (#5c6b72); size between 30px and
    15px. */
 .article .article-subtitle {
-    color: #3d5559;
-    font-size: 20px;
+    color: var(--art-article-subtitle-color, #3d5559);
+    font-size: var(--art-article-subtitle-size, 20px);
     line-height: 1.5;
     margin: -7px auto 14px;
     max-width: 34em;
@@ -2303,10 +2347,10 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
     }
 }
 .article-side {
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--art-toc-bg, rgba(255, 255, 255, 0.6));
     backdrop-filter: blur(14px) saturate(160%);
     -webkit-backdrop-filter: blur(14px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.65);
+    border: 1px solid var(--art-toc-border, rgba(255, 255, 255, 0.65));
     border-radius: 14px;
     box-shadow:
         0 2px 18px rgba(146, 116, 176, 0.12),
@@ -2323,8 +2367,8 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
 }
 /* Sentence case, unspaced: the panel's own label, not a section marker. */
 .article-side-title {
-    color: #85bac0;
-    font-size: 13px;
+    color: var(--art-toc-title-color, #85bac0);
+    font-size: var(--art-toc-title-size, 13px);
     font-weight: 700;
 }
 .article-side-toc {
@@ -2347,28 +2391,28 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
     background: transparent !important;
 }
 .article-side-toc::-webkit-scrollbar-thumb {
-    background: rgba(133, 186, 192, 0.5) !important; /* softer teal */
+    background: var(--art-toc-scrollbar, rgba(133, 186, 192, 0.5)) !important; /* softer teal */
     /* kill the theme's global thumb `border: 3px solid #f7f0fb` — at a 4px bar
        that pink border covers the whole thumb and hides the teal background */
     border: 0 !important;
     border-radius: 2px !important;
 }
 .article-side-toc::-webkit-scrollbar-thumb:hover {
-    background: rgba(133, 186, 192, 0.7) !important; /* slightly deeper on hover */
+    background: var(--art-toc-scrollbar-hover, rgba(133, 186, 192, 0.7)) !important; /* slightly deeper on hover */
 }
 /* Firefox (ignores ::-webkit-scrollbar): thin + teal */
 @supports (-moz-appearance: none) {
     .article-side-toc {
-        scrollbar-color: rgba(133, 186, 192, 0.5) transparent !important;
+        scrollbar-color: var(--art-toc-scrollbar, rgba(133, 186, 192, 0.5)) transparent !important;
         scrollbar-width: thin !important;
     }
 }
 .article-side-toc .article-toc-item {
     border-radius: 8px;
-    color: #5c6b72;
+    color: var(--art-toc-item-color, #5c6b72);
     cursor: pointer;
     display: block;
-    font-size: 13px;
+    font-size: var(--art-toc-item-size, 13px);
     line-height: 1.5;
     opacity: 1; /* undo the global a:hover dim */
     padding: 5px 10px;
@@ -2376,15 +2420,15 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
     transition: background 0.25s, color 0.25s, box-shadow 0.25s;
 }
 .article-side-toc .article-toc-item:hover {
-    background: rgba(255, 255, 255, 0.65);
-    color: #85bac0;
+    background: var(--art-toc-item-hover-bg, rgba(255, 255, 255, 0.65));
+    color: var(--art-toc-item-hover-color, #85bac0);
     opacity: 1;
 }
 /* The active row is marked by its fill and its ink, nothing else: no ring (that
    reads as a text field) and no rule down the left edge. */
 .article-side-toc .article-toc-item.active {
-    background: rgba(133, 186, 192, 0.12);
-    color: #1e3e3f;
+    background: var(--art-toc-item-active-bg, rgba(133, 186, 192, 0.12));
+    color: var(--art-toc-item-active-color, #1e3e3f);
     font-weight: 600;
 }
 /* keep jumped-to headings clear of the fixed nav bar */
@@ -2404,6 +2448,15 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
 .article .content {
     margin: 50px 0;
 }
+/* Article-theme body typography: one heading ink (h6 keeps its own, it is a
+   label rather than a heading), one paragraph leading. Every value falls back to
+   the site's own, so an unthemed article is unchanged. */
+.article .content :is(h2, h3, h4, h5) {
+    color: var(--art-heading-color, #1e3e3f);
+}
+.article .content :is(p, ul, ol) {
+    line-height: var(--art-article-text-line-height, 1.7);
+}
 /* The heading scale inside an article, recalibrated for a 15px body. The site's
    own h1–h6 are 30/27/24/21/18/15 — three pixels apart, which is not a scale, it
    is a list. These step by ratio instead (1.5 / 1.25 / 1.12).
@@ -2417,25 +2470,25 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
    `.article h1` is excluded on purpose — a heading written in the body is not a
    title. */
 .article .content h2 {
-    font-size: 24px;
+    font-size: var(--art-h2-size, 24px);
     letter-spacing: -0.005em;
     margin: 26px 0 10px;
 }
 .article .content h3 {
-    font-size: 20px;
+    font-size: var(--art-h3-size, 20px);
     margin: 22px 0 8px;
 }
 .article .content h4 {
-    font-size: 17.5px;
+    font-size: var(--art-h4-size, 17.5px);
     margin: 18px 0 6px;
 }
 .article .content h5 {
-    font-size: 16.5px;
+    font-size: var(--art-h5-size, 16.5px);
     margin: 18px 0 6px;
 }
 .article .content h6 {
-    color: #5c6b72;
-    font-size: 14px;
+    color: var(--art-heading-color-h6, #5c6b72);
+    font-size: var(--art-h6-size, 14px);
     letter-spacing: 0.06em;
     margin: 18px 0 6px;
 }
@@ -2527,9 +2580,17 @@ html.app-ready #loading-circle > .ring-orbit-alt > i:nth-child(2) {
     }
 }
 .article .info .date {
-    color: #5c6b72;
+    color: var(--art-article-meta-color, #5c6b72);
     display: inline-block;
     margin-right: 10px;
+}
+/* The meta row's links and icons take the article theme's meta ink too. The
+   anchor rule is the one that used to live in the #archives group above. */
+.article .info a {
+    color: var(--art-article-meta-color, #5c6b72);
+}
+.article .info .icon {
+    color: var(--art-article-meta-color, #5c6b72);
 }
 .code-content {
     /* Named so the fold below can do its arithmetic in the block's own terms
@@ -2689,6 +2750,30 @@ body::-webkit-scrollbar-track {
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
+}
+/* The loader leaves from its middle: the hole opens outward while the ring and
+   the word fade out of the way, so the page arrives as a window widening rather
+   than as a flat fade. The sheet itself must stay solid while it opens, so its
+   own opacity is pinned here against .fade-leave-to above. */
+#loading.fade-leave-active {
+    opacity: 1;
+    transition: none;
+}
+#loading.fade-leave-active::before {
+    height: 150vmax;
+    transition:
+        height 0.85s cubic-bezier(0.25, 0.6, 0.3, 1),
+        width 0.85s cubic-bezier(0.25, 0.6, 0.3, 1);
+    width: 150vmax;
+}
+#loading.fade-leave-active > #loading-circle {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+    #loading.fade-leave-active::before {
+        transition: none;
+    }
 }
 .hljs-ln-code {
     padding-left: 20px !important;
@@ -3505,4 +3590,56 @@ ol li {
     .archive-sort-rail {
         justify-self: stretch;
     }
+}
+/* ------------------------------------------------------------------------- */
+/* The pointer light                                                          */
+/* ------------------------------------------------------------------------- */
+/* The light a surface catches while the pointer is over it. A surface is
+   frosted, so a highlight poured over it would only wash its text out — but its
+   edge is exactly where light from outside would land. This paints a two-pixel
+   band over the surface's own border, brightest under the cursor and fading
+   along the perimeter.
+   The band is near-white rather than a strong tint: brightness is what reads as
+   light, and on a white card a coloured line only reads as a painted outline. A
+   little lavender is left in the two tails so the highlight belongs to the page's
+   palette, and a long three-stop falloff (no hard stop, no bloom) keeps the
+   change from jumping where the light ends.
+   A masked band is used rather than a border colour because the highlight has to
+   travel along the edge as the pointer moves. */
+.light-ring {
+    background: radial-gradient(
+        340px circle at var(--sx, 50%) var(--sy, 50%),
+        rgba(248, 243, 255, 0.92),
+        rgba(200, 170, 240, 0.40) 38%,
+        rgba(206, 178, 242, 0) 100%
+    );
+    border-radius: inherit;
+    inset: 0;
+    opacity: 0;
+    padding: 2px;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.32s ease;
+    z-index: 1;
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    mask-composite: exclude;
+}
+.light-hit > .light-ring {
+    opacity: 1;
+}
+/* The small controls are only a few pixels thick: a two-pixel band would eat
+   their border, so the light runs as a hairline on those. */
+.archive-option > .light-ring,
+.article-toc-item > .light-ring,
+.collapse-arrow > .light-ring,
+.filter-toggle > .light-ring,
+.more-center > .light-ring,
+.page-current a > .light-ring {
+    padding: 1px;
 }
